@@ -1,0 +1,44 @@
+[
+  {
+    "id": "77c0e786-65df-457a-b74b-21298ce847cc",
+    "action_type": "商品上架",
+    "action_content": "上架连衣裙SKU D001",
+    "action_result": "成功",
+    "exposure": 1000,
+    "click_rate": 0.05,
+    "conversion_rate": 0.02,
+    "roi": 2.5,
+    "problem_judgment": "点击率偏低",
+    "next_step_suggestion": "优化主图",
+    "created_at": "2026-07-02T22:49:13.594343",
+    "updated_at": "2026-07-02T22:49:13.594350"
+  },
+  {
+    "id": "d2beabc0-b1b8-41e5-b411-d9e20097afd6",
+    "action_type": "测试动作类型",
+    "action_content": "测试动作内容",
+    "action_result": "测试动作结果",
+    "exposure": 100,
+    "click_rate": 0.03,
+    "conversion_rate": 0.01,
+    "roi": 1.5,
+    "problem_judgment": "测试问题判断",
+    "next_step_suggestion": "测试下一步建议",
+    "created_at": "2026-07-02T23:34:17.817321",
+    "updated_at": "2026-07-02T23:34:17.817329"
+  },
+  {
+    "id": "1c973ef7-845b-49d0-8668-21f3559dca06",
+    "action_type": "商品详情优化",
+    "action_content": "补充尺码说明和面料细节",
+    "action_result": "咨询转化提升",
+    "exposure": 1200,
+    "click_rate": 0.12,
+    "conversion_rate": 0.035,
+    "roi": 2.4,
+    "problem_judgment": "尺码疑虑仍较高",
+    "next_step_suggestion": "增加多身材上身图",
+    "created_at": "2026-07-03T00:13:50.462217",
+    "updated_at": "2026-07-03T00:13:50.462222"
+  }
+]

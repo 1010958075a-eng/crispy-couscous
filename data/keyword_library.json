@@ -1,0 +1,92 @@
+[
+  {
+    "id": "47575dbf-24d2-493e-82a1-8c339ce71762",
+    "core_keywords": [
+      "连衣裙",
+      "女装"
+    ],
+    "long_tail_keywords": [
+      "夏季连衣裙",
+      "显瘦连衣裙"
+    ],
+    "audience_keywords": [
+      "女性",
+      "上班族"
+    ],
+    "scenario_keywords": [
+      "通勤",
+      "约会"
+    ],
+    "selling_point_keywords": [
+      "透气",
+      "显瘦"
+    ],
+    "ad_keywords": [
+      "连衣裙女",
+      "夏季女装"
+    ],
+    "negative_keywords": [
+      "男士",
+      "童装"
+    ],
+    "created_at": "2026-07-02T22:48:57.269883",
+    "updated_at": "2026-07-02T22:48:57.269890"
+  },
+  {
+    "id": "87641b56-185b-472f-83a9-5515274c7275",
+    "core_keywords": [
+      "测试核心词"
+    ],
+    "long_tail_keywords": [
+      "测试长尾词"
+    ],
+    "audience_keywords": [
+      "测试人群词"
+    ],
+    "scenario_keywords": [
+      "测试场景词"
+    ],
+    "selling_point_keywords": [
+      "测试卖点词"
+    ],
+    "ad_keywords": [
+      "测试投放词"
+    ],
+    "negative_keywords": [
+      "测试否词"
+    ],
+    "created_at": "2026-07-02T23:33:56.275229",
+    "updated_at": "2026-07-02T23:33:56.275236"
+  },
+  {
+    "id": "37117169-735e-45e3-aaa2-5f621e303b5d",
+    "core_keywords": [
+      "无痕内衣",
+      "无钢圈文胸"
+    ],
+    "long_tail_keywords": [
+      "夏季透气无痕文胸"
+    ],
+    "audience_keywords": [
+      "小胸聚拢",
+      "通勤女性"
+    ],
+    "scenario_keywords": [
+      "夏天内搭",
+      "白衬衫不透"
+    ],
+    "selling_point_keywords": [
+      "透气",
+      "不勒",
+      "轻薄"
+    ],
+    "ad_keywords": [
+      "无痕文胸女"
+    ],
+    "negative_keywords": [
+      "夸大承诺"
+    ],
+    "created_at": "2026-07-03T00:13:50.425047",
+    "updated_at": "2026-07-03T00:13:50.425052"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "f99b0580-3227-4480-bef7-f3a9aef38a56",
+    "main_image_style": "简约风",
+    "detail_page_style": "图文结合",
+    "model_style": "清新自然",
+    "scenario_style": "室内场景",
+    "color_tone": "浅色系",
+    "composition_method": "居中构图",
+    "ai_image_prompt_template": "简约风格连衣裙，清新自然",
+    "created_at": "2026-07-02T22:49:07.190573",
+    "updated_at": "2026-07-02T22:49:07.190579"
+  },
+  {
+    "id": "b9cfefdc-ffbc-45d2-a25e-72b4ad9e527d",
+    "main_image_style": "测试主图风格",
+    "detail_page_style": "测试详情页风格",
+    "model_style": "测试模特风格",
+    "scenario_style": "测试场景风格",
+    "color_tone": "测试色调",
+    "composition_method": "测试构图",
+    "ai_image_prompt_template": "测试AI提示词",
+    "created_at": "2026-07-02T23:34:09.181447",
+    "updated_at": "2026-07-02T23:34:09.181459"
+  },
+  {
+    "id": "d5a9bfdb-97e8-4435-a17e-5a2056ffdecc",
+    "main_image_style": "白底高级质感主图",
+    "detail_page_style": "面料细节+尺码建议+场景穿搭",
+    "model_style": "轻熟自然真人感",
+    "scenario_style": "居家晨光",
+    "color_tone": "奶油白",
+    "composition_method": "三分构图",
+    "ai_image_prompt_template": "真实肌理、自然光影、保留商品版型",
+    "created_at": "2026-07-03T00:13:50.443541",
+    "updated_at": "2026-07-03T00:13:50.443545"
+  }
+]

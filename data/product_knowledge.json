@@ -1,0 +1,55 @@
+[
+  {
+    "id": "687ed298-3e02-46b0-b051-7d0035175f9e",
+    "product_name": "连衣裙",
+    "category": "女装",
+    "sku": "D001",
+    "price": 199.0,
+    "selling_points": [
+      "透气",
+      "显瘦",
+      "百搭"
+    ],
+    "material": "棉麻",
+    "target_audience": "25-35岁女性",
+    "style": "简约风",
+    "notes": "夏季爆款",
+    "created_at": "2026-07-02T22:47:56.262189",
+    "updated_at": "2026-07-02T22:47:56.262198"
+  },
+  {
+    "id": "c50a71c2-0790-4eb9-855e-68b867e1e934",
+    "product_name": "验收测试产品",
+    "category": "测试类目",
+    "sku": "TEST001",
+    "price": 99.0,
+    "selling_points": [
+      "测试卖点1",
+      "测试卖点2"
+    ],
+    "material": "测试材质",
+    "target_audience": "测试人群",
+    "style": "测试风格",
+    "notes": "测试备注",
+    "created_at": "2026-07-02T23:32:41.460859",
+    "updated_at": "2026-07-02T23:32:41.460874"
+  },
+  {
+    "id": "10e75b1b-27d9-412a-b4ae-32d240814a3a",
+    "product_name": "无痕薄杯文胸",
+    "category": "内衣",
+    "sku": "BRA-V02-TEST",
+    "price": 169.0,
+    "selling_points": [
+      "无痕",
+      "透气",
+      "聚拢"
+    ],
+    "material": "锦纶氨纶",
+    "target_audience": "通勤女性",
+    "style": "简约",
+    "notes": "v0.2验收产品知识",
+    "created_at": "2026-07-03T00:13:50.390426",
+    "updated_at": "2026-07-03T00:13:50.390430"
+  }
+]

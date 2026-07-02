@@ -17,7 +17,11 @@ sys.path.insert(0, str(src_path))
 
 from models import Product, Order, ProductStatus, OrderStatus, OrderItem, ProductSearchQuery
 from models import LearningTarget, DataType
-from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner
+from models import Platform, PriceRange, MerchantProfileV2, ProductKnowledge, CompetitorKnowledge, KeywordLibrary, VisualStyleLibrary, ReviewRecord
+from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
+
+# 导入枚举类型
+from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
 
 # 创建FastAPI应用
 app = FastAPI(
@@ -41,6 +45,7 @@ order_service = OrderService()
 analytics_service = AnalyticsService(order_service, product_service)
 learning_service = LearningService()
 task_planner = TaskPlanner()
+knowledge_storage = KnowledgeStorage()
 
 
 # Pydantic模型
@@ -438,6 +443,272 @@ async def plan_task(request: TaskPlanningRequest):
         return task_plan.to_dict()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"任务拆解失败: {e}")
+
+
+# v0.2 商家数据喂养 API端点
+
+# 商家档案请求模型
+class MerchantProfileV2Request(BaseModel):
+    merchant_name: str
+    platforms: List[str]
+    main_category: str
+    price_range: str
+    target_audience: str
+    positioning: str
+    visual_style: str
+    operation_goal: str
+
+
+class ProductKnowledgeRequest(BaseModel):
+    product_name: str
+    category: str
+    sku: Optional[str] = None
+    price: float = 0.0
+    selling_points: List[str] = []
+    material: Optional[str] = None
+    target_audience: Optional[str] = None
+    style: Optional[str] = None
+    notes: Optional[str] = None
+
+
+class CompetitorKnowledgeRequest(BaseModel):
+    competitor_url: str
+    competitor_title: str
+    price: float = 0.0
+    selling_points: List[str] = []
+    main_image_style: Optional[str] = None
+    detail_page_structure: Optional[str] = None
+    learnable_points: List[str] = []
+    differentiation_opportunity: Optional[str] = None
+
+
+class KeywordLibraryRequest(BaseModel):
+    core_keywords: List[str] = []
+    long_tail_keywords: List[str] = []
+    audience_keywords: List[str] = []
+    scenario_keywords: List[str] = []
+    selling_point_keywords: List[str] = []
+    ad_keywords: List[str] = []
+    negative_keywords: List[str] = []
+
+
+class VisualStyleLibraryRequest(BaseModel):
+    main_image_style: str
+    detail_page_style: str
+    model_style: Optional[str] = None
+    scenario_style: Optional[str] = None
+    color_tone: Optional[str] = None
+    composition_method: Optional[str] = None
+    ai_image_prompt_template: Optional[str] = None
+
+
+class ReviewRecordRequest(BaseModel):
+    action_type: str
+    action_content: str
+    action_result: str
+    exposure: Optional[int] = None
+    click_rate: Optional[float] = None
+    conversion_rate: Optional[float] = None
+    roi: Optional[float] = None
+    problem_judgment: Optional[str] = None
+    next_step_suggestion: Optional[str] = None
+
+
+# 商家档案API
+@app.post("/api/merchant/profile")
+async def save_merchant_profile(request: MerchantProfileV2Request):
+    """保存商家档案"""
+    try:
+        profile = MerchantProfileV2(
+            id=knowledge_storage.generate_id(),
+            merchant_name=request.merchant_name,
+            platforms=[PlatformEnum(p) for p in request.platforms],
+            main_category=request.main_category,
+            price_range=PriceRangeEnum(request.price_range),
+            target_audience=request.target_audience,
+            positioning=request.positioning,
+            visual_style=request.visual_style,
+            operation_goal=request.operation_goal
+        )
+        knowledge_storage.save_merchant_profile_v2(profile)
+        return profile.to_dict()
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"无效的参数: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"保存商家档案失败: {e}")
+
+
+@app.get("/api/merchant/profile")
+async def get_merchant_profile():
+    """获取商家档案"""
+    try:
+        profile = knowledge_storage.load_merchant_profile_v2()
+        if profile:
+            return profile.to_dict()
+        else:
+            return {"message": "商家档案不存在"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取商家档案失败: {e}")
+
+
+# 产品知识库API
+@app.post("/api/knowledge/product")
+async def save_product_knowledge(request: ProductKnowledgeRequest):
+    """保存产品知识"""
+    try:
+        knowledge = ProductKnowledge(
+            id=knowledge_storage.generate_id(),
+            product_name=request.product_name,
+            category=request.category,
+            sku=request.sku,
+            price=request.price,
+            selling_points=request.selling_points,
+            material=request.material,
+            target_audience=request.target_audience,
+            style=request.style,
+            notes=request.notes
+        )
+        knowledge_storage.save_product_knowledge(knowledge)
+        return knowledge.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"保存产品知识失败: {e}")
+
+
+@app.get("/api/knowledge/product")
+async def get_product_knowledge():
+    """获取产品知识库"""
+    try:
+        records = knowledge_storage.load_product_knowledge()
+        return [r.to_dict() for r in records]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取产品知识库失败: {e}")
+
+
+# 竞品知识库API
+@app.post("/api/knowledge/competitor")
+async def save_competitor_knowledge(request: CompetitorKnowledgeRequest):
+    """保存竞品知识"""
+    try:
+        knowledge = CompetitorKnowledge(
+            id=knowledge_storage.generate_id(),
+            competitor_url=request.competitor_url,
+            competitor_title=request.competitor_title,
+            price=request.price,
+            selling_points=request.selling_points,
+            main_image_style=request.main_image_style,
+            detail_page_structure=request.detail_page_structure,
+            learnable_points=request.learnable_points,
+            differentiation_opportunity=request.differentiation_opportunity
+        )
+        knowledge_storage.save_competitor_knowledge(knowledge)
+        return knowledge.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"保存竞品知识失败: {e}")
+
+
+@app.get("/api/knowledge/competitor")
+async def get_competitor_knowledge():
+    """获取竞品知识库"""
+    try:
+        records = knowledge_storage.load_competitor_knowledge()
+        return [r.to_dict() for r in records]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取竞品知识库失败: {e}")
+
+
+# 关键词库API
+@app.post("/api/knowledge/keywords")
+async def save_keyword_library(request: KeywordLibraryRequest):
+    """保存关键词库"""
+    try:
+        library = KeywordLibrary(
+            id=knowledge_storage.generate_id(),
+            core_keywords=request.core_keywords,
+            long_tail_keywords=request.long_tail_keywords,
+            audience_keywords=request.audience_keywords,
+            scenario_keywords=request.scenario_keywords,
+            selling_point_keywords=request.selling_point_keywords,
+            ad_keywords=request.ad_keywords,
+            negative_keywords=request.negative_keywords
+        )
+        knowledge_storage.save_keyword_library(library)
+        return library.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"保存关键词库失败: {e}")
+
+
+@app.get("/api/knowledge/keywords")
+async def get_keyword_library():
+    """获取关键词库"""
+    try:
+        records = knowledge_storage.load_keyword_library()
+        return [r.to_dict() for r in records]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取关键词库失败: {e}")
+
+
+# 视觉风格库API
+@app.post("/api/knowledge/visual-style")
+async def save_visual_style_library(request: VisualStyleLibraryRequest):
+    """保存视觉风格库"""
+    try:
+        library = VisualStyleLibrary(
+            id=knowledge_storage.generate_id(),
+            main_image_style=request.main_image_style,
+            detail_page_style=request.detail_page_style,
+            model_style=request.model_style,
+            scenario_style=request.scenario_style,
+            color_tone=request.color_tone,
+            composition_method=request.composition_method,
+            ai_image_prompt_template=request.ai_image_prompt_template
+        )
+        knowledge_storage.save_visual_style_library(library)
+        return library.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"保存视觉风格库失败: {e}")
+
+
+@app.get("/api/knowledge/visual-style")
+async def get_visual_style_library():
+    """获取视觉风格库"""
+    try:
+        records = knowledge_storage.load_visual_style_library()
+        return [r.to_dict() for r in records]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取视觉风格库失败: {e}")
+
+
+# 复盘记录库API
+@app.post("/api/review/record")
+async def save_review_record(request: ReviewRecordRequest):
+    """保存复盘记录"""
+    try:
+        record = ReviewRecord(
+            id=knowledge_storage.generate_id(),
+            action_type=request.action_type,
+            action_content=request.action_content,
+            action_result=request.action_result,
+            exposure=request.exposure,
+            click_rate=request.click_rate,
+            conversion_rate=request.conversion_rate,
+            roi=request.roi,
+            problem_judgment=request.problem_judgment,
+            next_step_suggestion=request.next_step_suggestion
+        )
+        knowledge_storage.save_review_record_v2(record)
+        return record.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"保存复盘记录失败: {e}")
+
+
+@app.get("/api/review/record")
+async def get_review_records():
+    """获取复盘记录库"""
+    try:
+        records = knowledge_storage.load_review_records_v2()
+        return [r.to_dict() for r in records]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取复盘记录库失败: {e}")
 
 
 if __name__ == "__main__":

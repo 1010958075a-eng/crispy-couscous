@@ -1,0 +1,18 @@
+[
+  {
+    "id": "31a00d3e-51fa-42d5-9bc2-81be4f740152",
+    "merchant_name": "验收内衣旗舰店",
+    "platforms": [
+      "天猫",
+      "抖音"
+    ],
+    "main_category": "内衣女装",
+    "price_range": "中价（100-300元）",
+    "target_audience": "25-35岁都市女性",
+    "positioning": "舒适无痕与轻奢质感",
+    "visual_style": "高级简约",
+    "operation_goal": "降低退货率并提升复购",
+    "created_at": "2026-07-03T00:13:50.371269",
+    "updated_at": "2026-07-03T00:13:50.371284"
+  }
+]

@@ -15,6 +15,16 @@ from .learning import (
     DataType,
     LinkLearningStatus
 )
+from .merchant import (
+    Platform,
+    PriceRange,
+    MerchantProfile as MerchantProfileV2,
+    ProductKnowledge,
+    CompetitorKnowledge,
+    KeywordLibrary,
+    VisualStyleLibrary,
+    ReviewRecord
+)
 
 __all__ = [
     # Product models
@@ -35,5 +45,14 @@ __all__ = [
     "MerchantProfile",
     "LearningTarget",
     "DataType",
-    "LinkLearningStatus"
+    "LinkLearningStatus",
+    # Merchant models (v0.2)
+    "Platform",
+    "PriceRange",
+    "MerchantProfileV2",
+    "ProductKnowledge",
+    "CompetitorKnowledge",
+    "KeywordLibrary",
+    "VisualStyleLibrary",
+    "ReviewRecord"
 ]

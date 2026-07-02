@@ -14,8 +14,15 @@ from models import (
     TableLearningRecord,
     ReviewLearningRecord,
     KnowledgeRecord,
-    MerchantProfile
+    MerchantProfile,
+    MerchantProfileV2,
+    ProductKnowledge,
+    CompetitorKnowledge,
+    KeywordLibrary,
+    VisualStyleLibrary,
+    ReviewRecord
 )
+from models.merchant import Platform, PriceRange
 
 
 class KnowledgeStorage:
@@ -40,6 +47,14 @@ class KnowledgeStorage:
         self.text_learning_records_file = self.base_path / "text_learning_records.json"
         self.table_learning_records_file = self.base_path / "table_learning_records.json"
         self.review_records_file = self.base_path / "review_records.json"
+
+        # v0.2 新增文件路径
+        self.merchant_profile_v2_file = self.base_path / "merchant_profile.json"  # 复用原有文件
+        self.product_knowledge_file = self.base_path / "product_knowledge.json"
+        self.competitor_knowledge_file = self.base_path / "competitor_knowledge.json"
+        self.keyword_library_file = self.base_path / "keyword_library.json"
+        self.visual_style_library_file = self.base_path / "visual_style_library.json"
+        self.review_records_v2_file = self.base_path / "review_records.json"  # 复用原有文件
 
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
@@ -250,3 +265,166 @@ class KnowledgeStorage:
     def generate_id(self) -> str:
         """生成唯一ID"""
         return str(uuid.uuid4())
+
+    # v0.2 新增存储方法
+
+    # 商家档案 v2
+    def save_merchant_profile_v2(self, profile: MerchantProfileV2):
+        """保存商家档案 v2"""
+        data = profile.to_dict()
+        self._save_json(self.merchant_profile_v2_file, [data])
+
+    def load_merchant_profile_v2(self) -> Optional[MerchantProfileV2]:
+        """加载商家档案 v2"""
+        data_list = self._load_json(self.merchant_profile_v2_file)
+        if not data_list:
+            return None
+        data = data_list[0]
+        return MerchantProfileV2(
+            id=data["id"],
+            merchant_name=data["merchant_name"],
+            platforms=[Platform(p) for p in data["platforms"]],
+            main_category=data["main_category"],
+            price_range=PriceRange(data["price_range"]),
+            target_audience=data["target_audience"],
+            positioning=data["positioning"],
+            visual_style=data["visual_style"],
+            operation_goal=data["operation_goal"],
+            created_at=datetime.fromisoformat(data["created_at"]),
+            updated_at=datetime.fromisoformat(data["updated_at"])
+        )
+
+    # 产品知识库
+    def save_product_knowledge(self, knowledge: ProductKnowledge):
+        """保存产品知识"""
+        data_list = self._load_json(self.product_knowledge_file)
+        data_list.append(knowledge.to_dict())
+        self._save_json(self.product_knowledge_file, data_list)
+
+    def load_product_knowledge(self) -> List[ProductKnowledge]:
+        """加载所有产品知识"""
+        data_list = self._load_json(self.product_knowledge_file)
+        records = []
+        for data in data_list:
+            records.append(ProductKnowledge(
+                id=data["id"],
+                product_name=data["product_name"],
+                category=data["category"],
+                sku=data.get("sku"),
+                price=data["price"],
+                selling_points=data.get("selling_points", []),
+                material=data.get("material"),
+                target_audience=data.get("target_audience"),
+                style=data.get("style"),
+                notes=data.get("notes"),
+                created_at=datetime.fromisoformat(data["created_at"]),
+                updated_at=datetime.fromisoformat(data["updated_at"])
+            ))
+        return records
+
+    # 竞品知识库
+    def save_competitor_knowledge(self, knowledge: CompetitorKnowledge):
+        """保存竞品知识"""
+        data_list = self._load_json(self.competitor_knowledge_file)
+        data_list.append(knowledge.to_dict())
+        self._save_json(self.competitor_knowledge_file, data_list)
+
+    def load_competitor_knowledge(self) -> List[CompetitorKnowledge]:
+        """加载所有竞品知识"""
+        data_list = self._load_json(self.competitor_knowledge_file)
+        records = []
+        for data in data_list:
+            records.append(CompetitorKnowledge(
+                id=data["id"],
+                competitor_url=data["competitor_url"],
+                competitor_title=data["competitor_title"],
+                price=data["price"],
+                selling_points=data.get("selling_points", []),
+                main_image_style=data.get("main_image_style"),
+                detail_page_structure=data.get("detail_page_structure"),
+                learnable_points=data.get("learnable_points", []),
+                differentiation_opportunity=data.get("differentiation_opportunity"),
+                created_at=datetime.fromisoformat(data["created_at"]),
+                updated_at=datetime.fromisoformat(data["updated_at"])
+            ))
+        return records
+
+    # 关键词库
+    def save_keyword_library(self, library: KeywordLibrary):
+        """保存关键词库"""
+        data_list = self._load_json(self.keyword_library_file)
+        data_list.append(library.to_dict())
+        self._save_json(self.keyword_library_file, data_list)
+
+    def load_keyword_library(self) -> List[KeywordLibrary]:
+        """加载所有关键词库"""
+        data_list = self._load_json(self.keyword_library_file)
+        records = []
+        for data in data_list:
+            records.append(KeywordLibrary(
+                id=data["id"],
+                core_keywords=data.get("core_keywords", []),
+                long_tail_keywords=data.get("long_tail_keywords", []),
+                audience_keywords=data.get("audience_keywords", []),
+                scenario_keywords=data.get("scenario_keywords", []),
+                selling_point_keywords=data.get("selling_point_keywords", []),
+                ad_keywords=data.get("ad_keywords", []),
+                negative_keywords=data.get("negative_keywords", []),
+                created_at=datetime.fromisoformat(data["created_at"]),
+                updated_at=datetime.fromisoformat(data["updated_at"])
+            ))
+        return records
+
+    # 视觉风格库
+    def save_visual_style_library(self, library: VisualStyleLibrary):
+        """保存视觉风格库"""
+        data_list = self._load_json(self.visual_style_library_file)
+        data_list.append(library.to_dict())
+        self._save_json(self.visual_style_library_file, data_list)
+
+    def load_visual_style_library(self) -> List[VisualStyleLibrary]:
+        """加载所有视觉风格库"""
+        data_list = self._load_json(self.visual_style_library_file)
+        records = []
+        for data in data_list:
+            records.append(VisualStyleLibrary(
+                id=data["id"],
+                main_image_style=data["main_image_style"],
+                detail_page_style=data["detail_page_style"],
+                model_style=data.get("model_style"),
+                scenario_style=data.get("scenario_style"),
+                color_tone=data.get("color_tone"),
+                composition_method=data.get("composition_method"),
+                ai_image_prompt_template=data.get("ai_image_prompt_template"),
+                created_at=datetime.fromisoformat(data["created_at"]),
+                updated_at=datetime.fromisoformat(data["updated_at"])
+            ))
+        return records
+
+    # 复盘记录库 v2
+    def save_review_record_v2(self, record: ReviewRecord):
+        """保存复盘记录 v2"""
+        data_list = self._load_json(self.review_records_v2_file)
+        data_list.append(record.to_dict())
+        self._save_json(self.review_records_v2_file, data_list)
+
+    def load_review_records_v2(self) -> List[ReviewRecord]:
+        """加载所有复盘记录 v2"""
+        data_list = self._load_json(self.review_records_v2_file)
+        records = []
+        for data in data_list:
+            records.append(ReviewRecord(
+                id=data["id"],
+                action_type=data["action_type"],
+                action_content=data["action_content"],
+                action_result=data["action_result"],
+                exposure=data.get("exposure"),
+                click_rate=data.get("click_rate"),
+                conversion_rate=data.get("conversion_rate"),
+                roi=data.get("roi"),
+                problem_judgment=data.get("problem_judgment"),
+                next_step_suggestion=data.get("next_step_suggestion"),
+                created_at=datetime.fromisoformat(data["created_at"]),
+                updated_at=datetime.fromisoformat(data["updated_at"])
+            ))
+        return records

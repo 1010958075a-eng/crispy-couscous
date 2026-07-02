@@ -1,0 +1,55 @@
+[
+  {
+    "id": "a8d4f3a9-04e3-401b-b9da-76da4638d8a7",
+    "competitor_url": "https://example.com/item/123",
+    "competitor_title": "竞品连衣裙",
+    "price": 179.0,
+    "selling_points": [
+      "纯棉",
+      "宽松"
+    ],
+    "main_image_style": "简约风",
+    "detail_page_structure": "图文结合",
+    "learnable_points": [
+      "主图设计"
+    ],
+    "differentiation_opportunity": "差异化卖点",
+    "created_at": "2026-07-02T22:48:01.334823",
+    "updated_at": "2026-07-02T22:48:01.334829"
+  },
+  {
+    "id": "7e6d2ffd-1e6d-4d78-be0d-dc47aae0ac06",
+    "competitor_url": "https://test.com/item/123",
+    "competitor_title": "验收测试竞品",
+    "price": 89.0,
+    "selling_points": [
+      "测试竞品卖点"
+    ],
+    "main_image_style": "测试风格",
+    "detail_page_structure": "测试结构",
+    "learnable_points": [
+      "测试学习点"
+    ],
+    "differentiation_opportunity": "测试机会",
+    "created_at": "2026-07-02T23:33:40.105776",
+    "updated_at": "2026-07-02T23:33:40.105790"
+  },
+  {
+    "id": "15849422-ea35-4616-8005-4db82ea27c2b",
+    "competitor_url": "https://example.com/item/10001",
+    "competitor_title": "竞品无痕内衣",
+    "price": 159.0,
+    "selling_points": [
+      "轻薄",
+      "无钢圈"
+    ],
+    "main_image_style": "白底模特半身",
+    "detail_page_structure": "卖点-尺码-面料-售后",
+    "learnable_points": [
+      "尺码说明清晰"
+    ],
+    "differentiation_opportunity": "强化真实上身参考",
+    "created_at": "2026-07-03T00:13:50.407849",
+    "updated_at": "2026-07-03T00:13:50.407853"
+  }
+]

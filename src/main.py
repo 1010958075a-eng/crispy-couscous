@@ -7,208 +7,145 @@ import asyncio
 import sys
 from pathlib import Path
 
-# 添加产品A模块路径
-product_a_path = Path(__file__).parent.parent.parent / "autonomous-ai-agent"
-sys.path.insert(0, str(product_a_path))
+# 添加项目根目录到路径
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+src_path = Path(__file__).parent
+sys.path.insert(0, str(src_path))
 
-from core.cognitive_orchestrator.orchestrator import NexusOrchestrator, Capability, CapabilityRegistry, ExperienceStore
-from core.strategy_engine.strategist import NexusStrategist, StrategicBlueprint
-from core.code_crafter.crafter import NexusCrafter, CraftRequest, CodeLanguage, CodeType
+# 导入产品B业务服务
+from models import Product, Order, ProductStatus, OrderStatus, OrderItem
+from services import ProductService, OrderService, AnalyticsService
 
-
-class MockLLM:
-    """模拟LLM（产品B使用，可替换为真实LLM API）"""
-    
-    async def complete(self, prompt: str, max_tokens: int = 512, temperature: float = 0.7) -> str:
-        """完成文本"""
-        # TODO: 替换为真实的LLM API调用（GPT-4、Claude等）
-        # 这里返回模拟响应用于演示
-        return """
-```CODE
-def get_products(page: int = 1, limit: int = 10):
-    \"\"\"获取商品列表\"\"\"
-    # 商品查询逻辑
-    return {"products": [], "total": 0}
-```
-
-EXPLANATION:
-这是一个商品列表API的实现，支持分页查询。
-
-DEPENDENCIES:
-- fastapi
-- sqlalchemy
-
-TESTS:
-def test_get_products():
-    result = get_products()
-    assert "products" in result
-"""
+# 导入LLM客户端（可选依赖）
+try:
+    from llm import create_llm_client
+    from config.llm_config import LLMConfig
+    LLM_AVAILABLE = True
+except ImportError:
+    LLM_AVAILABLE = False
+    print("警告：LLM模块不可用，将使用基础模式")
 
 
 class ECommercePlatform:
     """电商平台核心类"""
+
+    def __init__(self, llm_config: LLMConfig = None):
+        # 初始化LLM（可选）
+        if LLM_AVAILABLE:
+            if llm_config:
+                self.llm = create_llm_client(llm_config)
+            else:
+                self.llm = create_llm_client()
+            self.llm_enabled = True
+        else:
+            self.llm = None
+            self.llm_enabled = False
+
+        # 初始化业务服务
+        self.product_service = ProductService()
+        self.order_service = OrderService()
+        self.analytics_service = AnalyticsService(self.order_service, self.product_service)
     
-    def __init__(self):
-        # 初始化LLM
-        self.llm = MockLLM()
-        
-        # 初始化核心模块
-        self.orchestrator = self._init_orchestrator()
-        self.strategist = NexusStrategist(self.llm)
-        self.crafter = NexusCrafter(self.llm)
-    
-    def _init_orchestrator(self) -> NexusOrchestrator:
-        """初始化认知编排器"""
-        registry = CapabilityRegistry()
-        
-        # 注册电商相关能力
-        async def search_products(query: str) -> str:
-            return f"搜索商品: {query}"
-        
-        async def get_analytics(days: int) -> str:
-            return f"获取{days}天数据分析"
-        
-        async def generate_report(type: str) -> str:
-            return f"生成{type}报告"
-        
-        registry.register(Capability(
-            name="search_products",
-            description="搜索商品",
-            parameters={"query": "搜索关键词"},
-            function=search_products
-        ))
-        
-        registry.register(Capability(
-            name="get_analytics",
-            description="获取数据分析",
-            parameters={"days": "天数"},
-            function=get_analytics
-        ))
-        
-        registry.register(Capability(
-            name="generate_report",
-            description="生成报告",
-            parameters={"type": "报告类型"},
-            function=generate_report
-        ))
-        
-        return NexusOrchestrator(self.llm, registry, max_steps=5)
-    
-    async def generate_product_plan(self, idea: str, target_market: str) -> StrategicBlueprint:
-        """
-        生成产品规划
-        
-        Args:
-            idea: 产品创意
-            target_market: 目标市场
-            
-        Returns:
-            战略蓝图
-        """
-        print(f"\n[1] 生成产品规划: {idea}")
-        blueprint = await self.strategist.generate_blueprint(
-            product_idea=idea,
-            target_market=target_market
-        )
-        print(f"  ✓ 规划完成: {blueprint.name}")
-        print(f"  ✓ 目标数: {len(blueprint.goals)}")
-        print(f"  ✓ 能力模块数: {len(blueprint.capabilities)}")
-        print(f"  ✓ 检查点数: {len(blueprint.checkpoints)}")
-        return blueprint
-    
-    async def generate_code(self, description: str, language: CodeLanguage = CodeLanguage.PYTHON) -> str:
-        """
-        生成代码
-        
-        Args:
-            description: 代码描述
-            language: 编程语言
-            
-        Returns:
-            生成的代码
-        """
-        print(f"\n[2] 生成代码: {description}")
-        request = CraftRequest(
-            description=description,
-            language=language,
-            code_type=CodeType.API
-        )
-        artifact = await self.crafter.generate(request)
-        print(f"  ✓ 代码生成完成")
-        print(f"  ✓ 代码长度: {len(artifact.code)} 字符")
-        return artifact.code
-    
-    async def execute_task(self, query: str) -> dict:
-        """
-        执行任务
-        
-        Args:
-            query: 任务查询
-            
-        Returns:
-            执行结果
-        """
-        print(f"\n[3] 执行任务: {query}")
-        result = await self.orchestrator.run(query)
-        print(f"  ✓ 任务完成")
-        print(f"  ✓ 执行步数: {result['steps']}")
-        return result
-    
-    async def run_complete_workflow(self, idea: str, target_market: str) -> dict:
-        """
-        运行完整工作流
-        
-        Args:
-            idea: 产品创意
-            target_market: 目标市场
-            
-        Returns:
-            完整工作流结果
-        """
+    def run_basic_demo(self):
+        """运行基础业务服务演示"""
         print("=" * 60)
-        print("产品B - 电商智能自动化平台")
+        print("产品B电商自动化系统 - 基础演示")
         print("=" * 60)
-        
-        # 步骤1: 生成产品规划
-        blueprint = await self.generate_product_plan(idea, target_market)
-        
-        # 步骤2: 生成代码（示例：商品API）
-        code = await self.generate_code("商品列表API，支持分页和搜索")
-        
-        # 步骤3: 执行智能任务
-        result = await self.execute_task("分析最近7天的销售数据并生成报告")
-        
-        # 总结
+        print(f"LLM状态: {'启用' if self.llm_enabled else '禁用（基础模式）'}")
+        print(f"LLM模块: {'可用' if LLM_AVAILABLE else '不可用'}")
+
+        # 演示业务服务
+        self._demo_business_services()
+
         print("\n" + "=" * 60)
-        print("工作流完成")
+        print("基础演示完成")
         print("=" * 60)
-        print(f"✓ 产品规划: {blueprint.name}")
-        print(f"✓ 代码生成: {len(code)} 字符")
-        print(f"✓ 任务执行: {result['steps']} 步")
+    
+    def _demo_business_services(self):
+        """演示业务服务"""
+        print("\n" + "=" * 60)
+        print("业务服务演示")
+        print("=" * 60)
         
-        return {
-            "blueprint": blueprint,
-            "code": code,
-            "task_result": result
-        }
+        # 创建示例商品
+        print("\n[1] 创建商品")
+        product1 = self.product_service.create_product(
+            name="智能手表",
+            description="多功能智能手表，支持健康监测",
+            price=299.0,
+            stock=100,
+            category="数码",
+            platform="taobao",
+            tags=["智能", "健康"]
+        )
+        product2 = self.product_service.create_product(
+            name="蓝牙耳机",
+            description="无线蓝牙耳机，降噪功能",
+            price=199.0,
+            stock=200,
+            category="数码",
+            platform="douyin",
+            tags=["无线", "降噪"]
+        )
+        print(f"  ✓ 创建商品: {product1.name} (¥{product1.price})")
+        print(f"  ✓ 创建商品: {product2.name} (¥{product2.price})")
+        
+        # 创建示例订单
+        print("\n[2] 创建订单")
+        order1 = self.order_service.create_order(
+            user_id="user001",
+            items=[
+                OrderItem(
+                    product_id=product1.id,
+                    product_name=product1.name,
+                    quantity=2,
+                    price=product1.price
+                )
+            ],
+            shipping_address="北京市朝阳区",
+            payment_method="alipay",
+            platform="taobao"
+        )
+        order1.status = OrderStatus.PAID
+        print(f"  ✓ 创建订单: {order1.id} (¥{order1.total_amount})")
+        
+        # 搜索商品
+        print("\n[3] 搜索商品")
+        from models.product import ProductSearchQuery
+        results = self.product_service.search_products(
+            ProductSearchQuery(keyword="智能", limit=10)
+        )
+        print(f"  ✓ 找到 {len(results)} 个商品")
+        for p in results:
+            print(f"    - {p.name}: ¥{p.price}")
+        
+        # 数据分析
+        print("\n[4] 数据分析")
+        summary = self.analytics_service.get_sales_summary(days=7)
+        print(f"  ✓ 总订单数: {summary['total_orders']}")
+        print(f"  ✓ 总收入: ¥{summary['total_revenue']:,.2f}")
+        
+        # 生成报告
+        print("\n[5] 生成日报")
+        report = self.analytics_service.generate_daily_report(days=7)
+        print(f"  ✓ 报告生成完成（前200字符）:")
+        print(f"    {report[:200]}...")
 
 
 async def main():
     """主函数"""
     platform = ECommercePlatform()
-    
-    # 运行完整工作流
-    result = await platform.run_complete_workflow(
-        idea="智能电商管理系统",
-        target_market="天猫、抖音商家"
-    )
-    
-    print("\n✓ 产品B演示完成")
+
+    # 运行基础演示
+    platform.run_basic_demo()
+
+    print("\n✓ 产品B基础演示完成")
     print("\n下一步:")
-    print("1. 集成真实LLM API（GPT-4/Claude）")
-    print("2. 实现具体电商业务逻辑")
-    print("3. 添加数据库和API接口")
-    print("4. 部署到生产环境")
+    print("1. 集成学习中心功能")
+    print("2. 实现数据喂养能力")
+    print("3. 添加本地知识库")
+    print("4. 实现一句话任务拆解")
 
 
 if __name__ == "__main__":

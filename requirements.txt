@@ -4,13 +4,14 @@
 # 核心依赖（无额外依赖，使用产品A模块）
 # 产品A模块通过sys.path引入
 
+# Web框架
+fastapi>=0.100.0
+uvicorn>=0.23.0
+python-multipart>=0.0.6
+
 # 可选依赖（用于真实LLM集成）
 openai>=1.0.0
 anthropic>=0.5.0
-
-# Web框架（后续添加）
-fastapi>=0.100.0
-uvicorn>=0.23.0
 
 # 数据库（后续添加）
 sqlalchemy>=2.0.0

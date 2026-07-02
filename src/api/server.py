@@ -4,7 +4,7 @@
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 import sys
 from pathlib import Path
@@ -18,7 +18,9 @@ sys.path.insert(0, str(src_path))
 from models import Product, Order, ProductStatus, OrderStatus, OrderItem, ProductSearchQuery
 from models import LearningTarget, DataType
 from models import Platform, PriceRange, MerchantProfileV2, ProductKnowledge, CompetitorKnowledge, KeywordLibrary, VisualStyleLibrary, ReviewRecord
+from models import TitleGeneration, KeywordGeneration, ImagePromptGeneration, ListingPackage
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
+from services import TitleService, KeywordService, ImagePromptService, PackageService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -46,6 +48,10 @@ analytics_service = AnalyticsService(order_service, product_service)
 learning_service = LearningService()
 task_planner = TaskPlanner()
 knowledge_storage = KnowledgeStorage()
+title_service = TitleService(knowledge_storage)
+keyword_service = KeywordService(knowledge_storage)
+image_prompt_service = ImagePromptService(knowledge_storage)
+package_service = PackageService(knowledge_storage)
 
 
 # Pydantic模型
@@ -709,6 +715,129 @@ async def get_review_records():
         return [r.to_dict() for r in records]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取复盘记录库失败: {e}")
+
+
+# v0.3 上架包生成 API端点
+
+# 标题生成请求模型
+class TitleGenerationRequest(BaseModel):
+    product_id: str
+    product_info: Optional[Dict[str, Any]] = None
+    merchant_profile_id: Optional[str] = None
+    keyword_library_id: Optional[str] = None
+    visual_style_id: Optional[str] = None
+
+
+# 关键词生成请求模型
+class KeywordGenerationRequest(BaseModel):
+    product_id: str
+    product_info: Optional[Dict[str, Any]] = None
+    keyword_library_id: Optional[str] = None
+
+
+# 主图提示词生成请求模型
+class ImagePromptGenerationRequest(BaseModel):
+    product_id: str
+    product_info: Optional[Dict[str, Any]] = None
+    visual_style_id: Optional[str] = None
+
+
+# 上架包生成请求模型
+class PackageGenerationRequest(BaseModel):
+    product_id: str
+    product_info: Optional[Dict[str, Any]] = None
+
+
+# 标题生成API
+@app.post("/api/listing/generate-title")
+async def generate_title(request: TitleGenerationRequest):
+    """生成20个标题"""
+    try:
+        generation = title_service.generate_titles(
+            product_id=request.product_id,
+            product_info=request.product_info,
+            merchant_profile_id=request.merchant_profile_id,
+            keyword_library_id=request.keyword_library_id,
+            visual_style_id=request.visual_style_id
+        )
+        knowledge_storage.save_title_generation(generation)
+        return generation.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成标题失败: {e}")
+
+
+# 关键词生成API
+@app.post("/api/listing/generate-keywords")
+async def generate_keywords(request: KeywordGenerationRequest):
+    """生成关键词包"""
+    try:
+        generation = keyword_service.generate_keywords(
+            product_id=request.product_id,
+            product_info=request.product_info,
+            keyword_library_id=request.keyword_library_id
+        )
+        knowledge_storage.save_keyword_generation(generation)
+        return generation.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成关键词失败: {e}")
+
+
+# 主图提示词生成API
+@app.post("/api/listing/generate-main-image-prompts")
+async def generate_main_image_prompts(request: ImagePromptGenerationRequest):
+    """生成主图九宫格提示词"""
+    try:
+        generation = image_prompt_service.generate_image_prompts(
+            product_id=request.product_id,
+            product_info=request.product_info,
+            visual_style_id=request.visual_style_id
+        )
+        knowledge_storage.save_image_prompt_generation(generation)
+        return generation.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成主图提示词失败: {e}")
+
+
+# 上架包生成API
+@app.post("/api/listing/generate-package")
+async def generate_package(request: PackageGenerationRequest):
+    """生成完整上架包"""
+    try:
+        package = package_service.generate_package(
+            product_id=request.product_id,
+            product_info=request.product_info
+        )
+        knowledge_storage.save_listing_package(package)
+        return package.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成上架包失败: {e}")
+
+
+# 获取所有上架包API
+@app.get("/api/listing/packages")
+async def get_listing_packages():
+    """获取所有上架包"""
+    try:
+        packages = knowledge_storage.load_listing_packages()
+        return packages
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取上架包列表失败: {e}")
+
+
+# 获取指定上架包API
+@app.get("/api/listing/package/{package_id}")
+async def get_listing_package(package_id: str):
+    """获取指定上架包"""
+    try:
+        package = knowledge_storage.load_listing_package(package_id)
+        if package:
+            return package
+        else:
+            raise HTTPException(status_code=404, detail="上架包不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取上架包失败: {e}")
 
 
 if __name__ == "__main__":

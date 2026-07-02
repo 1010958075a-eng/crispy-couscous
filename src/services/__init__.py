@@ -8,6 +8,10 @@ from .analytics_service import AnalyticsService
 from .knowledge_storage import KnowledgeStorage
 from .learning_service import LearningService
 from .task_planner import TaskPlanner
+from .title_service import TitleService
+from .keyword_service import KeywordService
+from .image_prompt_service import ImagePromptService
+from .package_service import PackageService
 
 __all__ = [
     "ProductService",
@@ -15,5 +19,9 @@ __all__ = [
     "AnalyticsService",
     "KnowledgeStorage",
     "LearningService",
-    "TaskPlanner"
+    "TaskPlanner",
+    "TitleService",
+    "KeywordService",
+    "ImagePromptService",
+    "PackageService"
 ]

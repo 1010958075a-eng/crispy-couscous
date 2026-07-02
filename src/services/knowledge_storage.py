@@ -56,6 +56,12 @@ class KnowledgeStorage:
         self.visual_style_library_file = self.base_path / "visual_style_library.json"
         self.review_records_v2_file = self.base_path / "review_records.json"  # 复用原有文件
 
+        # v0.3 新增文件路径
+        self.title_generations_file = self.base_path / "title_generations.json"
+        self.keyword_generations_file = self.base_path / "keyword_generations.json"
+        self.image_prompt_generations_file = self.base_path / "image_prompt_generations.json"
+        self.listing_packages_file = self.base_path / "listing_packages.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -428,3 +434,61 @@ class KnowledgeStorage:
                 updated_at=datetime.fromisoformat(data["updated_at"])
             ))
         return records
+
+    # v0.3 新增存储方法
+
+    # 标题生成记录
+    def save_title_generation(self, generation):
+        """保存标题生成记录"""
+        data_list = self._load_json(self.title_generations_file)
+        data_list.append(generation.to_dict())
+        self._save_json(self.title_generations_file, data_list)
+
+    def load_title_generations(self):
+        """加载所有标题生成记录"""
+        data_list = self._load_json(self.title_generations_file)
+        return data_list
+
+    # 关键词生成记录
+    def save_keyword_generation(self, generation):
+        """保存关键词生成记录"""
+        data_list = self._load_json(self.keyword_generations_file)
+        data_list.append(generation.to_dict())
+        self._save_json(self.keyword_generations_file, data_list)
+
+    def load_keyword_generations(self):
+        """加载所有关键词生成记录"""
+        data_list = self._load_json(self.keyword_generations_file)
+        return data_list
+
+    # 主图提示词生成记录
+    def save_image_prompt_generation(self, generation):
+        """保存主图提示词生成记录"""
+        data_list = self._load_json(self.image_prompt_generations_file)
+        data_list.append(generation.to_dict())
+        self._save_json(self.image_prompt_generations_file, data_list)
+
+    def load_image_prompt_generations(self):
+        """加载所有主图提示词生成记录"""
+        data_list = self._load_json(self.image_prompt_generations_file)
+        return data_list
+
+    # 上架包
+    def save_listing_package(self, package):
+        """保存上架包"""
+        data_list = self._load_json(self.listing_packages_file)
+        data_list.append(package.to_dict())
+        self._save_json(self.listing_packages_file, data_list)
+
+    def load_listing_packages(self):
+        """加载所有上架包"""
+        data_list = self._load_json(self.listing_packages_file)
+        return data_list
+
+    def load_listing_package(self, package_id: str):
+        """根据ID加载指定上架包"""
+        data_list = self._load_json(self.listing_packages_file)
+        for data in data_list:
+            if data.get("id") == package_id:
+                return data
+        return None

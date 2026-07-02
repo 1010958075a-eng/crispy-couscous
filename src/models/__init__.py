@@ -25,6 +25,13 @@ from .merchant import (
     VisualStyleLibrary,
     ReviewRecord
 )
+from .listing import (
+    TitleGeneration,
+    KeywordGeneration,
+    ImagePrompt,
+    ImagePromptGeneration,
+    ListingPackage
+)
 
 __all__ = [
     # Product models
@@ -54,5 +61,11 @@ __all__ = [
     "CompetitorKnowledge",
     "KeywordLibrary",
     "VisualStyleLibrary",
-    "ReviewRecord"
+    "ReviewRecord",
+    # Listing models (v0.3)
+    "TitleGeneration",
+    "KeywordGeneration",
+    "ImagePrompt",
+    "ImagePromptGeneration",
+    "ListingPackage"
 ]

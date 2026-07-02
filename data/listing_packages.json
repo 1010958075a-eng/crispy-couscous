@@ -1,0 +1,420 @@
+[
+  {
+    "id": "44fc56e1-409f-4174-8ef9-b1cbbccbcdda",
+    "product_id": "test-product-001",
+    "product_info": {
+      "product_name": "连衣裙",
+      "category": "女装",
+      "selling_points": [
+        "透气",
+        "显瘦"
+      ],
+      "material": "棉麻",
+      "target_audience": "25-35岁女性",
+      "style": "简约风"
+    },
+    "titles": [
+      "女装连衣裙",
+      "女装连衣裙透气",
+      "连衣裙女装透气",
+      "女装连衣裙棉麻",
+      "连衣裙女装棉麻",
+      "25-35岁女性连衣裙",
+      "25-35岁女性连衣裙透气",
+      "25-35岁女性女装连衣裙",
+      "25-35岁女性连衣裙棉麻",
+      "25-35岁女性简约风连衣裙",
+      "简约风连衣裙",
+      "简约风连衣裙透气",
+      "简约风女装连衣裙",
+      "简约风连衣裙棉麻",
+      "连衣裙简约风",
+      "连衣裙连衣裙",
+      "测试核心词连衣裙",
+      "无痕内衣连衣裙",
+      "无钢圈文胸连衣裙"
+    ],
+    "keywords": {
+      "core_keywords": [
+        "连衣裙",
+        "女装",
+        "无痕内衣",
+        "无钢圈文胸",
+        "测试核心词"
+      ],
+      "long_tail_keywords": [
+        "女装连衣裙",
+        "夏季透气无痕文胸",
+        "显瘦连衣裙",
+        "夏季连衣裙",
+        "测试长尾词"
+      ],
+      "audience_keywords": [
+        "测试人群词",
+        "上班族",
+        "通勤女性",
+        "女性",
+        "小胸聚拢"
+      ],
+      "scenario_keywords": [
+        "约会",
+        "测试场景词",
+        "白衬衫不透",
+        "通勤",
+        "夏天内搭"
+      ],
+      "selling_point_keywords": [
+        "透气",
+        "测试卖点词",
+        "棉麻",
+        "简约风",
+        "显瘦",
+        "轻薄",
+        "不勒"
+      ],
+      "ad_keywords": [
+        "测试投放词",
+        "无痕文胸女",
+        "连衣裙女",
+        "夏季女装"
+      ],
+      "negative_keywords": [
+        "测试否词",
+        "童装",
+        "夸大承诺",
+        "男士"
+      ]
+    },
+    "image_prompts": [
+      {
+        "image_type": "白底主图",
+        "purpose": "展示产品整体外观，用于搜索主图",
+        "structure": "纯色背景，产品居中，完整展示",
+        "focus": "产品整体形态和核心特征",
+        "ai_prompt_cn": "连衣裙白底主图，女装，简约风风格，浅色系色调，居中构图，高清细节",
+        "ai_prompt_en": "连衣裙 white background main image, 女装, 简约风 style, 浅色系 tone, centered composition, high definition details",
+        "notes": "保持产品真实质感，不要过度美化，背景干净整洁"
+      },
+      {
+        "image_type": "模特上身图",
+        "purpose": "展示产品上身效果，增强购买欲望",
+        "structure": "模特上身展示，自然姿态，生活化场景",
+        "focus": "产品上身效果和穿着舒适度",
+        "ai_prompt_cn": "连衣裙模特上身图，女装，简约风风格，自然姿态，生活场景，浅色系色调",
+        "ai_prompt_en": "连衣裙 model wearing, 女装, 简约风 style, natural pose, lifestyle scene, 浅色系 tone",
+        "notes": "模特选择符合目标人群，展示真实穿着效果"
+      },
+      {
+        "image_type": "高级质感图",
+        "purpose": "展示产品材质和工艺细节",
+        "structure": "特写镜头，光影效果突出质感",
+        "focus": "材质纹理和工艺细节",
+        "ai_prompt_cn": "连衣裙质感特写，棉麻材质，女装，高级质感，光影效果，细节清晰",
+        "ai_prompt_en": "连衣裙 texture close-up, 棉麻 material, 女装, premium texture, lighting effects, clear details",
+        "notes": "突出材质优势，避免过度修图"
+      },
+      {
+        "image_type": "材质特写图",
+        "purpose": "展示产品材质细节",
+        "structure": "局部特写，清晰展示材质纹理",
+        "focus": "材质纹理和触感",
+        "ai_prompt_cn": "连衣裙材质特写，棉麻，女装，纹理清晰，细节丰富",
+        "ai_prompt_en": "连衣裙 material close-up, 棉麻, 女装, clear texture, rich details",
+        "notes": "真实展示材质，不要模糊处理"
+      },
+      {
+        "image_type": "功能卖点图",
+        "purpose": "突出产品核心卖点",
+        "structure": "卖点场景化展示，图文结合",
+        "focus": "核心功能和使用场景",
+        "ai_prompt_cn": "连衣裙功能展示，透气，女装，使用场景，简约风风格",
+        "ai_prompt_en": "连衣裙 function display, 透气, 女装, usage scenario, 简约风 style",
+        "notes": "卖点清晰易懂，场景真实可信"
+      },
+      {
+        "image_type": "对比图",
+        "purpose": "展示产品优势对比",
+        "structure": "前后对比或与其他产品对比",
+        "focus": "产品优势明显",
+        "ai_prompt_cn": "连衣裙对比图，女装，优势展示，简约风风格",
+        "ai_prompt_en": "连衣裙 comparison image, 女装, advantage display, 简约风 style",
+        "notes": "对比真实可信，不要夸大"
+      },
+      {
+        "image_type": "场景生活图",
+        "purpose": "展示产品在生活中的应用",
+        "structure": "生活场景，产品融入环境",
+        "focus": "产品使用场景和生活方式",
+        "ai_prompt_cn": "连衣裙生活场景，女装，简约风风格，浅色系色调，生活化",
+        "ai_prompt_en": "连衣裙 lifestyle scene, 女装, 简约风 style, 浅色系 tone, lifestyle",
+        "notes": "场景贴近目标人群生活"
+      },
+      {
+        "image_type": "色卡图",
+        "purpose": "展示产品颜色选择",
+        "structure": "产品多色展示，色卡式排列",
+        "focus": "颜色选择和搭配",
+        "ai_prompt_cn": "连衣裙色卡图，女装，多色展示，浅色系色调",
+        "ai_prompt_en": "连衣裙 color card, 女装, multi-color display, 浅色系 tone",
+        "notes": "颜色真实准确"
+      },
+      {
+        "image_type": "尺码/洗护图",
+        "purpose": "展示尺码信息和洗护建议",
+        "structure": "尺码表或洗护图标示",
+        "focus": "尺码准确性和洗护方法",
+        "ai_prompt_cn": "连衣裙尺码洗护图，女装，尺码信息，洗护建议",
+        "ai_prompt_en": "连衣裙 size care image, 女装, size information, care instructions",
+        "notes": "信息清晰准确"
+      }
+    ],
+    "merchant_profile": {
+      "id": "31a00d3e-51fa-42d5-9bc2-81be4f740152",
+      "merchant_name": "验收内衣旗舰店",
+      "platforms": [
+        "天猫",
+        "抖音"
+      ],
+      "main_category": "内衣女装",
+      "price_range": "中价（100-300元）",
+      "target_audience": "25-35岁都市女性",
+      "positioning": "舒适无痕与轻奢质感",
+      "visual_style": "高级简约",
+      "operation_goal": "降低退货率并提升复购",
+      "created_at": "2026-07-03T00:13:50.371269",
+      "updated_at": "2026-07-03T00:13:50.371284"
+    },
+    "visual_style": {
+      "id": "f99b0580-3227-4480-bef7-f3a9aef38a56",
+      "main_image_style": "简约风",
+      "detail_page_style": "图文结合",
+      "model_style": "清新自然",
+      "scenario_style": "室内场景",
+      "color_tone": "浅色系",
+      "composition_method": "居中构图",
+      "ai_image_prompt_template": "简约风格连衣裙，清新自然",
+      "created_at": "2026-07-02T22:49:07.190573",
+      "updated_at": "2026-07-02T22:49:07.190579"
+    },
+    "pending_review": [
+      "确认标题是否符合平台规范",
+      "确认关键词是否准确",
+      "确认主图提示词是否需要调整",
+      "确认产品信息是否完整",
+      "确认视觉风格是否符合品牌调性"
+    ],
+    "created_at": "2026-07-03T01:00:26.288894"
+  },
+  {
+    "id": "614d0b80-880d-4e29-bd58-97faa299e944",
+    "product_id": "V03-BRA-TEST-001",
+    "product_info": {
+      "product_name": "无痕薄杯文胸",
+      "category": "内衣",
+      "price": 169,
+      "material": "锦纶氨纶",
+      "selling_points": [
+        "无痕",
+        "透气",
+        "聚拢",
+        "轻薄"
+      ],
+      "target_audience": "25-35岁通勤女性",
+      "style": "高级简约"
+    },
+    "titles": [
+      "内衣无痕薄杯文胸",
+      "内衣无痕薄杯文胸无痕",
+      "无痕薄杯文胸内衣无痕",
+      "内衣无痕薄杯文胸锦纶氨纶",
+      "无痕薄杯文胸内衣锦纶氨纶",
+      "25-35岁通勤女性无痕薄杯文胸",
+      "25-35岁通勤女性无痕薄杯文胸无痕",
+      "25-35岁通勤女性内衣无痕薄杯文胸",
+      "25-35岁通勤女性无痕薄杯文胸锦纶氨纶",
+      "25-35岁通勤女性高级简约无痕薄杯文胸",
+      "高级简约无痕薄杯文胸",
+      "高级简约无痕薄杯文胸无痕",
+      "高级简约内衣无痕薄杯文胸",
+      "高级简约无痕薄杯文胸锦纶氨纶",
+      "无痕薄杯文胸高级简约",
+      "连衣裙无痕薄杯文胸",
+      "女装无痕薄杯文胸",
+      "测试核心词无痕薄杯文胸",
+      "无痕内衣无痕薄杯文胸",
+      "无钢圈文胸无痕薄杯文胸"
+    ],
+    "keywords": {
+      "core_keywords": [
+        "内衣",
+        "连衣裙",
+        "无钢圈文胸",
+        "无痕内衣",
+        "无痕薄杯文胸",
+        "女装",
+        "测试核心词"
+      ],
+      "long_tail_keywords": [
+        "内衣无痕薄杯文胸",
+        "夏季连衣裙",
+        "夏季透气无痕文胸",
+        "测试长尾词",
+        "显瘦连衣裙"
+      ],
+      "audience_keywords": [
+        "测试人群词",
+        "女性",
+        "通勤女性",
+        "小胸聚拢",
+        "上班族"
+      ],
+      "scenario_keywords": [
+        "约会",
+        "白衬衫不透",
+        "通勤",
+        "夏天内搭",
+        "测试场景词"
+      ],
+      "selling_point_keywords": [
+        "透气",
+        "高级简约",
+        "轻薄",
+        "显瘦",
+        "测试卖点词",
+        "不勒",
+        "锦纶氨纶"
+      ],
+      "ad_keywords": [
+        "测试投放词",
+        "无痕文胸女",
+        "连衣裙女",
+        "夏季女装"
+      ],
+      "negative_keywords": [
+        "夸大承诺",
+        "测试否词",
+        "童装",
+        "男士"
+      ]
+    },
+    "image_prompts": [
+      {
+        "image_type": "白底主图",
+        "purpose": "展示产品整体外观，用于搜索主图",
+        "structure": "纯色背景，产品居中，完整展示",
+        "focus": "产品整体形态和核心特征",
+        "ai_prompt_cn": "无痕薄杯文胸白底主图，内衣，高级简约风格，浅色系色调，居中构图，高清细节",
+        "ai_prompt_en": "无痕薄杯文胸 white background main image, 内衣, 高级简约 style, 浅色系 tone, centered composition, high definition details",
+        "notes": "保持产品真实质感，不要过度美化，背景干净整洁"
+      },
+      {
+        "image_type": "模特上身图",
+        "purpose": "展示产品上身效果，增强购买欲望",
+        "structure": "模特上身展示，自然姿态，生活化场景",
+        "focus": "产品上身效果和穿着舒适度",
+        "ai_prompt_cn": "无痕薄杯文胸模特上身图，内衣，高级简约风格，自然姿态，生活场景，浅色系色调",
+        "ai_prompt_en": "无痕薄杯文胸 model wearing, 内衣, 高级简约 style, natural pose, lifestyle scene, 浅色系 tone",
+        "notes": "模特选择符合目标人群，展示真实穿着效果"
+      },
+      {
+        "image_type": "高级质感图",
+        "purpose": "展示产品材质和工艺细节",
+        "structure": "特写镜头，光影效果突出质感",
+        "focus": "材质纹理和工艺细节",
+        "ai_prompt_cn": "无痕薄杯文胸质感特写，锦纶氨纶材质，内衣，高级质感，光影效果，细节清晰",
+        "ai_prompt_en": "无痕薄杯文胸 texture close-up, 锦纶氨纶 material, 内衣, premium texture, lighting effects, clear details",
+        "notes": "突出材质优势，避免过度修图"
+      },
+      {
+        "image_type": "材质特写图",
+        "purpose": "展示产品材质细节",
+        "structure": "局部特写，清晰展示材质纹理",
+        "focus": "材质纹理和触感",
+        "ai_prompt_cn": "无痕薄杯文胸材质特写，锦纶氨纶，内衣，纹理清晰，细节丰富",
+        "ai_prompt_en": "无痕薄杯文胸 material close-up, 锦纶氨纶, 内衣, clear texture, rich details",
+        "notes": "真实展示材质，不要模糊处理"
+      },
+      {
+        "image_type": "功能卖点图",
+        "purpose": "突出产品核心卖点",
+        "structure": "卖点场景化展示，图文结合",
+        "focus": "核心功能和使用场景",
+        "ai_prompt_cn": "无痕薄杯文胸功能展示，无痕，内衣，使用场景，高级简约风格",
+        "ai_prompt_en": "无痕薄杯文胸 function display, 无痕, 内衣, usage scenario, 高级简约 style",
+        "notes": "卖点清晰易懂，场景真实可信"
+      },
+      {
+        "image_type": "对比图",
+        "purpose": "展示产品优势对比",
+        "structure": "前后对比或与其他产品对比",
+        "focus": "产品优势明显",
+        "ai_prompt_cn": "无痕薄杯文胸对比图，内衣，优势展示，高级简约风格",
+        "ai_prompt_en": "无痕薄杯文胸 comparison image, 内衣, advantage display, 高级简约 style",
+        "notes": "对比真实可信，不要夸大"
+      },
+      {
+        "image_type": "场景生活图",
+        "purpose": "展示产品在生活中的应用",
+        "structure": "生活场景，产品融入环境",
+        "focus": "产品使用场景和生活方式",
+        "ai_prompt_cn": "无痕薄杯文胸生活场景，内衣，高级简约风格，浅色系色调，生活化",
+        "ai_prompt_en": "无痕薄杯文胸 lifestyle scene, 内衣, 高级简约 style, 浅色系 tone, lifestyle",
+        "notes": "场景贴近目标人群生活"
+      },
+      {
+        "image_type": "色卡图",
+        "purpose": "展示产品颜色选择",
+        "structure": "产品多色展示，色卡式排列",
+        "focus": "颜色选择和搭配",
+        "ai_prompt_cn": "无痕薄杯文胸色卡图，内衣，多色展示，浅色系色调",
+        "ai_prompt_en": "无痕薄杯文胸 color card, 内衣, multi-color display, 浅色系 tone",
+        "notes": "颜色真实准确"
+      },
+      {
+        "image_type": "尺码/洗护图",
+        "purpose": "展示尺码信息和洗护建议",
+        "structure": "尺码表或洗护图标示",
+        "focus": "尺码准确性和洗护方法",
+        "ai_prompt_cn": "无痕薄杯文胸尺码洗护图，内衣，尺码信息，洗护建议",
+        "ai_prompt_en": "无痕薄杯文胸 size care image, 内衣, size information, care instructions",
+        "notes": "信息清晰准确"
+      }
+    ],
+    "merchant_profile": {
+      "id": "31a00d3e-51fa-42d5-9bc2-81be4f740152",
+      "merchant_name": "验收内衣旗舰店",
+      "platforms": [
+        "天猫",
+        "抖音"
+      ],
+      "main_category": "内衣女装",
+      "price_range": "中价（100-300元）",
+      "target_audience": "25-35岁都市女性",
+      "positioning": "舒适无痕与轻奢质感",
+      "visual_style": "高级简约",
+      "operation_goal": "降低退货率并提升复购",
+      "created_at": "2026-07-03T00:13:50.371269",
+      "updated_at": "2026-07-03T00:13:50.371284"
+    },
+    "visual_style": {
+      "id": "f99b0580-3227-4480-bef7-f3a9aef38a56",
+      "main_image_style": "简约风",
+      "detail_page_style": "图文结合",
+      "model_style": "清新自然",
+      "scenario_style": "室内场景",
+      "color_tone": "浅色系",
+      "composition_method": "居中构图",
+      "ai_image_prompt_template": "简约风格连衣裙，清新自然",
+      "created_at": "2026-07-02T22:49:07.190573",
+      "updated_at": "2026-07-02T22:49:07.190579"
+    },
+    "pending_review": [
+      "确认标题是否符合平台规范",
+      "确认关键词是否准确",
+      "确认主图提示词是否需要调整",
+      "确认产品信息是否完整",
+      "确认视觉风格是否符合品牌调性"
+    ],
+    "created_at": "2026-07-03T01:13:49.017822"
+  }
+]

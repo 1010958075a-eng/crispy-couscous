@@ -1,0 +1,182 @@
+[
+  {
+    "id": "d881bdb2-9045-42d4-b5f1-66cfb947f83f",
+    "product_id": "test-product-001",
+    "prompts": [
+      {
+        "image_type": "白底主图",
+        "purpose": "展示产品整体外观，用于搜索主图",
+        "structure": "纯色背景，产品居中，完整展示",
+        "focus": "产品整体形态和核心特征",
+        "ai_prompt_cn": "连衣裙白底主图，女装，简约风风格，浅色系色调，居中构图，高清细节",
+        "ai_prompt_en": "连衣裙 white background main image, 女装, 简约风 style, 浅色系 tone, centered composition, high definition details",
+        "notes": "保持产品真实质感，不要过度美化，背景干净整洁"
+      },
+      {
+        "image_type": "模特上身图",
+        "purpose": "展示产品上身效果，增强购买欲望",
+        "structure": "模特上身展示，自然姿态，生活化场景",
+        "focus": "产品上身效果和穿着舒适度",
+        "ai_prompt_cn": "连衣裙模特上身图，女装，简约风风格，自然姿态，生活场景，浅色系色调",
+        "ai_prompt_en": "连衣裙 model wearing, 女装, 简约风 style, natural pose, lifestyle scene, 浅色系 tone",
+        "notes": "模特选择符合目标人群，展示真实穿着效果"
+      },
+      {
+        "image_type": "高级质感图",
+        "purpose": "展示产品材质和工艺细节",
+        "structure": "特写镜头，光影效果突出质感",
+        "focus": "材质纹理和工艺细节",
+        "ai_prompt_cn": "连衣裙质感特写，棉麻材质，女装，高级质感，光影效果，细节清晰",
+        "ai_prompt_en": "连衣裙 texture close-up, 棉麻 material, 女装, premium texture, lighting effects, clear details",
+        "notes": "突出材质优势，避免过度修图"
+      },
+      {
+        "image_type": "材质特写图",
+        "purpose": "展示产品材质细节",
+        "structure": "局部特写，清晰展示材质纹理",
+        "focus": "材质纹理和触感",
+        "ai_prompt_cn": "连衣裙材质特写，棉麻，女装，纹理清晰，细节丰富",
+        "ai_prompt_en": "连衣裙 material close-up, 棉麻, 女装, clear texture, rich details",
+        "notes": "真实展示材质，不要模糊处理"
+      },
+      {
+        "image_type": "功能卖点图",
+        "purpose": "突出产品核心卖点",
+        "structure": "卖点场景化展示，图文结合",
+        "focus": "核心功能和使用场景",
+        "ai_prompt_cn": "连衣裙功能展示，透气，女装，使用场景，简约风风格",
+        "ai_prompt_en": "连衣裙 function display, 透气, 女装, usage scenario, 简约风 style",
+        "notes": "卖点清晰易懂，场景真实可信"
+      },
+      {
+        "image_type": "对比图",
+        "purpose": "展示产品优势对比",
+        "structure": "前后对比或与其他产品对比",
+        "focus": "产品优势明显",
+        "ai_prompt_cn": "连衣裙对比图，女装，优势展示，简约风风格",
+        "ai_prompt_en": "连衣裙 comparison image, 女装, advantage display, 简约风 style",
+        "notes": "对比真实可信，不要夸大"
+      },
+      {
+        "image_type": "场景生活图",
+        "purpose": "展示产品在生活中的应用",
+        "structure": "生活场景，产品融入环境",
+        "focus": "产品使用场景和生活方式",
+        "ai_prompt_cn": "连衣裙生活场景，女装，简约风风格，浅色系色调，生活化",
+        "ai_prompt_en": "连衣裙 lifestyle scene, 女装, 简约风 style, 浅色系 tone, lifestyle",
+        "notes": "场景贴近目标人群生活"
+      },
+      {
+        "image_type": "色卡图",
+        "purpose": "展示产品颜色选择",
+        "structure": "产品多色展示，色卡式排列",
+        "focus": "颜色选择和搭配",
+        "ai_prompt_cn": "连衣裙色卡图，女装，多色展示，浅色系色调",
+        "ai_prompt_en": "连衣裙 color card, 女装, multi-color display, 浅色系 tone",
+        "notes": "颜色真实准确"
+      },
+      {
+        "image_type": "尺码/洗护图",
+        "purpose": "展示尺码信息和洗护建议",
+        "structure": "尺码表或洗护图标示",
+        "focus": "尺码准确性和洗护方法",
+        "ai_prompt_cn": "连衣裙尺码洗护图，女装，尺码信息，洗护建议",
+        "ai_prompt_en": "连衣裙 size care image, 女装, size information, care instructions",
+        "notes": "信息清晰准确"
+      }
+    ],
+    "generation_method": "template",
+    "visual_style_id": null,
+    "created_at": "2026-07-03T00:59:37.915974"
+  },
+  {
+    "id": "01396870-1382-460c-b5af-7bbc962ac008",
+    "product_id": "V03-BRA-TEST-001",
+    "prompts": [
+      {
+        "image_type": "白底主图",
+        "purpose": "展示产品整体外观，用于搜索主图",
+        "structure": "纯色背景，产品居中，完整展示",
+        "focus": "产品整体形态和核心特征",
+        "ai_prompt_cn": "无痕薄杯文胸白底主图，内衣，高级简约风格，浅色系色调，居中构图，高清细节",
+        "ai_prompt_en": "无痕薄杯文胸 white background main image, 内衣, 高级简约 style, 浅色系 tone, centered composition, high definition details",
+        "notes": "保持产品真实质感，不要过度美化，背景干净整洁"
+      },
+      {
+        "image_type": "模特上身图",
+        "purpose": "展示产品上身效果，增强购买欲望",
+        "structure": "模特上身展示，自然姿态，生活化场景",
+        "focus": "产品上身效果和穿着舒适度",
+        "ai_prompt_cn": "无痕薄杯文胸模特上身图，内衣，高级简约风格，自然姿态，生活场景，浅色系色调",
+        "ai_prompt_en": "无痕薄杯文胸 model wearing, 内衣, 高级简约 style, natural pose, lifestyle scene, 浅色系 tone",
+        "notes": "模特选择符合目标人群，展示真实穿着效果"
+      },
+      {
+        "image_type": "高级质感图",
+        "purpose": "展示产品材质和工艺细节",
+        "structure": "特写镜头，光影效果突出质感",
+        "focus": "材质纹理和工艺细节",
+        "ai_prompt_cn": "无痕薄杯文胸质感特写，锦纶氨纶材质，内衣，高级质感，光影效果，细节清晰",
+        "ai_prompt_en": "无痕薄杯文胸 texture close-up, 锦纶氨纶 material, 内衣, premium texture, lighting effects, clear details",
+        "notes": "突出材质优势，避免过度修图"
+      },
+      {
+        "image_type": "材质特写图",
+        "purpose": "展示产品材质细节",
+        "structure": "局部特写，清晰展示材质纹理",
+        "focus": "材质纹理和触感",
+        "ai_prompt_cn": "无痕薄杯文胸材质特写，锦纶氨纶，内衣，纹理清晰，细节丰富",
+        "ai_prompt_en": "无痕薄杯文胸 material close-up, 锦纶氨纶, 内衣, clear texture, rich details",
+        "notes": "真实展示材质，不要模糊处理"
+      },
+      {
+        "image_type": "功能卖点图",
+        "purpose": "突出产品核心卖点",
+        "structure": "卖点场景化展示，图文结合",
+        "focus": "核心功能和使用场景",
+        "ai_prompt_cn": "无痕薄杯文胸功能展示，无痕，内衣，使用场景，高级简约风格",
+        "ai_prompt_en": "无痕薄杯文胸 function display, 无痕, 内衣, usage scenario, 高级简约 style",
+        "notes": "卖点清晰易懂，场景真实可信"
+      },
+      {
+        "image_type": "对比图",
+        "purpose": "展示产品优势对比",
+        "structure": "前后对比或与其他产品对比",
+        "focus": "产品优势明显",
+        "ai_prompt_cn": "无痕薄杯文胸对比图，内衣，优势展示，高级简约风格",
+        "ai_prompt_en": "无痕薄杯文胸 comparison image, 内衣, advantage display, 高级简约 style",
+        "notes": "对比真实可信，不要夸大"
+      },
+      {
+        "image_type": "场景生活图",
+        "purpose": "展示产品在生活中的应用",
+        "structure": "生活场景，产品融入环境",
+        "focus": "产品使用场景和生活方式",
+        "ai_prompt_cn": "无痕薄杯文胸生活场景，内衣，高级简约风格，浅色系色调，生活化",
+        "ai_prompt_en": "无痕薄杯文胸 lifestyle scene, 内衣, 高级简约 style, 浅色系 tone, lifestyle",
+        "notes": "场景贴近目标人群生活"
+      },
+      {
+        "image_type": "色卡图",
+        "purpose": "展示产品颜色选择",
+        "structure": "产品多色展示，色卡式排列",
+        "focus": "颜色选择和搭配",
+        "ai_prompt_cn": "无痕薄杯文胸色卡图，内衣，多色展示，浅色系色调",
+        "ai_prompt_en": "无痕薄杯文胸 color card, 内衣, multi-color display, 浅色系 tone",
+        "notes": "颜色真实准确"
+      },
+      {
+        "image_type": "尺码/洗护图",
+        "purpose": "展示尺码信息和洗护建议",
+        "structure": "尺码表或洗护图标示",
+        "focus": "尺码准确性和洗护方法",
+        "ai_prompt_cn": "无痕薄杯文胸尺码洗护图，内衣，尺码信息，洗护建议",
+        "ai_prompt_en": "无痕薄杯文胸 size care image, 内衣, size information, care instructions",
+        "notes": "信息清晰准确"
+      }
+    ],
+    "generation_method": "template",
+    "visual_style_id": null,
+    "created_at": "2026-07-03T01:13:49.014887"
+  }
+]

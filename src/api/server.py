@@ -21,8 +21,9 @@ from models import Platform, PriceRange, MerchantProfileV2, ProductKnowledge, Co
 from models import TitleGeneration, KeywordGeneration, ImagePromptGeneration, ListingPackage
 from models import DetailScreen, DetailScreenGeneration
 from models import VideoScriptScene, VideoScriptGeneration, XiaohongshuNote
+from models import Task, TaskStep, TaskStatus, RiskLevel
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -56,6 +57,7 @@ image_prompt_service = ImagePromptService(knowledge_storage)
 package_service = PackageService(knowledge_storage)
 detail_service = DetailService(knowledge_storage)
 content_service = ContentService(knowledge_storage)
+task_service = TaskService(knowledge_storage)
 
 
 # Pydantic模型
@@ -1004,6 +1006,107 @@ async def get_xiaohongshu_generation(generation_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取小红书文案生成记录失败: {e}")
+
+
+# v0.5: Agent任务中心API
+
+# 任务创建请求模型
+class TaskCreateRequest(BaseModel):
+    original_request: str
+    product_id: Optional[str] = None
+    related_package_id: Optional[str] = None
+    priority: str = "medium"
+
+
+# 创建任务API
+@app.post("/api/tasks/create")
+async def create_task(request: TaskCreateRequest):
+    """创建任务并自动拆解步骤"""
+    try:
+        task = task_service.create_task(
+            original_request=request.original_request,
+            product_id=request.product_id,
+            related_package_id=request.related_package_id,
+            priority=request.priority
+        )
+        knowledge_storage.save_task(task)
+        return task.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建任务失败: {e}")
+
+
+# 获取所有任务API
+@app.get("/api/tasks")
+async def get_tasks():
+    """获取所有任务历史"""
+    try:
+        tasks = knowledge_storage.load_tasks()
+        return tasks
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取任务列表失败: {e}")
+
+
+# 获取指定任务API
+@app.get("/api/tasks/{task_id}")
+async def get_task(task_id: str):
+    """获取指定任务"""
+    try:
+        task = knowledge_storage.load_task(task_id)
+        if task:
+            return task
+        else:
+            raise HTTPException(status_code=404, detail="任务不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取任务失败: {e}")
+
+
+# 任务状态更新请求模型
+class TaskStatusUpdateRequest(BaseModel):
+    status: str
+
+
+# 更新任务状态API
+@app.post("/api/tasks/{task_id}/status")
+async def update_task_status(task_id: str, request: TaskStatusUpdateRequest):
+    """更新任务状态"""
+    try:
+        success = knowledge_storage.update_task_status(task_id, request.status)
+        if success:
+            return {"success": True, "message": "任务状态更新成功"}
+        else:
+            raise HTTPException(status_code=404, detail="任务不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"更新任务状态失败: {e}")
+
+
+# 人工确认请求模型
+class TaskConfirmationRequest(BaseModel):
+    confirmed: bool
+    notes: Optional[str] = None
+
+
+# 记录人工确认API
+@app.post("/api/tasks/{task_id}/confirm")
+async def confirm_task(task_id: str, request: TaskConfirmationRequest):
+    """记录人工确认"""
+    try:
+        success = knowledge_storage.record_human_confirmation(
+            task_id=task_id,
+            confirmed=request.confirmed,
+            notes=request.notes
+        )
+        if success:
+            return {"success": True, "message": "人工确认记录成功"}
+        else:
+            raise HTTPException(status_code=404, detail="任务不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"记录人工确认失败: {e}")
 
 
 if __name__ == "__main__":

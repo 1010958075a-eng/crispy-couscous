@@ -41,6 +41,12 @@ from .content import (
     VideoScriptGeneration,
     XiaohongshuNote
 )
+from .task import (
+    Task,
+    TaskStep,
+    TaskStatus,
+    RiskLevel
+)
 
 __all__ = [
     # Product models
@@ -83,5 +89,10 @@ __all__ = [
     # Content models (v0.4 phase 2)
     "VideoScriptScene",
     "VideoScriptGeneration",
-    "XiaohongshuNote"
+    "XiaohongshuNote",
+    # Task models (v0.5)
+    "Task",
+    "TaskStep",
+    "TaskStatus",
+    "RiskLevel"
 ]

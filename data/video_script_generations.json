@@ -1,0 +1,157 @@
+[
+  {
+    "generation_id": "78b69129-e22b-4c2e-b9a5-2f0ce09276cf",
+    "product_id": "test-video-001",
+    "platform": "douyin",
+    "duration_seconds": 30,
+    "script_title": "连衣裙·douyin短视频",
+    "target_audience": "25-35岁女性",
+    "core_selling_points": [
+      "透气",
+      "显瘦"
+    ],
+    "scenes": [
+      {
+        "scene_number": 1,
+        "duration": "0-3秒",
+        "shot_type": "特写",
+        "visual_content": "25-35岁女性使用女装的痛点场景，快速切换",
+        "voiceover": "25-35岁女性的烦恼找到了吗？",
+        "subtitle": "还在为这些问题烦恼吗？",
+        "product_focus": "产品尚未出现",
+        "shooting_notes": "快节奏，抓住注意力"
+      },
+      {
+        "scene_number": 2,
+        "duration": "3-8秒",
+        "shot_type": "中景",
+        "visual_content": "连衣裙产品特写，简约风风格，产品居中",
+        "voiceover": "这款连衣裙来了！",
+        "subtitle": "连衣裙登场",
+        "product_focus": "产品主体",
+        "shooting_notes": "清晰展示产品，突出质感"
+      },
+      {
+        "scene_number": 3,
+        "duration": "8-15秒",
+        "shot_type": "近景+特写",
+        "visual_content": "快速展示透气功能特写",
+        "voiceover": "透气、显瘦，让你心动不已",
+        "subtitle": "透气、显瘦",
+        "product_focus": "产品功能点",
+        "shooting_notes": "突出核心卖点，节奏紧凑"
+      },
+      {
+        "scene_number": 4,
+        "duration": "15-22秒",
+        "shot_type": "全景",
+        "visual_content": "25-35岁女性在生活场景中使用连衣裙，简约风风格",
+        "voiceover": "25-35岁女性日常使用，舒适自在",
+        "subtitle": "日常使用场景",
+        "product_focus": "产品与用户互动",
+        "shooting_notes": "真实场景，贴近生活"
+      },
+      {
+        "scene_number": 5,
+        "duration": "22-27秒",
+        "shot_type": "中景",
+        "visual_content": "棉麻材质特写，品质展示",
+        "voiceover": "精选棉麻，品质保证",
+        "subtitle": "品质保证",
+        "product_focus": "产品材质细节",
+        "shooting_notes": "展示材质细节，建立信任"
+      },
+      {
+        "scene_number": 6,
+        "duration": "27-30秒",
+        "shot_type": "特写",
+        "visual_content": "连衣裙产品特写+品牌Logo",
+        "voiceover": "立即下单，体验连衣裙！",
+        "subtitle": "立即下单",
+        "product_focus": "产品+品牌",
+        "shooting_notes": "行动引导，促进转化"
+      }
+    ],
+    "package_id": null,
+    "detail_generation_id": null,
+    "created_at": "2026-07-03T13:25:08.074193"
+  },
+  {
+    "generation_id": "b9b8ebfd-ce5a-43e7-bb2c-cca32dd2ffb1",
+    "product_id": "V04-CONTENT-VIDEO-TEST-001",
+    "platform": "douyin",
+    "duration_seconds": 30,
+    "script_title": "无痕薄杯文胸·douyin短视频",
+    "target_audience": "25-35岁通勤女性",
+    "core_selling_points": [
+      "无痕",
+      "透气",
+      "聚拢"
+    ],
+    "scenes": [
+      {
+        "scene_number": 1,
+        "duration": "0-3秒",
+        "shot_type": "特写",
+        "visual_content": "25-35岁通勤女性使用内衣的痛点场景，快速切换",
+        "voiceover": "25-35岁通勤女性的烦恼找到了吗？",
+        "subtitle": "还在为这些问题烦恼吗？",
+        "product_focus": "产品尚未出现",
+        "shooting_notes": "快节奏，抓住注意力"
+      },
+      {
+        "scene_number": 2,
+        "duration": "3-8秒",
+        "shot_type": "中景",
+        "visual_content": "无痕薄杯文胸产品特写，高级简约风格，产品居中",
+        "voiceover": "这款无痕薄杯文胸来了！",
+        "subtitle": "无痕薄杯文胸登场",
+        "product_focus": "产品主体",
+        "shooting_notes": "清晰展示产品，突出质感"
+      },
+      {
+        "scene_number": 3,
+        "duration": "8-15秒",
+        "shot_type": "近景+特写",
+        "visual_content": "快速展示无痕功能特写",
+        "voiceover": "无痕、透气，让你心动不已",
+        "subtitle": "无痕、透气",
+        "product_focus": "产品功能点",
+        "shooting_notes": "突出核心卖点，节奏紧凑"
+      },
+      {
+        "scene_number": 4,
+        "duration": "15-22秒",
+        "shot_type": "全景",
+        "visual_content": "25-35岁通勤女性在生活场景中使用无痕薄杯文胸，高级简约风格",
+        "voiceover": "25-35岁通勤女性日常使用，舒适自在",
+        "subtitle": "日常使用场景",
+        "product_focus": "产品与用户互动",
+        "shooting_notes": "真实场景，贴近生活"
+      },
+      {
+        "scene_number": 5,
+        "duration": "22-27秒",
+        "shot_type": "中景",
+        "visual_content": "锦纶氨纶材质特写，品质展示",
+        "voiceover": "精选锦纶氨纶，品质保证",
+        "subtitle": "品质保证",
+        "product_focus": "产品材质细节",
+        "shooting_notes": "展示材质细节，建立信任"
+      },
+      {
+        "scene_number": 6,
+        "duration": "27-30秒",
+        "shot_type": "特写",
+        "visual_content": "无痕薄杯文胸产品特写+品牌Logo",
+        "voiceover": "立即下单，体验无痕薄杯文胸！",
+        "subtitle": "立即下单",
+        "product_focus": "产品+品牌",
+        "shooting_notes": "行动引导，促进转化"
+      }
+    ],
+    "package_id": null,
+    "detail_generation_id": null,
+    "created_at": "2026-07-03T14:03:43.000833"
+  }
+]

@@ -36,6 +36,11 @@ from .detail import (
     DetailScreen,
     DetailScreenGeneration
 )
+from .content import (
+    VideoScriptScene,
+    VideoScriptGeneration,
+    XiaohongshuNote
+)
 
 __all__ = [
     # Product models
@@ -74,5 +79,9 @@ __all__ = [
     "ListingPackage",
     # Detail models (v0.4)
     "DetailScreen",
-    "DetailScreenGeneration"
+    "DetailScreenGeneration",
+    # Content models (v0.4 phase 2)
+    "VideoScriptScene",
+    "VideoScriptGeneration",
+    "XiaohongshuNote"
 ]

@@ -64,6 +64,8 @@ class KnowledgeStorage:
 
         # v0.4 新增文件路径
         self.detail_screen_generations_file = self.base_path / "detail_screen_generations.json"
+        self.video_script_generations_file = self.base_path / "video_script_generations.json"
+        self.xiaohongshu_generations_file = self.base_path / "xiaohongshu_generations.json"
 
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
@@ -515,5 +517,47 @@ class KnowledgeStorage:
         data_list = self._load_json(self.detail_screen_generations_file)
         for data in data_list:
             if data.get("id") == generation_id:
+                return data
+        return None
+
+    # v0.4 phase 2 新增存储方法
+
+    # 短视频脚本生成记录
+    def save_video_script_generation(self, generation):
+        """保存短视频脚本生成记录"""
+        data_list = self._load_json(self.video_script_generations_file)
+        data_list.append(generation.to_dict())
+        self._save_json(self.video_script_generations_file, data_list)
+
+    def load_video_script_generations(self):
+        """加载所有短视频脚本生成记录"""
+        data_list = self._load_json(self.video_script_generations_file)
+        return data_list
+
+    def load_video_script_generation(self, generation_id: str):
+        """根据ID加载指定短视频脚本生成记录"""
+        data_list = self._load_json(self.video_script_generations_file)
+        for data in data_list:
+            if data.get("generation_id") == generation_id:
+                return data
+        return None
+
+    # 小红书文案生成记录
+    def save_xiaohongshu_generation(self, generation):
+        """保存小红书文案生成记录"""
+        data_list = self._load_json(self.xiaohongshu_generations_file)
+        data_list.append(generation.to_dict())
+        self._save_json(self.xiaohongshu_generations_file, data_list)
+
+    def load_xiaohongshu_generations(self):
+        """加载所有小红书文案生成记录"""
+        data_list = self._load_json(self.xiaohongshu_generations_file)
+        return data_list
+
+    def load_xiaohongshu_generation(self, generation_id: str):
+        """根据ID加载指定小红书文案生成记录"""
+        data_list = self._load_json(self.xiaohongshu_generations_file)
+        for data in data_list:
+            if data.get("generation_id") == generation_id:
                 return data
         return None

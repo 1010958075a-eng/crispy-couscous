@@ -20,8 +20,9 @@ from models import LearningTarget, DataType
 from models import Platform, PriceRange, MerchantProfileV2, ProductKnowledge, CompetitorKnowledge, KeywordLibrary, VisualStyleLibrary, ReviewRecord
 from models import TitleGeneration, KeywordGeneration, ImagePromptGeneration, ListingPackage
 from models import DetailScreen, DetailScreenGeneration
+from models import VideoScriptScene, VideoScriptGeneration, XiaohongshuNote
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -54,6 +55,7 @@ keyword_service = KeywordService(knowledge_storage)
 image_prompt_service = ImagePromptService(knowledge_storage)
 package_service = PackageService(knowledge_storage)
 detail_service = DetailService(knowledge_storage)
+content_service = ContentService(knowledge_storage)
 
 
 # Pydantic模型
@@ -890,6 +892,118 @@ async def get_detail_screen_generation(generation_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取详情页生成记录失败: {e}")
+
+
+# v0.4 phase 2: 内容生成API
+
+# 短视频脚本生成请求模型
+class VideoScriptGenerationRequest(BaseModel):
+    product_id: str
+    package_id: Optional[str] = None
+    detail_generation_id: Optional[str] = None
+    product_info: Optional[Dict[str, Any]] = None
+    platform: str = "douyin"
+    duration_seconds: int = 30
+
+
+# 生成短视频脚本API
+@app.post("/api/content/generate-video-script")
+async def generate_video_script(request: VideoScriptGenerationRequest):
+    """生成短视频脚本"""
+    try:
+        generation = content_service.generate_video_script(
+            product_id=request.product_id,
+            platform=request.platform,
+            duration_seconds=request.duration_seconds,
+            package_id=request.package_id,
+            detail_generation_id=request.detail_generation_id,
+            product_info=request.product_info
+        )
+        knowledge_storage.save_video_script_generation(generation)
+        return generation.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成短视频脚本失败: {e}")
+
+
+# 获取所有短视频脚本生成记录API
+@app.get("/api/content/video-scripts")
+async def get_video_script_generations():
+    """获取所有短视频脚本生成记录"""
+    try:
+        generations = knowledge_storage.load_video_script_generations()
+        return generations
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取短视频脚本生成记录列表失败: {e}")
+
+
+# 获取指定短视频脚本生成记录API
+@app.get("/api/content/video-script/{generation_id}")
+async def get_video_script_generation(generation_id: str):
+    """获取指定短视频脚本生成记录"""
+    try:
+        generation = knowledge_storage.load_video_script_generation(generation_id)
+        if generation:
+            return generation
+        else:
+            raise HTTPException(status_code=404, detail="短视频脚本生成记录不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取短视频脚本生成记录失败: {e}")
+
+
+# 小红书文案生成请求模型
+class XiaohongshuGenerationRequest(BaseModel):
+    product_id: str
+    package_id: Optional[str] = None
+    detail_generation_id: Optional[str] = None
+    product_info: Optional[Dict[str, Any]] = None
+    style: str = "种草风"
+
+
+# 生成小红书文案API
+@app.post("/api/content/generate-xiaohongshu")
+async def generate_xiaohongshu_note(request: XiaohongshuGenerationRequest):
+    """生成小红书文案"""
+    try:
+        generation = content_service.generate_xiaohongshu_note(
+            product_id=request.product_id,
+            style=request.style,
+            package_id=request.package_id,
+            detail_generation_id=request.detail_generation_id,
+            product_info=request.product_info
+        )
+        knowledge_storage.save_xiaohongshu_generation(generation)
+        return generation.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成小红书文案失败: {e}")
+
+
+# 获取所有小红书文案生成记录API
+@app.get("/api/content/xiaohongshu-notes")
+async def get_xiaohongshu_generations():
+    """获取所有小红书文案生成记录"""
+    try:
+        generations = knowledge_storage.load_xiaohongshu_generations()
+        return generations
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取小红书文案生成记录列表失败: {e}")
+
+
+# 获取指定小红书文案生成记录API
+@app.get("/api/content/xiaohongshu-note/{generation_id}")
+async def get_xiaohongshu_generation(generation_id: str):
+    """获取指定小红书文案生成记录"""
+    try:
+        generation = knowledge_storage.load_xiaohongshu_generation(generation_id)
+        if generation:
+            return generation
+        else:
+            raise HTTPException(status_code=404, detail="小红书文案生成记录不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取小红书文案生成记录失败: {e}")
 
 
 if __name__ == "__main__":

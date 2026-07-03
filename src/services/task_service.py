@@ -7,6 +7,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 
 from models.task import Task, TaskStep, TaskStatus, RiskLevel
+from models.acceptance import VALID_TASK_STATUSES
 from .knowledge_storage import KnowledgeStorage
 
 
@@ -400,7 +401,14 @@ class TaskService:
         status: str
     ) -> Optional[Task]:
         """更新任务状态"""
+        # 验证状态合法性
+        if status not in VALID_TASK_STATUSES:
+            raise ValueError(f"非法任务状态: {status}，合法状态: {VALID_TASK_STATUSES}")
         # 这里需要从存储中加载任务
         # 由于TaskService不直接管理存储，这个方法主要用于逻辑验证
         # 实际更新由API层调用knowledge_storage完成
         return None
+    
+    def validate_task_status(self, status: str) -> bool:
+        """验证任务状态是否合法"""
+        return status in VALID_TASK_STATUSES

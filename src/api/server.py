@@ -22,8 +22,9 @@ from models import TitleGeneration, KeywordGeneration, ImagePromptGeneration, Li
 from models import DetailScreen, DetailScreenGeneration
 from models import VideoScriptScene, VideoScriptGeneration, XiaohongshuNote
 from models import Task, TaskStep, TaskStatus, RiskLevel
+from models import AcceptanceReport, AcceptanceIssue, AcceptanceStatus, TargetType
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -58,6 +59,7 @@ package_service = PackageService(knowledge_storage)
 detail_service = DetailService(knowledge_storage)
 content_service = ContentService(knowledge_storage)
 task_service = TaskService(knowledge_storage)
+acceptance_service = AcceptanceService(knowledge_storage)
 
 
 # Pydantic模型
@@ -1072,6 +1074,9 @@ class TaskStatusUpdateRequest(BaseModel):
 async def update_task_status(task_id: str, request: TaskStatusUpdateRequest):
     """更新任务状态"""
     try:
+        # 验证状态合法性
+        if not task_service.validate_task_status(request.status):
+            raise HTTPException(status_code=400, detail=f"非法任务状态: {request.status}")
         success = knowledge_storage.update_task_status(task_id, request.status)
         if success:
             return {"success": True, "message": "任务状态更新成功"}
@@ -1107,6 +1112,85 @@ async def confirm_task(task_id: str, request: TaskConfirmationRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"记录人工确认失败: {e}")
+
+
+# v0.6: 验收中心API
+
+# 任务检查请求模型
+class TaskCheckRequest(BaseModel):
+    task_data: Dict[str, Any]
+
+
+# 检查任务API
+@app.post("/api/acceptance/check-task")
+async def check_task(request: TaskCheckRequest):
+    """检查指定任务是否合规"""
+    try:
+        report = acceptance_service.check_task(request.task_data)
+        knowledge_storage.save_acceptance_report(report)
+        return report.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"检查任务失败: {e}")
+
+
+# 上架包检查请求模型
+class PackageCheckRequest(BaseModel):
+    package_data: Dict[str, Any]
+
+
+# 检查上架包API
+@app.post("/api/acceptance/check-package")
+async def check_package(request: PackageCheckRequest):
+    """检查指定上架包是否字段完整"""
+    try:
+        report = acceptance_service.check_package(request.package_data)
+        knowledge_storage.save_acceptance_report(report)
+        return report.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"检查上架包失败: {e}")
+
+
+# 风险检查请求模型
+class RiskCheckRequest(BaseModel):
+    text: str
+
+
+# 检查高风险动作API
+@app.post("/api/acceptance/check-risk")
+async def check_risk(request: RiskCheckRequest):
+    """检查文本或任务内容是否包含高风险动作"""
+    try:
+        result = acceptance_service.check_risk(request.text)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"检查高风险动作失败: {e}")
+
+
+# 获取所有验收报告API
+@app.get("/api/acceptance/reports")
+async def get_acceptance_reports():
+    """读取历史验收报告"""
+    try:
+        reports = knowledge_storage.load_acceptance_reports()
+        return reports
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取验收报告列表失败: {e}")
+
+
+# 获取指定验收报告API
+@app.get("/api/acceptance/report/{report_id}")
+async def get_acceptance_report(report_id: str):
+    """读取指定验收报告"""
+    try:
+        report = knowledge_storage.load_acceptance_report(report_id)
+        if report:
+            return report
+        else:
+            raise HTTPException(status_code=404, detail="验收报告不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取验收报告失败: {e}")
 
 
 if __name__ == "__main__":

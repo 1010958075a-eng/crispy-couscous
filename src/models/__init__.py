@@ -47,6 +47,14 @@ from .task import (
     TaskStatus,
     RiskLevel
 )
+from .acceptance import (
+    AcceptanceReport,
+    AcceptanceIssue,
+    AcceptanceStatus,
+    TargetType,
+    VALID_TASK_STATUSES,
+    HIGH_RISK_KEYWORDS
+)
 
 __all__ = [
     # Product models
@@ -94,5 +102,12 @@ __all__ = [
     "Task",
     "TaskStep",
     "TaskStatus",
-    "RiskLevel"
+    "RiskLevel",
+    # Acceptance models (v0.6)
+    "AcceptanceReport",
+    "AcceptanceIssue",
+    "AcceptanceStatus",
+    "TargetType",
+    "VALID_TASK_STATUSES",
+    "HIGH_RISK_KEYWORDS"
 ]

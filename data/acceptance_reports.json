@@ -1,0 +1,81 @@
+[
+  {
+    "report_id": "55039a93-f5ab-4012-8d18-82e1cb2147b0",
+    "target_type": "task",
+    "target_id": "test-task-001",
+    "status": "passed",
+    "passed": true,
+    "p0_issues": [],
+    "p1_issues": [],
+    "p2_issues": [],
+    "risk_level": "low",
+    "risk_items": [],
+    "human_confirmation_required": false,
+    "checked_fields": [],
+    "missing_fields": [],
+    "suggestions": [],
+    "created_at": "2026-07-03T15:51:42.030723"
+  },
+  {
+    "report_id": "c3daaaf4-90b9-482b-9b17-5dfcb43397f6",
+    "target_type": "listing_package",
+    "target_id": "test-pkg-001",
+    "status": "requires_review",
+    "passed": false,
+    "p0_issues": [],
+    "p1_issues": [
+      {
+        "severity": "P1",
+        "field": "titles",
+        "issue": "标题数量不足: 2",
+        "suggestion": "建议至少生成10个标题"
+      }
+    ],
+    "p2_issues": [],
+    "risk_level": "low",
+    "risk_items": [],
+    "human_confirmation_required": false,
+    "checked_fields": [],
+    "missing_fields": [],
+    "suggestions": [],
+    "created_at": "2026-07-03T15:52:06.278683"
+  },
+  {
+    "report_id": "584b4210-ab58-4d75-95b2-e6032ea4bdf9",
+    "target_type": "task",
+    "target_id": "V06-TASK-CHECK-001",
+    "status": "passed",
+    "passed": true,
+    "p0_issues": [],
+    "p1_issues": [],
+    "p2_issues": [],
+    "risk_level": "high",
+    "risk_items": [
+      "自动上架"
+    ],
+    "human_confirmation_required": true,
+    "checked_fields": [],
+    "missing_fields": [],
+    "suggestions": [
+      "检测到高风险动作，需要人工确认"
+    ],
+    "created_at": "2026-07-03T15:59:33.911985"
+  },
+  {
+    "report_id": "8b8c2128-d9e8-4934-9486-068dd7543fbb",
+    "target_type": "listing_package",
+    "target_id": "PKG-V06-CHECK-001",
+    "status": "passed",
+    "passed": true,
+    "p0_issues": [],
+    "p1_issues": [],
+    "p2_issues": [],
+    "risk_level": "low",
+    "risk_items": [],
+    "human_confirmation_required": false,
+    "checked_fields": [],
+    "missing_fields": [],
+    "suggestions": [],
+    "created_at": "2026-07-03T15:59:33.915835"
+  }
+]

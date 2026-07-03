@@ -272,5 +272,111 @@
     "human_confirmation_required": true,
     "risk_notes": "任务风险较低",
     "final_summary": "v0.5只读验收：人工确认记录测试"
+  },
+  {
+    "task_id": "590fa071-52cc-44a1-8467-9cb86f9c7da6",
+    "task_title": "测试非法状态拦截",
+    "original_request": "测试非法状态拦截",
+    "task_type": "general",
+    "product_id": null,
+    "related_package_id": null,
+    "status": "illegal_status",
+    "priority": "medium",
+    "created_at": "2026-07-03T15:56:09.270846",
+    "updated_at": "2026-07-03T15:56:09.303000",
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "分析需求",
+        "step_description": "分析用户需求",
+        "related_module": "task_service",
+        "status": "pending",
+        "requires_human_confirmation": false,
+        "risk_level": "low",
+        "expected_output": "需求分析结果",
+        "completed_at": null,
+        "notes": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "执行任务",
+        "step_description": "执行具体任务",
+        "related_module": "task_service",
+        "status": "pending",
+        "requires_human_confirmation": false,
+        "risk_level": "low",
+        "expected_output": "任务执行结果",
+        "completed_at": null,
+        "notes": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "等待人工确认",
+        "step_description": "等待用户确认结果",
+        "related_module": "human_confirmation",
+        "status": "pending",
+        "requires_human_confirmation": true,
+        "risk_level": "low",
+        "expected_output": "人工确认结果",
+        "completed_at": null,
+        "notes": null
+      }
+    ],
+    "human_confirmation_required": true,
+    "risk_notes": "任务风险较低",
+    "final_summary": null
+  },
+  {
+    "task_id": "afbc101e-9dc1-49bb-b362-e1b1cf3be28b",
+    "task_title": "测试非法状态拦截",
+    "original_request": "测试非法状态拦截",
+    "task_type": "general",
+    "product_id": null,
+    "related_package_id": null,
+    "status": "pending",
+    "priority": "medium",
+    "created_at": "2026-07-03T15:56:31.381158",
+    "updated_at": "2026-07-03T15:56:31.381164",
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "分析需求",
+        "step_description": "分析用户需求",
+        "related_module": "task_service",
+        "status": "pending",
+        "requires_human_confirmation": false,
+        "risk_level": "low",
+        "expected_output": "需求分析结果",
+        "completed_at": null,
+        "notes": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "执行任务",
+        "step_description": "执行具体任务",
+        "related_module": "task_service",
+        "status": "pending",
+        "requires_human_confirmation": false,
+        "risk_level": "low",
+        "expected_output": "任务执行结果",
+        "completed_at": null,
+        "notes": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "等待人工确认",
+        "step_description": "等待用户确认结果",
+        "related_module": "human_confirmation",
+        "status": "pending",
+        "requires_human_confirmation": true,
+        "risk_level": "low",
+        "expected_output": "人工确认结果",
+        "completed_at": null,
+        "notes": null
+      }
+    ],
+    "human_confirmation_required": true,
+    "risk_notes": "任务风险较低",
+    "final_summary": null
   }
 ]

@@ -70,6 +70,9 @@ class KnowledgeStorage:
         # v0.5 新增文件路径
         self.task_center_records_file = self.base_path / "task_center_records.json"
 
+        # v0.6 新增文件路径
+        self.acceptance_reports_file = self.base_path / "acceptance_reports.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -608,3 +611,25 @@ class KnowledgeStorage:
                 self._save_json(self.task_center_records_file, data_list)
                 return True
         return False
+
+    # v0.6 新增存储方法
+
+    # 验收报告记录
+    def save_acceptance_report(self, report):
+        """保存验收报告"""
+        data_list = self._load_json(self.acceptance_reports_file)
+        data_list.append(report.to_dict())
+        self._save_json(self.acceptance_reports_file, data_list)
+
+    def load_acceptance_reports(self):
+        """加载所有验收报告"""
+        data_list = self._load_json(self.acceptance_reports_file)
+        return data_list
+
+    def load_acceptance_report(self, report_id: str):
+        """根据ID加载指定验收报告"""
+        data_list = self._load_json(self.acceptance_reports_file)
+        for data in data_list:
+            if data.get("report_id") == report_id:
+                return data
+        return None

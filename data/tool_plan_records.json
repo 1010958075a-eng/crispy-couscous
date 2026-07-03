@@ -1,0 +1,129 @@
+[
+  {
+    "plan_id": "f7f8afa4-bb95-47c5-a2a8-5e183861e1cd",
+    "original_request": "自动登录淘宝并自动上架、自动改价、自动开车投放、自动扣费",
+    "task_id": null,
+    "recommended_tools": [
+      "listing_package_generator"
+    ],
+    "execution_steps": [
+      {
+        "step_number": 1,
+        "step_name": "使用 上架包生成器",
+        "tool_id": "listing_package_generator",
+        "tool_name": "上架包生成器",
+        "reason": "根据任务需求推荐",
+        "expected_output": "上架基础包（标题、关键词、主图提示词）",
+        "risk_level": "low",
+        "requires_human_confirmation": false
+      },
+      {
+        "step_number": 2,
+        "step_name": "风险检查",
+        "tool_id": "risk_checker",
+        "tool_name": "风险检查器",
+        "reason": "检查高风险动作",
+        "expected_output": "风险识别结果",
+        "risk_level": "medium",
+        "requires_human_confirmation": false
+      }
+    ],
+    "risk_level": "high",
+    "human_confirmation_required": true,
+    "blocked_actions": [
+      "自动登录",
+      "自动上架",
+      "自动改价",
+      "自动开车",
+      "自动开车",
+      "自动投放",
+      "自动扣费"
+    ],
+    "plan_status": "blocked",
+    "created_at": "2026-07-03T19:00:13.574292"
+  },
+  {
+    "plan_id": "c8c11f1a-9817-42d9-a784-4237e4053945",
+    "original_request": "自动登录淘宝并自动上架、自动改价、自动开车投放、自动扣费",
+    "task_id": null,
+    "recommended_tools": [
+      "listing_package_generator"
+    ],
+    "execution_steps": [
+      {
+        "step_number": 1,
+        "step_name": "使用 上架包生成器",
+        "tool_id": "listing_package_generator",
+        "tool_name": "上架包生成器",
+        "reason": "根据任务需求推荐",
+        "expected_output": "上架基础包（标题、关键词、主图提示词）",
+        "risk_level": "low",
+        "requires_human_confirmation": false
+      },
+      {
+        "step_number": 2,
+        "step_name": "风险检查",
+        "tool_id": "risk_checker",
+        "tool_name": "风险检查器",
+        "reason": "检查高风险动作",
+        "expected_output": "风险识别结果",
+        "risk_level": "medium",
+        "requires_human_confirmation": false
+      }
+    ],
+    "risk_level": "high",
+    "human_confirmation_required": true,
+    "blocked_actions": [
+      "自动扣费",
+      "自动上架",
+      "自动投放",
+      "自动开车",
+      "自动登录",
+      "自动改价"
+    ],
+    "plan_status": "blocked",
+    "created_at": "2026-07-03T19:00:36.056001"
+  },
+  {
+    "plan_id": "8f82f7e9-1346-4ea9-a16e-511314244f0e",
+    "original_request": "自动登录淘宝并自动上架、自动改价、自动开车投放、自动扣费",
+    "task_id": null,
+    "recommended_tools": [
+      "listing_package_generator"
+    ],
+    "execution_steps": [
+      {
+        "step_number": 1,
+        "step_name": "使用 上架包生成器",
+        "tool_id": "listing_package_generator",
+        "tool_name": "上架包生成器",
+        "reason": "根据任务需求推荐",
+        "expected_output": "上架基础包（标题、关键词、主图提示词）",
+        "risk_level": "low",
+        "requires_human_confirmation": false
+      },
+      {
+        "step_number": 2,
+        "step_name": "风险检查",
+        "tool_id": "risk_checker",
+        "tool_name": "风险检查器",
+        "reason": "检查高风险动作",
+        "expected_output": "风险识别结果",
+        "risk_level": "medium",
+        "requires_human_confirmation": false
+      }
+    ],
+    "risk_level": "high",
+    "human_confirmation_required": true,
+    "blocked_actions": [
+      "自动扣费",
+      "自动登录",
+      "自动开车",
+      "自动投放",
+      "自动上架",
+      "自动改价"
+    ],
+    "plan_status": "blocked",
+    "created_at": "2026-07-03T19:45:04.485394"
+  }
+]

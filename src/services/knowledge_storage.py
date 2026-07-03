@@ -73,6 +73,10 @@ class KnowledgeStorage:
         # v0.6 新增文件路径
         self.acceptance_reports_file = self.base_path / "acceptance_reports.json"
 
+        # v0.7 新增文件路径
+        self.tool_registry_file = self.base_path / "tool_registry.json"
+        self.tool_plan_records_file = self.base_path / "tool_plan_records.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -631,5 +635,38 @@ class KnowledgeStorage:
         data_list = self._load_json(self.acceptance_reports_file)
         for data in data_list:
             if data.get("report_id") == report_id:
+                return data
+        return None
+
+    # v0.7 新增存储方法
+
+    # 工具注册表记录
+    def save_tool_registry(self, tools):
+        """保存工具注册表"""
+        data_list = [tool.to_dict() for tool in tools]
+        self._save_json(self.tool_registry_file, data_list)
+
+    def load_tool_registry(self):
+        """加载工具注册表"""
+        data_list = self._load_json(self.tool_registry_file)
+        return data_list
+
+    # 工具计划记录
+    def save_tool_plan(self, plan):
+        """保存工具计划"""
+        data_list = self._load_json(self.tool_plan_records_file)
+        data_list.append(plan.to_dict())
+        self._save_json(self.tool_plan_records_file, data_list)
+
+    def load_tool_plans(self):
+        """加载所有工具计划"""
+        data_list = self._load_json(self.tool_plan_records_file)
+        return data_list
+
+    def load_tool_plan(self, plan_id: str):
+        """根据ID加载指定工具计划"""
+        data_list = self._load_json(self.tool_plan_records_file)
+        for data in data_list:
+            if data.get("plan_id") == plan_id:
                 return data
         return None

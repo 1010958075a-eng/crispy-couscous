@@ -378,5 +378,58 @@
     "human_confirmation_required": true,
     "risk_notes": "任务风险较低",
     "final_summary": null
+  },
+  {
+    "task_id": "c44e59c6-3ad0-45de-8fed-e0831268698d",
+    "task_title": "测试任务",
+    "original_request": "测试任务",
+    "task_type": "general",
+    "product_id": null,
+    "related_package_id": null,
+    "status": "pending",
+    "priority": "medium",
+    "created_at": "2026-07-03T16:12:21.122143",
+    "updated_at": "2026-07-03T16:12:21.122191",
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "分析需求",
+        "step_description": "分析用户需求",
+        "related_module": "task_service",
+        "status": "pending",
+        "requires_human_confirmation": false,
+        "risk_level": "low",
+        "expected_output": "需求分析结果",
+        "completed_at": null,
+        "notes": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "执行任务",
+        "step_description": "执行具体任务",
+        "related_module": "task_service",
+        "status": "pending",
+        "requires_human_confirmation": false,
+        "risk_level": "low",
+        "expected_output": "任务执行结果",
+        "completed_at": null,
+        "notes": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "等待人工确认",
+        "step_description": "等待用户确认结果",
+        "related_module": "human_confirmation",
+        "status": "pending",
+        "requires_human_confirmation": true,
+        "risk_level": "low",
+        "expected_output": "人工确认结果",
+        "completed_at": null,
+        "notes": null
+      }
+    ],
+    "human_confirmation_required": true,
+    "risk_notes": "任务风险较低",
+    "final_summary": null
   }
 ]

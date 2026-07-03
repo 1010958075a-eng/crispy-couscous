@@ -16,6 +16,7 @@ from .detail_service import DetailService
 from .content_service import ContentService
 from .task_service import TaskService
 from .acceptance_service import AcceptanceService
+from .tool_service import ToolService
 
 __all__ = [
     "ProductService",
@@ -31,5 +32,6 @@ __all__ = [
     "DetailService",
     "ContentService",
     "TaskService",
-    "AcceptanceService"
+    "AcceptanceService",
+    "ToolService"
 ]

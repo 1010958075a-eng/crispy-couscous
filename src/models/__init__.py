@@ -55,6 +55,15 @@ from .acceptance import (
     VALID_TASK_STATUSES,
     HIGH_RISK_KEYWORDS
 )
+from .tool import (
+    Tool,
+    ToolPlan,
+    ExecutionStep,
+    ToolType,
+    ToolCategory,
+    PlanStatus,
+    BUILTIN_TOOLS
+)
 
 __all__ = [
     # Product models
@@ -109,5 +118,13 @@ __all__ = [
     "AcceptanceStatus",
     "TargetType",
     "VALID_TASK_STATUSES",
-    "HIGH_RISK_KEYWORDS"
+    "HIGH_RISK_KEYWORDS",
+    # Tool models (v0.7)
+    "Tool",
+    "ToolPlan",
+    "ExecutionStep",
+    "ToolType",
+    "ToolCategory",
+    "PlanStatus",
+    "BUILTIN_TOOLS"
 ]

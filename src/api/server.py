@@ -23,8 +23,9 @@ from models import DetailScreen, DetailScreenGeneration
 from models import VideoScriptScene, VideoScriptGeneration, XiaohongshuNote
 from models import Task, TaskStep, TaskStatus, RiskLevel
 from models import AcceptanceReport, AcceptanceIssue, AcceptanceStatus, TargetType
+from models import Tool, ToolPlan, ExecutionStep, ToolType, ToolCategory, PlanStatus
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -60,6 +61,7 @@ detail_service = DetailService(knowledge_storage)
 content_service = ContentService(knowledge_storage)
 task_service = TaskService(knowledge_storage)
 acceptance_service = AcceptanceService(knowledge_storage)
+tool_service = ToolService(knowledge_storage)
 
 
 # Pydantic模型
@@ -1191,6 +1193,123 @@ async def get_acceptance_report(report_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取验收报告失败: {e}")
+
+
+# v0.7: 工具中心API
+
+# 获取所有工具API
+@app.get("/api/tools")
+async def get_tools():
+    """读取所有工具"""
+    try:
+        tools = tool_service.get_tools()
+        return tools
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工具列表失败: {e}")
+
+
+# 获取所有工具计划API (必须在 /api/tools/{tool_id} 之前)
+@app.get("/api/tools/plans")
+async def get_tool_plans():
+    """读取历史工具计划"""
+    try:
+        plans = knowledge_storage.load_tool_plans()
+        return plans
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工具计划列表失败: {e}")
+
+
+# 获取指定工具API
+@app.get("/api/tools/{tool_id}")
+async def get_tool(tool_id: str):
+    """读取指定工具"""
+    try:
+        tool = tool_service.get_tool(tool_id)
+        if tool:
+            return tool
+        else:
+            raise HTTPException(status_code=404, detail="工具不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工具失败: {e}")
+
+
+# 工具推荐请求模型
+class ToolSuggestRequest(BaseModel):
+    request: str
+
+
+# 一句话任务推荐工具API
+@app.post("/api/tools/suggest")
+async def suggest_tools(request: ToolSuggestRequest):
+    """根据一句话任务推荐工具"""
+    try:
+        tools = tool_service.suggest_tools(request.request)
+        return tools
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"推荐工具失败: {e}")
+
+
+# 根据任务推荐工具请求模型
+class ToolSuggestForTaskRequest(BaseModel):
+    task_id: str
+
+
+# 根据任务推荐工具API
+@app.post("/api/tools/suggest-for-task")
+async def suggest_tools_for_task(request: ToolSuggestForTaskRequest):
+    """根据task_id推荐工具"""
+    try:
+        tools = tool_service.suggest_tools_for_task(request.task_id)
+        return tools
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"推荐工具失败: {e}")
+
+
+# 工具计划生成请求模型
+class ToolPlanRequest(BaseModel):
+    original_request: str
+    task_id: Optional[str] = None
+
+
+# 生成工具调用计划API
+@app.post("/api/tools/plan")
+async def generate_tool_plan(request: ToolPlanRequest):
+    """生成工具调用计划"""
+    try:
+        plan = tool_service.generate_tool_plan(request.original_request, request.task_id)
+        knowledge_storage.save_tool_plan(plan)
+        return plan.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成工具计划失败: {e}")
+
+
+# 获取所有工具计划API
+@app.get("/api/tools/plans")
+async def get_tool_plans():
+    """读取历史工具计划"""
+    try:
+        plans = knowledge_storage.load_tool_plans()
+        return plans
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工具计划列表失败: {e}")
+
+
+# 获取指定工具计划API
+@app.get("/api/tools/plan/{plan_id}")
+async def get_tool_plan(plan_id: str):
+    """读取指定工具计划"""
+    try:
+        plan = knowledge_storage.load_tool_plan(plan_id)
+        if plan:
+            return plan
+        else:
+            raise HTTPException(status_code=404, detail="工具计划不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工具计划失败: {e}")
 
 
 if __name__ == "__main__":

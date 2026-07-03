@@ -19,8 +19,9 @@ from models import Product, Order, ProductStatus, OrderStatus, OrderItem, Produc
 from models import LearningTarget, DataType
 from models import Platform, PriceRange, MerchantProfileV2, ProductKnowledge, CompetitorKnowledge, KeywordLibrary, VisualStyleLibrary, ReviewRecord
 from models import TitleGeneration, KeywordGeneration, ImagePromptGeneration, ListingPackage
+from models import DetailScreen, DetailScreenGeneration
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -52,6 +53,7 @@ title_service = TitleService(knowledge_storage)
 keyword_service = KeywordService(knowledge_storage)
 image_prompt_service = ImagePromptService(knowledge_storage)
 package_service = PackageService(knowledge_storage)
+detail_service = DetailService(knowledge_storage)
 
 
 # Pydantic模型
@@ -838,6 +840,56 @@ async def get_listing_package(package_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取上架包失败: {e}")
+
+
+# v0.4 详情页生成 API端点
+
+# 详情页生成请求模型
+class DetailScreenGenerationRequest(BaseModel):
+    product_id: str
+    product_info: Optional[Dict[str, Any]] = None
+
+
+# 详情页生成API
+@app.post("/api/detail/generate-9screens")
+async def generate_9screens(request: DetailScreenGenerationRequest):
+    """生成详情页9屏内容"""
+    try:
+        generation = detail_service.generate_9screens(
+            product_id=request.product_id,
+            product_info=request.product_info
+        )
+        knowledge_storage.save_detail_screen_generation(generation)
+        return generation.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"生成详情页9屏失败: {e}")
+
+
+# 获取所有详情页生成记录API
+@app.get("/api/detail/9screens")
+async def get_detail_screen_generations():
+    """获取所有详情页生成记录"""
+    try:
+        generations = knowledge_storage.load_detail_screen_generations()
+        return generations
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取详情页生成记录列表失败: {e}")
+
+
+# 获取指定详情页生成记录API
+@app.get("/api/detail/9screen/{generation_id}")
+async def get_detail_screen_generation(generation_id: str):
+    """获取指定详情页生成记录"""
+    try:
+        generation = knowledge_storage.load_detail_screen_generation(generation_id)
+        if generation:
+            return generation
+        else:
+            raise HTTPException(status_code=404, detail="详情页生成记录不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取详情页生成记录失败: {e}")
 
 
 if __name__ == "__main__":

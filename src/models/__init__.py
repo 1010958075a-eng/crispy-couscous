@@ -32,6 +32,10 @@ from .listing import (
     ImagePromptGeneration,
     ListingPackage
 )
+from .detail import (
+    DetailScreen,
+    DetailScreenGeneration
+)
 
 __all__ = [
     # Product models
@@ -67,5 +71,8 @@ __all__ = [
     "KeywordGeneration",
     "ImagePrompt",
     "ImagePromptGeneration",
-    "ListingPackage"
+    "ListingPackage",
+    # Detail models (v0.4)
+    "DetailScreen",
+    "DetailScreenGeneration"
 ]

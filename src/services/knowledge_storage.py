@@ -62,6 +62,9 @@ class KnowledgeStorage:
         self.image_prompt_generations_file = self.base_path / "image_prompt_generations.json"
         self.listing_packages_file = self.base_path / "listing_packages.json"
 
+        # v0.4 新增文件路径
+        self.detail_screen_generations_file = self.base_path / "detail_screen_generations.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -490,5 +493,27 @@ class KnowledgeStorage:
         data_list = self._load_json(self.listing_packages_file)
         for data in data_list:
             if data.get("id") == package_id:
+                return data
+        return None
+
+    # v0.4 新增存储方法
+
+    # 详情页生成记录
+    def save_detail_screen_generation(self, generation):
+        """保存详情页生成记录"""
+        data_list = self._load_json(self.detail_screen_generations_file)
+        data_list.append(generation.to_dict())
+        self._save_json(self.detail_screen_generations_file, data_list)
+
+    def load_detail_screen_generations(self):
+        """加载所有详情页生成记录"""
+        data_list = self._load_json(self.detail_screen_generations_file)
+        return data_list
+
+    def load_detail_screen_generation(self, generation_id: str):
+        """根据ID加载指定详情页生成记录"""
+        data_list = self._load_json(self.detail_screen_generations_file)
+        for data in data_list:
+            if data.get("id") == generation_id:
                 return data
         return None

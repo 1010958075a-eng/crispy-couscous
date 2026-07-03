@@ -12,6 +12,7 @@ from .title_service import TitleService
 from .keyword_service import KeywordService
 from .image_prompt_service import ImagePromptService
 from .package_service import PackageService
+from .detail_service import DetailService
 
 __all__ = [
     "ProductService",
@@ -23,5 +24,6 @@ __all__ = [
     "TitleService",
     "KeywordService",
     "ImagePromptService",
-    "PackageService"
+    "PackageService",
+    "DetailService"
 ]

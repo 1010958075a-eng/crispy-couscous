@@ -1,0 +1,462 @@
+[
+  {
+    "id": "d671936f-4ed2-4c88-a155-a874a3347b6e",
+    "product_id": "test-product-002",
+    "screens": [
+      {
+        "screen_number": 1,
+        "screen_title": "首屏主视觉",
+        "core_purpose": "吸引眼球，展示产品核心卖点",
+        "copywriting": "连衣裙·简约风风格\n透气",
+        "layout_suggestion": "产品居中，背景简洁，突出产品主体",
+        "ai_image_prompt_cn": "连衣裙首屏主视觉，女装，简约风风格，浅色系色调，居中构图，高清细节",
+        "ecommerce_design_notes": "首屏3秒抓眼球，避免信息过载"
+      },
+      {
+        "screen_number": 2,
+        "screen_title": "用户痛点",
+        "core_purpose": "击中用户痛点，引发共鸣",
+        "copywriting": "25-35岁女性的烦恼\n传统女装存在的问题",
+        "layout_suggestion": "痛点图标+文字说明，左右分栏或上下分屏",
+        "ai_image_prompt_cn": "女装用户痛点场景图，25-35岁女性，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "痛点真实可信，不要夸大"
+      },
+      {
+        "screen_number": 3,
+        "screen_title": "核心卖点",
+        "core_purpose": "突出产品核心优势",
+        "copywriting": "核心卖点：透气、显瘦",
+        "layout_suggestion": "卖点图标+文字说明，网格布局",
+        "ai_image_prompt_cn": "连衣裙核心卖点展示，女装，透气，简约风风格",
+        "ecommerce_design_notes": "卖点清晰易懂，图文结合"
+      },
+      {
+        "screen_number": 4,
+        "screen_title": "材质结构",
+        "core_purpose": "展示产品材质和工艺",
+        "copywriting": "精选棉麻材质\n优质工艺，品质保证",
+        "layout_suggestion": "材质特写+结构图解，突出材质优势",
+        "ai_image_prompt_cn": "连衣裙材质结构图，棉麻材质，女装，特写镜头，高清细节",
+        "ecommerce_design_notes": "真实展示材质，避免过度美化"
+      },
+      {
+        "screen_number": 5,
+        "screen_title": "功能支撑",
+        "core_purpose": "展示产品功能特点",
+        "copywriting": "功能特点\n透气",
+        "layout_suggestion": "功能场景化展示，图文结合",
+        "ai_image_prompt_cn": "连衣裙功能展示图，女装，透气，简约风风格",
+        "ecommerce_design_notes": "功能清晰，场景真实"
+      },
+      {
+        "screen_number": 6,
+        "screen_title": "舒适体验",
+        "core_purpose": "展示产品使用体验",
+        "copywriting": "舒适体验\n显瘦",
+        "layout_suggestion": "使用场景图+体验描述，生活化场景",
+        "ai_image_prompt_cn": "连衣裙舒适体验图，女装，25-35岁女性，简约风风格，生活场景",
+        "ecommerce_design_notes": "体验真实，场景贴近目标人群"
+      },
+      {
+        "screen_number": 7,
+        "screen_title": "穿搭/使用场景",
+        "core_purpose": "展示产品使用场景",
+        "copywriting": "穿搭建议\n女装搭配指南",
+        "layout_suggestion": "多场景展示，网格布局或滑动效果",
+        "ai_image_prompt_cn": "连衣裙穿搭场景图，女装，25-35岁女性，简约风风格，多场景",
+        "ecommerce_design_notes": "场景贴近目标人群生活"
+      },
+      {
+        "screen_number": 8,
+        "screen_title": "色卡/尺码",
+        "core_purpose": "展示产品颜色和尺码选择",
+        "copywriting": "颜色选择\n尺码信息",
+        "layout_suggestion": "色卡式排列，尺码表清晰展示",
+        "ai_image_prompt_cn": "连衣裙色卡尺码图，女装，浅色系色调，清晰展示",
+        "ecommerce_design_notes": "颜色真实准确，尺码信息清晰"
+      },
+      {
+        "screen_number": 9,
+        "screen_title": "品牌/售后/信任背书",
+        "core_purpose": "建立信任，促进转化",
+        "copywriting": "品质保证\n售后无忧",
+        "layout_suggestion": "品牌Logo+售后保障+用户评价，信任背书",
+        "ai_image_prompt_cn": "女装品牌售后图，信任背书，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "信任背书真实可信"
+      }
+    ],
+    "generation_method": "template",
+    "merchant_profile_id": null,
+    "keyword_library_id": null,
+    "visual_style_id": null,
+    "created_at": "2026-07-03T11:58:00.149236"
+  },
+  {
+    "id": "394d957c-4606-4543-b2a3-a3c13652301c",
+    "product_id": "V04-DETAIL-TEST-001",
+    "screens": [
+      {
+        "screen_number": 1,
+        "screen_title": "首屏主视觉",
+        "core_purpose": "吸引眼球，展示产品核心卖点",
+        "copywriting": "无痕薄杯文胸·高级简约风格\n无痕",
+        "layout_suggestion": "产品居中，背景简洁，突出产品主体",
+        "ai_image_prompt_cn": "无痕薄杯文胸首屏主视觉，内衣，高级简约风格，浅色系色调，居中构图，高清细节",
+        "ecommerce_design_notes": "首屏3秒抓眼球，避免信息过载"
+      },
+      {
+        "screen_number": 2,
+        "screen_title": "用户痛点",
+        "core_purpose": "击中用户痛点，引发共鸣",
+        "copywriting": "25-35岁通勤女性的烦恼\n传统内衣存在的问题",
+        "layout_suggestion": "痛点图标+文字说明，左右分栏或上下分屏",
+        "ai_image_prompt_cn": "内衣用户痛点场景图，25-35岁通勤女性，高级简约风格，浅色系色调",
+        "ecommerce_design_notes": "痛点真实可信，不要夸大"
+      },
+      {
+        "screen_number": 3,
+        "screen_title": "核心卖点",
+        "core_purpose": "突出产品核心优势",
+        "copywriting": "核心卖点：无痕、透气、聚拢",
+        "layout_suggestion": "卖点图标+文字说明，网格布局",
+        "ai_image_prompt_cn": "无痕薄杯文胸核心卖点展示，内衣，无痕，高级简约风格",
+        "ecommerce_design_notes": "卖点清晰易懂，图文结合"
+      },
+      {
+        "screen_number": 4,
+        "screen_title": "材质结构",
+        "core_purpose": "展示产品材质和工艺",
+        "copywriting": "精选锦纶氨纶材质\n优质工艺，品质保证",
+        "layout_suggestion": "材质特写+结构图解，突出材质优势",
+        "ai_image_prompt_cn": "无痕薄杯文胸材质结构图，锦纶氨纶材质，内衣，特写镜头，高清细节",
+        "ecommerce_design_notes": "真实展示材质，避免过度美化"
+      },
+      {
+        "screen_number": 5,
+        "screen_title": "功能支撑",
+        "core_purpose": "展示产品功能特点",
+        "copywriting": "功能特点\n无痕",
+        "layout_suggestion": "功能场景化展示，图文结合",
+        "ai_image_prompt_cn": "无痕薄杯文胸功能展示图，内衣，无痕，高级简约风格",
+        "ecommerce_design_notes": "功能清晰，场景真实"
+      },
+      {
+        "screen_number": 6,
+        "screen_title": "舒适体验",
+        "core_purpose": "展示产品使用体验",
+        "copywriting": "舒适体验\n透气",
+        "layout_suggestion": "使用场景图+体验描述，生活化场景",
+        "ai_image_prompt_cn": "无痕薄杯文胸舒适体验图，内衣，25-35岁通勤女性，高级简约风格，生活场景",
+        "ecommerce_design_notes": "体验真实，场景贴近目标人群"
+      },
+      {
+        "screen_number": 7,
+        "screen_title": "穿搭/使用场景",
+        "core_purpose": "展示产品使用场景",
+        "copywriting": "穿搭建议\n内衣搭配指南",
+        "layout_suggestion": "多场景展示，网格布局或滑动效果",
+        "ai_image_prompt_cn": "无痕薄杯文胸穿搭场景图，内衣，25-35岁通勤女性，高级简约风格，多场景",
+        "ecommerce_design_notes": "场景贴近目标人群生活"
+      },
+      {
+        "screen_number": 8,
+        "screen_title": "色卡/尺码",
+        "core_purpose": "展示产品颜色和尺码选择",
+        "copywriting": "颜色选择\n尺码信息",
+        "layout_suggestion": "色卡式排列，尺码表清晰展示",
+        "ai_image_prompt_cn": "无痕薄杯文胸色卡尺码图，内衣，浅色系色调，清晰展示",
+        "ecommerce_design_notes": "颜色真实准确，尺码信息清晰"
+      },
+      {
+        "screen_number": 9,
+        "screen_title": "品牌/售后/信任背书",
+        "core_purpose": "建立信任，促进转化",
+        "copywriting": "品质保证\n售后无忧",
+        "layout_suggestion": "品牌Logo+售后保障+用户评价，信任背书",
+        "ai_image_prompt_cn": "内衣品牌售后图，信任背书，高级简约风格，浅色系色调",
+        "ecommerce_design_notes": "信任背书真实可信"
+      }
+    ],
+    "generation_method": "template",
+    "merchant_profile_id": null,
+    "keyword_library_id": null,
+    "visual_style_id": null,
+    "created_at": "2026-07-03T12:00:30.019649"
+  },
+  {
+    "id": "7fd033c8-9474-4a1d-85d4-cf5e2ebda8ba",
+    "product_id": "test-product-003",
+    "screens": [
+      {
+        "screen_number": 1,
+        "screen_title": "首屏主视觉",
+        "core_purpose": "吸引眼球，展示产品核心卖点",
+        "copywriting": "连衣裙·简约风风格\n透气",
+        "layout_suggestion": "产品居中，背景简洁，突出产品主体",
+        "ai_image_prompt_cn": "连衣裙首屏主视觉，女装，简约风风格，浅色系色调，居中构图，高清细节",
+        "ecommerce_design_notes": "首屏3秒抓眼球，避免信息过载"
+      },
+      {
+        "screen_number": 2,
+        "screen_title": "用户痛点",
+        "core_purpose": "击中用户痛点，引发共鸣",
+        "copywriting": "25-35岁女性的烦恼\n传统女装存在的问题",
+        "layout_suggestion": "痛点图标+文字说明，左右分栏或上下分屏",
+        "ai_image_prompt_cn": "女装用户痛点场景图，25-35岁女性，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "痛点真实可信，不要夸大"
+      },
+      {
+        "screen_number": 3,
+        "screen_title": "核心卖点",
+        "core_purpose": "突出产品核心优势",
+        "copywriting": "核心卖点：透气、显瘦",
+        "layout_suggestion": "卖点图标+文字说明，网格布局",
+        "ai_image_prompt_cn": "连衣裙核心卖点展示，女装，透气，简约风风格",
+        "ecommerce_design_notes": "卖点清晰易懂，图文结合"
+      },
+      {
+        "screen_number": 4,
+        "screen_title": "材质结构",
+        "core_purpose": "展示产品材质和工艺",
+        "copywriting": "精选棉麻材质\n优质工艺，品质保证",
+        "layout_suggestion": "材质特写+结构图解，突出材质优势",
+        "ai_image_prompt_cn": "连衣裙材质结构图，棉麻材质，女装，特写镜头，高清细节",
+        "ecommerce_design_notes": "真实展示材质，避免过度美化"
+      },
+      {
+        "screen_number": 5,
+        "screen_title": "功能支撑",
+        "core_purpose": "展示产品功能特点",
+        "copywriting": "功能特点\n透气",
+        "layout_suggestion": "功能场景化展示，图文结合",
+        "ai_image_prompt_cn": "连衣裙功能展示图，女装，透气，简约风风格",
+        "ecommerce_design_notes": "功能清晰，场景真实"
+      },
+      {
+        "screen_number": 6,
+        "screen_title": "舒适体验",
+        "core_purpose": "展示产品使用体验",
+        "copywriting": "舒适体验\n显瘦",
+        "layout_suggestion": "使用场景图+体验描述，生活化场景",
+        "ai_image_prompt_cn": "连衣裙舒适体验图，女装，25-35岁女性，简约风风格，生活场景",
+        "ecommerce_design_notes": "体验真实，场景贴近目标人群"
+      },
+      {
+        "screen_number": 7,
+        "screen_title": "穿搭/使用场景",
+        "core_purpose": "展示产品使用场景",
+        "copywriting": "穿搭建议\n女装搭配指南",
+        "layout_suggestion": "多场景展示，网格布局或滑动效果",
+        "ai_image_prompt_cn": "连衣裙穿搭场景图，女装，25-35岁女性，简约风风格，多场景",
+        "ecommerce_design_notes": "场景贴近目标人群生活"
+      },
+      {
+        "screen_number": 8,
+        "screen_title": "色卡/尺码",
+        "core_purpose": "展示产品颜色和尺码选择",
+        "copywriting": "颜色选择\n尺码信息",
+        "layout_suggestion": "色卡式排列，尺码表清晰展示",
+        "ai_image_prompt_cn": "连衣裙色卡尺码图，女装，浅色系色调，清晰展示",
+        "ecommerce_design_notes": "颜色真实准确，尺码信息清晰"
+      },
+      {
+        "screen_number": 9,
+        "screen_title": "品牌/售后/信任背书",
+        "core_purpose": "建立信任，促进转化",
+        "copywriting": "品质保证\n售后无忧",
+        "layout_suggestion": "品牌Logo+售后保障+用户评价，信任背书",
+        "ai_image_prompt_cn": "女装品牌售后图，信任背书，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "信任背书真实可信"
+      }
+    ],
+    "generation_method": "template",
+    "merchant_profile_id": null,
+    "keyword_library_id": null,
+    "visual_style_id": null,
+    "created_at": "2026-07-03T12:13:02.906493"
+  },
+  {
+    "id": "1364de20-39a1-4f67-bd72-d3dd164df766",
+    "product_id": "recheck-test-001",
+    "screens": [
+      {
+        "screen_number": 1,
+        "screen_title": "首屏主视觉",
+        "core_purpose": "吸引眼球，展示产品核心卖点",
+        "copywriting": "连衣裙·简约风风格\n透气",
+        "layout_suggestion": "产品居中，背景简洁，突出产品主体",
+        "ai_image_prompt_cn": "连衣裙首屏主视觉，女装，简约风风格，浅色系色调，居中构图，高清细节",
+        "ecommerce_design_notes": "首屏3秒抓眼球，避免信息过载"
+      },
+      {
+        "screen_number": 2,
+        "screen_title": "用户痛点",
+        "core_purpose": "击中用户痛点，引发共鸣",
+        "copywriting": "25-35岁女性的烦恼\n传统女装存在的问题",
+        "layout_suggestion": "痛点图标+文字说明，左右分栏或上下分屏",
+        "ai_image_prompt_cn": "女装用户痛点场景图，25-35岁女性，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "痛点真实可信，不要夸大"
+      },
+      {
+        "screen_number": 3,
+        "screen_title": "核心卖点",
+        "core_purpose": "突出产品核心优势",
+        "copywriting": "核心卖点：透气、显瘦",
+        "layout_suggestion": "卖点图标+文字说明，网格布局",
+        "ai_image_prompt_cn": "连衣裙核心卖点展示，女装，透气，简约风风格",
+        "ecommerce_design_notes": "卖点清晰易懂，图文结合"
+      },
+      {
+        "screen_number": 4,
+        "screen_title": "材质结构",
+        "core_purpose": "展示产品材质和工艺",
+        "copywriting": "精选棉麻材质\n优质工艺，品质保证",
+        "layout_suggestion": "材质特写+结构图解，突出材质优势",
+        "ai_image_prompt_cn": "连衣裙材质结构图，棉麻材质，女装，特写镜头，高清细节",
+        "ecommerce_design_notes": "真实展示材质，避免过度美化"
+      },
+      {
+        "screen_number": 5,
+        "screen_title": "功能支撑",
+        "core_purpose": "展示产品功能特点",
+        "copywriting": "功能特点\n透气",
+        "layout_suggestion": "功能场景化展示，图文结合",
+        "ai_image_prompt_cn": "连衣裙功能展示图，女装，透气，简约风风格",
+        "ecommerce_design_notes": "功能清晰，场景真实"
+      },
+      {
+        "screen_number": 6,
+        "screen_title": "舒适体验",
+        "core_purpose": "展示产品使用体验",
+        "copywriting": "舒适体验\n显瘦",
+        "layout_suggestion": "使用场景图+体验描述，生活化场景",
+        "ai_image_prompt_cn": "连衣裙舒适体验图，女装，25-35岁女性，简约风风格，生活场景",
+        "ecommerce_design_notes": "体验真实，场景贴近目标人群"
+      },
+      {
+        "screen_number": 7,
+        "screen_title": "穿搭/使用场景",
+        "core_purpose": "展示产品使用场景",
+        "copywriting": "穿搭建议\n女装搭配指南",
+        "layout_suggestion": "多场景展示，网格布局或滑动效果",
+        "ai_image_prompt_cn": "连衣裙穿搭场景图，女装，25-35岁女性，简约风风格，多场景",
+        "ecommerce_design_notes": "场景贴近目标人群生活"
+      },
+      {
+        "screen_number": 8,
+        "screen_title": "色卡/尺码",
+        "core_purpose": "展示产品颜色和尺码选择",
+        "copywriting": "颜色选择\n尺码信息",
+        "layout_suggestion": "色卡式排列，尺码表清晰展示",
+        "ai_image_prompt_cn": "连衣裙色卡尺码图，女装，浅色系色调，清晰展示",
+        "ecommerce_design_notes": "颜色真实准确，尺码信息清晰"
+      },
+      {
+        "screen_number": 9,
+        "screen_title": "品牌/售后/信任背书",
+        "core_purpose": "建立信任，促进转化",
+        "copywriting": "品质保证\n售后无忧",
+        "layout_suggestion": "品牌Logo+售后保障+用户评价，信任背书",
+        "ai_image_prompt_cn": "女装品牌售后图，信任背书，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "信任背书真实可信"
+      }
+    ],
+    "generation_method": "template",
+    "merchant_profile_id": null,
+    "keyword_library_id": null,
+    "visual_style_id": null,
+    "created_at": "2026-07-03T12:23:07.202032"
+  },
+  {
+    "id": "9367a0da-4d28-4294-9279-13f7bd494ae4",
+    "product_id": "recheck-test-002",
+    "screens": [
+      {
+        "screen_number": 1,
+        "screen_title": "首屏主视觉",
+        "core_purpose": "吸引眼球，展示产品核心卖点",
+        "copywriting": "连衣裙·简约风风格\n透气",
+        "layout_suggestion": "产品居中，背景简洁，突出产品主体",
+        "ai_image_prompt_cn": "连衣裙首屏主视觉，女装，简约风风格，浅色系色调，居中构图，高清细节",
+        "ecommerce_design_notes": "首屏3秒抓眼球，避免信息过载"
+      },
+      {
+        "screen_number": 2,
+        "screen_title": "用户痛点",
+        "core_purpose": "击中用户痛点，引发共鸣",
+        "copywriting": "25-35岁女性的烦恼\n传统女装存在的问题",
+        "layout_suggestion": "痛点图标+文字说明，左右分栏或上下分屏",
+        "ai_image_prompt_cn": "女装用户痛点场景图，25-35岁女性，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "痛点真实可信，不要夸大"
+      },
+      {
+        "screen_number": 3,
+        "screen_title": "核心卖点",
+        "core_purpose": "突出产品核心优势",
+        "copywriting": "核心卖点：透气、显瘦",
+        "layout_suggestion": "卖点图标+文字说明，网格布局",
+        "ai_image_prompt_cn": "连衣裙核心卖点展示，女装，透气，简约风风格",
+        "ecommerce_design_notes": "卖点清晰易懂，图文结合"
+      },
+      {
+        "screen_number": 4,
+        "screen_title": "材质结构",
+        "core_purpose": "展示产品材质和工艺",
+        "copywriting": "精选棉麻材质\n优质工艺，品质保证",
+        "layout_suggestion": "材质特写+结构图解，突出材质优势",
+        "ai_image_prompt_cn": "连衣裙材质结构图，棉麻材质，女装，特写镜头，高清细节",
+        "ecommerce_design_notes": "真实展示材质，避免过度美化"
+      },
+      {
+        "screen_number": 5,
+        "screen_title": "功能支撑",
+        "core_purpose": "展示产品功能特点",
+        "copywriting": "功能特点\n透气",
+        "layout_suggestion": "功能场景化展示，图文结合",
+        "ai_image_prompt_cn": "连衣裙功能展示图，女装，透气，简约风风格",
+        "ecommerce_design_notes": "功能清晰，场景真实"
+      },
+      {
+        "screen_number": 6,
+        "screen_title": "舒适体验",
+        "core_purpose": "展示产品使用体验",
+        "copywriting": "舒适体验\n显瘦",
+        "layout_suggestion": "使用场景图+体验描述，生活化场景",
+        "ai_image_prompt_cn": "连衣裙舒适体验图，女装，25-35岁女性，简约风风格，生活场景",
+        "ecommerce_design_notes": "体验真实，场景贴近目标人群"
+      },
+      {
+        "screen_number": 7,
+        "screen_title": "穿搭/使用场景",
+        "core_purpose": "展示产品使用场景",
+        "copywriting": "穿搭建议\n女装搭配指南",
+        "layout_suggestion": "多场景展示，网格布局或滑动效果",
+        "ai_image_prompt_cn": "连衣裙穿搭场景图，女装，25-35岁女性，简约风风格，多场景",
+        "ecommerce_design_notes": "场景贴近目标人群生活"
+      },
+      {
+        "screen_number": 8,
+        "screen_title": "色卡/尺码",
+        "core_purpose": "展示产品颜色和尺码选择",
+        "copywriting": "颜色选择\n尺码信息",
+        "layout_suggestion": "色卡式排列，尺码表清晰展示",
+        "ai_image_prompt_cn": "连衣裙色卡尺码图，女装，浅色系色调，清晰展示",
+        "ecommerce_design_notes": "颜色真实准确，尺码信息清晰"
+      },
+      {
+        "screen_number": 9,
+        "screen_title": "品牌/售后/信任背书",
+        "core_purpose": "建立信任，促进转化",
+        "copywriting": "品质保证\n售后无忧",
+        "layout_suggestion": "品牌Logo+售后保障+用户评价，信任背书",
+        "ai_image_prompt_cn": "女装品牌售后图，信任背书，简约风风格，浅色系色调",
+        "ecommerce_design_notes": "信任背书真实可信"
+      }
+    ],
+    "generation_method": "template",
+    "merchant_profile_id": null,
+    "keyword_library_id": null,
+    "visual_style_id": null,
+    "created_at": "2026-07-03T12:23:13.283076"
+  }
+]

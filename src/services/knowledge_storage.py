@@ -88,6 +88,12 @@ class KnowledgeStorage:
         self.api_call_records_file = self.base_path / "api_call_records.json"
         self.api_quota_records_file = self.base_path / "api_quota_records.json"
 
+        # v1.2 新增文件路径
+        self.subscription_plans_file = self.base_path / "subscription_plans.json"
+        self.customer_quota_accounts_file = self.base_path / "customer_quota_accounts.json"
+        self.feature_point_rules_file = self.base_path / "feature_point_rules.json"
+        self.usage_records_file = self.base_path / "usage_records.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -854,5 +860,163 @@ class KnowledgeStorage:
         quota_records = self.load_api_quota_records()
         for record in quota_records:
             if record.quota_id == quota_id:
+                return record
+        return None
+
+    # v1.2 新增存储方法
+
+    # 订阅套餐
+    def save_subscription_plans(self, plans):
+        """保存订阅套餐列表"""
+        plan_dicts = [p.to_dict() for p in plans]
+        self._save_json(self.subscription_plans_file, plan_dicts)
+
+    def load_subscription_plans(self):
+        """加载订阅套餐列表"""
+        data_list = self._load_json(self.subscription_plans_file)
+        if data_list:
+            # 从存储恢复套餐对象
+            plans = []
+            for plan_dict in data_list:
+                from models.subscription import SubscriptionPlan
+                plan = SubscriptionPlan(
+                    plan_id=plan_dict["plan_id"],
+                    plan_name=plan_dict["plan_name"],
+                    plan_level=plan_dict["plan_level"],
+                    monthly_price=plan_dict["monthly_price"],
+                    included_points=plan_dict["included_points"],
+                    daily_point_limit=plan_dict["daily_point_limit"],
+                    monthly_point_limit=plan_dict["monthly_point_limit"],
+                    image_generation_limit=plan_dict["image_generation_limit"],
+                    remove_bg_limit=plan_dict["remove_bg_limit"],
+                    workflow_limit=plan_dict["workflow_limit"],
+                    knowledge_base_limit=plan_dict["knowledge_base_limit"],
+                    advanced_model_enabled=plan_dict["advanced_model_enabled"],
+                    team_member_limit=plan_dict["team_member_limit"],
+                    private_deployment_enabled=plan_dict["private_deployment_enabled"],
+                    enabled=plan_dict["enabled"]
+                )
+                plans.append(plan)
+            return plans
+        else:
+            return []
+
+    def load_subscription_plan(self, plan_id: str):
+        """加载指定订阅套餐"""
+        plans = self.load_subscription_plans()
+        for plan in plans:
+            if plan.plan_id == plan_id:
+                return plan
+        return None
+
+    # 客户额度账户
+    def save_customer_quota_accounts(self, accounts):
+        """保存客户额度账户列表"""
+        account_dicts = [a.to_dict() for a in accounts]
+        self._save_json(self.customer_quota_accounts_file, account_dicts)
+
+    def load_customer_quota_accounts(self):
+        """加载客户额度账户列表"""
+        data_list = self._load_json(self.customer_quota_accounts_file)
+        if data_list:
+            # 从存储恢复账户对象
+            accounts = []
+            for account_dict in data_list:
+                from models.subscription import CustomerQuotaAccount
+                account = CustomerQuotaAccount(
+                    account_id=account_dict["account_id"],
+                    customer_id=account_dict["customer_id"],
+                    plan_id=account_dict["plan_id"],
+                    total_points=account_dict["total_points"],
+                    used_points=account_dict["used_points"],
+                    remaining_points=account_dict["remaining_points"],
+                    daily_used_points=account_dict["daily_used_points"],
+                    monthly_used_points=account_dict["monthly_used_points"],
+                    status=account_dict["status"]
+                )
+                accounts.append(account)
+            return accounts
+        else:
+            return []
+
+    def load_customer_quota_account(self, account_id: str):
+        """加载指定客户额度账户"""
+        accounts = self.load_customer_quota_accounts()
+        for account in accounts:
+            if account.account_id == account_id:
+                return account
+        return None
+
+    # 功能扣点规则
+    def save_feature_point_rules(self, rules):
+        """保存功能扣点规则列表"""
+        rule_dicts = [r.to_dict() for r in rules]
+        self._save_json(self.feature_point_rules_file, rule_dicts)
+
+    def load_feature_point_rules(self):
+        """加载功能扣点规则列表"""
+        data_list = self._load_json(self.feature_point_rules_file)
+        if data_list:
+            # 从存储恢复规则对象
+            rules = []
+            for rule_dict in data_list:
+                from models.subscription import FeaturePointRule
+                rule = FeaturePointRule(
+                    rule_id=rule_dict["rule_id"],
+                    feature_name=rule_dict["feature_name"],
+                    points_required=rule_dict["points_required"],
+                    feature_type=rule_dict["feature_type"],
+                    risk_level=rule_dict["risk_level"],
+                    enabled=rule_dict["enabled"]
+                )
+                rules.append(rule)
+            return rules
+        else:
+            return []
+
+    def load_feature_point_rule(self, rule_id: str):
+        """加载指定功能扣点规则"""
+        rules = self.load_feature_point_rules()
+        for rule in rules:
+            if rule.rule_id == rule_id:
+                return rule
+        return None
+
+    # 消费记录
+    def save_usage_records(self, usage_records):
+        """保存消费记录列表"""
+        usage_record_dicts = [u.to_dict() for u in usage_records]
+        self._save_json(self.usage_records_file, usage_record_dicts)
+
+    def load_usage_records(self):
+        """加载消费记录列表"""
+        data_list = self._load_json(self.usage_records_file)
+        if data_list:
+            # 从存储恢复消费记录对象
+            usage_records = []
+            for record_dict in data_list:
+                from models.subscription import UsageRecord
+                usage_record = UsageRecord(
+                    usage_id=record_dict["usage_id"],
+                    customer_id=record_dict["customer_id"],
+                    account_id=record_dict["account_id"],
+                    plan_id=record_dict["plan_id"],
+                    feature_name=record_dict["feature_name"],
+                    points_used=record_dict["points_used"],
+                    status=record_dict["status"],
+                    blocked_reason=record_dict["blocked_reason"],
+                    before_remaining_points=record_dict["before_remaining_points"],
+                    after_remaining_points=record_dict["after_remaining_points"]
+                )
+                usage_records.append(usage_record)
+            return usage_records
+        else:
+            return []
+
+    def load_usage_record(self, usage_id: str):
+        """加载指定消费记录"""
+        usage_records = self.load_usage_records()
+        for record in usage_records:
+            if record.usage_id == usage_id:
                 return record
         return None

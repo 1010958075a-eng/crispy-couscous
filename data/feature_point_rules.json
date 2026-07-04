@@ -1,0 +1,112 @@
+[
+  {
+    "rule_id": "rule_title_generation",
+    "feature_name": "title_generation",
+    "points_required": 1,
+    "feature_type": "text_generation",
+    "risk_level": "low",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916395",
+    "updated_at": "2026-07-04T20:57:48.916395"
+  },
+  {
+    "rule_id": "rule_keyword_generation",
+    "feature_name": "keyword_generation",
+    "points_required": 1,
+    "feature_type": "text_generation",
+    "risk_level": "low",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916396",
+    "updated_at": "2026-07-04T20:57:48.916396"
+  },
+  {
+    "rule_id": "rule_xiaohongshu_generation",
+    "feature_name": "xiaohongshu_generation",
+    "points_required": 3,
+    "feature_type": "text_generation",
+    "risk_level": "low",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916397",
+    "updated_at": "2026-07-04T20:57:48.916397"
+  },
+  {
+    "rule_id": "rule_video_script_generation",
+    "feature_name": "video_script_generation",
+    "points_required": 5,
+    "feature_type": "text_generation",
+    "risk_level": "medium",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916398",
+    "updated_at": "2026-07-04T20:57:48.916398"
+  },
+  {
+    "rule_id": "rule_detail_page_generation",
+    "feature_name": "detail_page_generation",
+    "points_required": 10,
+    "feature_type": "text_generation",
+    "risk_level": "medium",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916399",
+    "updated_at": "2026-07-04T20:57:48.916399"
+  },
+  {
+    "rule_id": "rule_workflow_execution",
+    "feature_name": "workflow_execution",
+    "points_required": 5,
+    "feature_type": "workflow_execution",
+    "risk_level": "medium",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916400",
+    "updated_at": "2026-07-04T20:57:48.916400"
+  },
+  {
+    "rule_id": "rule_remove_bg",
+    "feature_name": "remove_bg",
+    "points_required": 10,
+    "feature_type": "image_generation",
+    "risk_level": "low",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916401",
+    "updated_at": "2026-07-04T20:57:48.916402"
+  },
+  {
+    "rule_id": "rule_image_generation",
+    "feature_name": "image_generation",
+    "points_required": 20,
+    "feature_type": "image_generation",
+    "risk_level": "low",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916402",
+    "updated_at": "2026-07-04T20:57:48.916403"
+  },
+  {
+    "rule_id": "rule_hd_image_generation",
+    "feature_name": "hd_image_generation",
+    "points_required": 50,
+    "feature_type": "image_generation",
+    "risk_level": "medium",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916403",
+    "updated_at": "2026-07-04T20:57:48.916404"
+  },
+  {
+    "rule_id": "rule_advanced_analysis",
+    "feature_name": "advanced_analysis",
+    "points_required": 20,
+    "feature_type": "advanced_analysis",
+    "risk_level": "medium",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916404",
+    "updated_at": "2026-07-04T20:57:48.916405"
+  },
+  {
+    "rule_id": "rule_provider_mock_call",
+    "feature_name": "provider_mock_call",
+    "points_required": 1,
+    "feature_type": "provider_mock_call",
+    "risk_level": "low",
+    "enabled": true,
+    "created_at": "2026-07-04T20:57:48.916405",
+    "updated_at": "2026-07-04T20:57:48.916406"
+  }
+]

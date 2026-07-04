@@ -27,8 +27,9 @@ from models import Tool, ToolPlan, ExecutionStep, ToolType, ToolCategory, PlanSt
 from models import Workflow, WorkflowStep, WorkflowStatus, StepStatus, StepType
 from models import Log, LogType, LogLevel, LogStatus
 from models import ApiProvider, ApiCallRecord, ApiQuotaRecord, ProviderType, CostLevel, RiskLevel, CallStatus
+from models import SubscriptionPlan, CustomerQuotaAccount, FeaturePointRule, UsageRecord, PlanLevel, AccountStatus, UsageStatus
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService, ApiProviderService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService, ApiProviderService, SubscriptionService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -68,6 +69,7 @@ tool_service = ToolService(knowledge_storage)
 log_service = LogService(knowledge_storage)
 workflow_service = WorkflowService(knowledge_storage, task_service, tool_service, log_service)
 api_provider_service = ApiProviderService(knowledge_storage)
+subscription_service = SubscriptionService(knowledge_storage)
 
 
 # Pydantic模型
@@ -1716,6 +1718,233 @@ async def set_provider_quota(provider_id: str, request: ProviderQuotaRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"设置额度失败: {e}")
+
+
+# ============ 套餐额度中心API (v1.2) ============
+
+# Pydantic模型
+class PlanCreateRequest(BaseModel):
+    plan_name: str
+    plan_level: str
+    monthly_price: float
+    included_points: int
+    daily_point_limit: int
+    monthly_point_limit: int
+    image_generation_limit: int
+    remove_bg_limit: int
+    workflow_limit: int
+    knowledge_base_limit: int
+    advanced_model_enabled: bool
+    team_member_limit: int
+    private_deployment_enabled: bool
+
+
+class AccountCreateRequest(BaseModel):
+    customer_id: str
+    plan_id: str
+
+
+class RuleCreateRequest(BaseModel):
+    feature_name: str
+    points_required: int
+    feature_type: str
+    risk_level: str
+
+
+class PointsCheckRequest(BaseModel):
+    customer_id: str
+    feature_name: str
+    points_required: int
+
+
+class MockConsumeRequest(BaseModel):
+    customer_id: str
+    feature_name: str
+
+
+# 获取所有套餐API
+@app.get("/api/subscriptions/plans")
+async def get_subscription_plans():
+    """读取所有订阅套餐"""
+    try:
+        plans = subscription_service.get_plans()
+        return plans
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取套餐列表失败: {e}")
+
+
+# 获取指定套餐API
+@app.get("/api/subscriptions/plans/{plan_id}")
+async def get_subscription_plan(plan_id: str):
+    """读取指定订阅套餐"""
+    try:
+        plan = subscription_service.get_plan(plan_id)
+        if plan:
+            return plan
+        else:
+            raise HTTPException(status_code=404, detail="套餐不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取套餐失败: {e}")
+
+
+# 创建套餐API
+@app.post("/api/subscriptions/plans/create")
+async def create_subscription_plan(request: PlanCreateRequest):
+    """创建订阅套餐"""
+    try:
+        plan = subscription_service.create_plan(
+            plan_name=request.plan_name,
+            plan_level=request.plan_level,
+            monthly_price=request.monthly_price,
+            included_points=request.included_points,
+            daily_point_limit=request.daily_point_limit,
+            monthly_point_limit=request.monthly_point_limit,
+            image_generation_limit=request.image_generation_limit,
+            remove_bg_limit=request.remove_bg_limit,
+            workflow_limit=request.workflow_limit,
+            knowledge_base_limit=request.knowledge_base_limit,
+            advanced_model_enabled=request.advanced_model_enabled,
+            team_member_limit=request.team_member_limit,
+            private_deployment_enabled=request.private_deployment_enabled
+        )
+        return plan
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建套餐失败: {e}")
+
+
+# 创建客户额度账户API
+@app.post("/api/subscriptions/accounts/create")
+async def create_customer_account(request: AccountCreateRequest):
+    """创建客户额度账户"""
+    try:
+        account = subscription_service.create_customer_account(
+            customer_id=request.customer_id,
+            plan_id=request.plan_id
+        )
+        return account
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建账户失败: {e}")
+
+
+# 获取指定账户API
+@app.get("/api/subscriptions/accounts/{account_id}")
+async def get_subscription_account(account_id: str):
+    """读取指定客户额度账户"""
+    try:
+        account = subscription_service.get_account(account_id)
+        if account:
+            return account
+        else:
+            raise HTTPException(status_code=404, detail="账户不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取账户失败: {e}")
+
+
+# 按客户ID获取账户API
+@app.get("/api/subscriptions/accounts/customer/{customer_id}")
+async def get_account_by_customer(customer_id: str):
+    """按客户ID读取账户"""
+    try:
+        account = subscription_service.get_account_by_customer(customer_id)
+        if account:
+            return account
+        else:
+            raise HTTPException(status_code=404, detail="账户不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取账户失败: {e}")
+
+
+# 获取扣点规则API
+@app.get("/api/subscriptions/rules")
+async def get_feature_rules():
+    """读取所有扣点规则"""
+    try:
+        rules = subscription_service.get_feature_rules()
+        return rules
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取扣点规则失败: {e}")
+
+
+# 创建扣点规则API
+@app.post("/api/subscriptions/rules/create")
+async def create_feature_rule(request: RuleCreateRequest):
+    """创建扣点规则"""
+    try:
+        rule = subscription_service.create_feature_rule(
+            feature_name=request.feature_name,
+            points_required=request.points_required,
+            feature_type=request.feature_type,
+            risk_level=request.risk_level
+        )
+        return rule
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建扣点规则失败: {e}")
+
+
+# 检查点数API
+@app.post("/api/subscriptions/check")
+async def check_points(request: PointsCheckRequest):
+    """检查点数是否足够"""
+    try:
+        result = subscription_service.check_points(
+            customer_id=request.customer_id,
+            feature_name=request.feature_name,
+            points_required=request.points_required
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"检查点数失败: {e}")
+
+
+# 模拟扣点API
+@app.post("/api/subscriptions/mock-consume")
+async def mock_consume(request: MockConsumeRequest):
+    """模拟扣点（不真实扣款）"""
+    try:
+        result = subscription_service.mock_consume(
+            customer_id=request.customer_id,
+            feature_name=request.feature_name
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"模拟扣点失败: {e}")
+
+
+# 获取消费记录API
+@app.get("/api/subscriptions/usage")
+async def get_usage_records():
+    """读取消费记录"""
+    try:
+        usage_records = subscription_service.get_usage_records()
+        return usage_records
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取消费记录失败: {e}")
+
+
+# 获取指定消费记录API
+@app.get("/api/subscriptions/usage/{usage_id}")
+async def get_usage_record(usage_id: str):
+    """读取指定消费记录"""
+    try:
+        usage_record = subscription_service.get_usage_record(usage_id)
+        if usage_record:
+            return usage_record
+        else:
+            raise HTTPException(status_code=404, detail="消费记录不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取消费记录失败: {e}")
 
 
 if __name__ == "__main__":

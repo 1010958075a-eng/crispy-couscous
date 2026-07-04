@@ -89,6 +89,19 @@ from .api_provider import (
     HIGH_RISK_KEYWORDS,
     HIGH_RISK_PROVIDER_TYPES
 )
+from .subscription import (
+    SubscriptionPlan,
+    CustomerQuotaAccount,
+    FeaturePointRule,
+    UsageRecord,
+    PlanLevel,
+    AccountStatus,
+    UsageStatus,
+    FeatureType,
+    BUILTIN_PLANS,
+    BUILTIN_FEATURE_RULES,
+    HIGH_RISK_FEATURES
+)
 
 __all__ = [
     # Product models
@@ -173,5 +186,17 @@ __all__ = [
     "CallStatus",
     "BUILTIN_PROVIDERS",
     "HIGH_RISK_KEYWORDS",
-    "HIGH_RISK_PROVIDER_TYPES"
+    "HIGH_RISK_PROVIDER_TYPES",
+    # Subscription models (v1.2)
+    "SubscriptionPlan",
+    "CustomerQuotaAccount",
+    "FeaturePointRule",
+    "UsageRecord",
+    "PlanLevel",
+    "AccountStatus",
+    "UsageStatus",
+    "FeatureType",
+    "BUILTIN_PLANS",
+    "BUILTIN_FEATURE_RULES",
+    "HIGH_RISK_FEATURES"
 ]

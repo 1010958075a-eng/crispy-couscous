@@ -1,0 +1,24 @@
+[
+  {
+    "quota_id": "7854bb73-2a7a-45e2-a64b-c5694df9fcc7",
+    "provider_id": "4eeac2be-f281-4589-b27c-3deb799e4fbd",
+    "daily_limit": 200,
+    "monthly_limit": 6000,
+    "used_today": 10,
+    "used_this_month": 10,
+    "remaining_today": 190,
+    "remaining_this_month": 5990,
+    "updated_at": "2026-07-04T18:57:15.126796"
+  },
+  {
+    "quota_id": "2d8d89e5-c07c-45eb-9891-e6b45a161e0b",
+    "provider_id": "openai_text",
+    "daily_limit": 1000,
+    "monthly_limit": 30000,
+    "used_today": 20,
+    "used_this_month": 20,
+    "remaining_today": 980,
+    "remaining_this_month": 29980,
+    "updated_at": "2026-07-04T18:57:15.126801"
+  }
+]

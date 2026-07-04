@@ -19,6 +19,7 @@ from .acceptance_service import AcceptanceService
 from .tool_service import ToolService
 from .workflow_service import WorkflowService
 from .log_service import LogService
+from .api_provider_service import ApiProviderService
 
 __all__ = [
     "ProductService",
@@ -37,5 +38,6 @@ __all__ = [
     "AcceptanceService",
     "ToolService",
     "WorkflowService",
-    "LogService"
+    "LogService",
+    "ApiProviderService"
 ]

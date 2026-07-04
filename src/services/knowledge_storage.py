@@ -83,6 +83,11 @@ class KnowledgeStorage:
         # v0.9 新增文件路径
         self.log_records_file = self.base_path / "log_records.json"
 
+        # v1.1 新增文件路径
+        self.api_providers_file = self.base_path / "api_providers.json"
+        self.api_call_records_file = self.base_path / "api_call_records.json"
+        self.api_quota_records_file = self.base_path / "api_quota_records.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -727,4 +732,127 @@ class KnowledgeStorage:
         for data in data_list:
             if data.get("log_id") == log_id:
                 return data
+        return None
+
+    # v1.1 新增存储方法
+
+    # API供应商
+    def save_api_providers(self, providers):
+        """保存API供应商列表"""
+        provider_dicts = [p.to_dict() for p in providers]
+        self._save_json(self.api_providers_file, provider_dicts)
+
+    def load_api_providers(self):
+        """加载API供应商列表"""
+        data_list = self._load_json(self.api_providers_file)
+        if data_list:
+            # 从存储恢复供应商对象
+            providers = []
+            for provider_dict in data_list:
+                from models.api_provider import ApiProvider
+                provider = ApiProvider(
+                    provider_id=provider_dict["provider_id"],
+                    provider_name=provider_dict["provider_name"],
+                    provider_type=provider_dict["provider_type"],
+                    model_name=provider_dict["model_name"],
+                    api_base_url=provider_dict["api_base_url"],
+                    api_key_placeholder=provider_dict["api_key_placeholder"],
+                    cost_level=provider_dict["cost_level"],
+                    risk_level=provider_dict["risk_level"],
+                    enabled=provider_dict["enabled"],
+                    daily_limit=provider_dict["daily_limit"],
+                    monthly_limit=provider_dict["monthly_limit"],
+                    used_today=provider_dict["used_today"],
+                    used_this_month=provider_dict["used_this_month"],
+                    unit_cost_estimate=provider_dict["unit_cost_estimate"],
+                    supported_features=provider_dict["supported_features"],
+                    fallback_provider_id=provider_dict["fallback_provider_id"]
+                )
+                providers.append(provider)
+            return providers
+        else:
+            return []
+
+    def load_api_provider(self, provider_id: str):
+        """加载指定API供应商"""
+        providers = self.load_api_providers()
+        for provider in providers:
+            if provider.provider_id == provider_id:
+                return provider
+        return None
+
+    # API调用记录
+    def save_api_call_records(self, call_records):
+        """保存API调用记录列表"""
+        call_record_dicts = [c.to_dict() for c in call_records]
+        self._save_json(self.api_call_records_file, call_record_dicts)
+
+    def load_api_call_records(self):
+        """加载API调用记录列表"""
+        data_list = self._load_json(self.api_call_records_file)
+        if data_list:
+            # 从存储恢复调用记录对象
+            call_records = []
+            for record_dict in data_list:
+                from models.api_provider import ApiCallRecord
+                call_record = ApiCallRecord(
+                    call_id=record_dict["call_id"],
+                    provider_id=record_dict["provider_id"],
+                    provider_name=record_dict["provider_name"],
+                    provider_type=record_dict["provider_type"],
+                    feature_name=record_dict["feature_name"],
+                    request_summary=record_dict["request_summary"],
+                    estimated_units=record_dict["estimated_units"],
+                    estimated_cost=record_dict["estimated_cost"],
+                    status=record_dict["status"],
+                    blocked_reason=record_dict["blocked_reason"]
+                )
+                call_records.append(call_record)
+            return call_records
+        else:
+            return []
+
+    def load_api_call_record(self, call_id: str):
+        """加载指定API调用记录"""
+        call_records = self.load_api_call_records()
+        for record in call_records:
+            if record.call_id == call_id:
+                return record
+        return None
+
+    # API额度记录
+    def save_api_quota_records(self, quota_records):
+        """保存API额度记录列表"""
+        quota_record_dicts = [q.to_dict() for q in quota_records]
+        self._save_json(self.api_quota_records_file, quota_record_dicts)
+
+    def load_api_quota_records(self):
+        """加载API额度记录列表"""
+        data_list = self._load_json(self.api_quota_records_file)
+        if data_list:
+            # 从存储恢复额度记录对象
+            quota_records = []
+            for record_dict in data_list:
+                from models.api_provider import ApiQuotaRecord
+                quota_record = ApiQuotaRecord(
+                    quota_id=record_dict["quota_id"],
+                    provider_id=record_dict["provider_id"],
+                    daily_limit=record_dict["daily_limit"],
+                    monthly_limit=record_dict["monthly_limit"],
+                    used_today=record_dict["used_today"],
+                    used_this_month=record_dict["used_this_month"],
+                    remaining_today=record_dict["remaining_today"],
+                    remaining_this_month=record_dict["remaining_this_month"]
+                )
+                quota_records.append(quota_record)
+            return quota_records
+        else:
+            return []
+
+    def load_api_quota_record(self, quota_id: str):
+        """加载指定API额度记录"""
+        quota_records = self.load_api_quota_records()
+        for record in quota_records:
+            if record.quota_id == quota_id:
+                return record
         return None

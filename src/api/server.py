@@ -26,8 +26,9 @@ from models import AcceptanceReport, AcceptanceIssue, AcceptanceStatus, TargetTy
 from models import Tool, ToolPlan, ExecutionStep, ToolType, ToolCategory, PlanStatus
 from models import Workflow, WorkflowStep, WorkflowStatus, StepStatus, StepType
 from models import Log, LogType, LogLevel, LogStatus
+from models import ApiProvider, ApiCallRecord, ApiQuotaRecord, ProviderType, CostLevel, RiskLevel, CallStatus
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService, ApiProviderService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -66,6 +67,7 @@ acceptance_service = AcceptanceService(knowledge_storage)
 tool_service = ToolService(knowledge_storage)
 log_service = LogService(knowledge_storage)
 workflow_service = WorkflowService(knowledge_storage, task_service, tool_service, log_service)
+api_provider_service = ApiProviderService(knowledge_storage)
 
 
 # Pydantic模型
@@ -1496,6 +1498,224 @@ async def get_logs_by_type(log_type: str):
         return logs
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"按类型获取日志失败: {e}")
+
+
+# ============ API供应商中心API (v1.1) ============
+
+# Pydantic模型
+class ProviderCreateRequest(BaseModel):
+    provider_name: str
+    provider_type: str
+    model_name: Optional[str] = None
+    api_base_url: Optional[str] = None
+    api_key_placeholder: Optional[str] = None
+    cost_level: str
+    risk_level: str
+    daily_limit: int
+    monthly_limit: int
+    unit_cost_estimate: float
+    supported_features: List[str]
+    fallback_provider_id: Optional[str] = None
+
+
+class ProviderQuotaRequest(BaseModel):
+    daily_limit: int
+    monthly_limit: int
+
+
+class ProviderEstimateCostRequest(BaseModel):
+    provider_id: str
+    feature_name: str
+    estimated_units: int
+
+
+class ProviderCheckQuotaRequest(BaseModel):
+    provider_id: str
+    estimated_units: int
+
+
+class ProviderMockCallRequest(BaseModel):
+    provider_id: str
+    feature_name: str
+    request_summary: str
+    estimated_units: int
+
+
+# 获取所有供应商API
+@app.get("/api/providers")
+async def get_providers():
+    """读取所有API供应商"""
+    try:
+        providers = api_provider_service.get_providers()
+        return providers
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取供应商列表失败: {e}")
+
+
+# 获取调用记录API
+@app.get("/api/providers/calls")
+async def get_call_records():
+    """读取调用记录"""
+    try:
+        call_records = api_provider_service.get_call_records()
+        return call_records
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取调用记录失败: {e}")
+
+
+# 获取指定调用记录API
+@app.get("/api/providers/calls/{call_id}")
+async def get_call_record(call_id: str):
+    """读取指定调用记录"""
+    try:
+        call_record = api_provider_service.get_call_record(call_id)
+        if call_record:
+            return call_record
+        else:
+            raise HTTPException(status_code=404, detail="调用记录不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取调用记录失败: {e}")
+
+
+# 创建供应商API
+@app.post("/api/providers/create")
+async def create_provider(request: ProviderCreateRequest):
+    """创建供应商配置"""
+    try:
+        provider = api_provider_service.create_provider(
+            provider_name=request.provider_name,
+            provider_type=request.provider_type,
+            model_name=request.model_name,
+            api_base_url=request.api_base_url,
+            api_key_placeholder=request.api_key_placeholder,
+            cost_level=request.cost_level,
+            risk_level=request.risk_level,
+            daily_limit=request.daily_limit,
+            monthly_limit=request.monthly_limit,
+            unit_cost_estimate=request.unit_cost_estimate,
+            supported_features=request.supported_features,
+            fallback_provider_id=request.fallback_provider_id
+        )
+        return provider
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建供应商失败: {e}")
+
+
+# 估算成本API
+@app.post("/api/providers/estimate-cost")
+async def estimate_cost(request: ProviderEstimateCostRequest):
+    """估算调用成本"""
+    try:
+        result = api_provider_service.estimate_cost(
+            provider_id=request.provider_id,
+            feature_name=request.feature_name,
+            estimated_units=request.estimated_units
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"估算成本失败: {e}")
+
+
+# 检查额度API
+@app.post("/api/providers/check-quota")
+async def check_quota(request: ProviderCheckQuotaRequest):
+    """检查某个调用是否超出额度"""
+    try:
+        result = api_provider_service.check_quota(
+            provider_id=request.provider_id,
+            estimated_units=request.estimated_units
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"检查额度失败: {e}")
+
+
+# 模拟调用API
+@app.post("/api/providers/mock-call")
+async def mock_call(request: ProviderMockCallRequest):
+    """模拟一次API调用（不真实调用外部API）"""
+    try:
+        result = api_provider_service.mock_call(
+            provider_id=request.provider_id,
+            feature_name=request.feature_name,
+            request_summary=request.request_summary,
+            estimated_units=request.estimated_units
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"模拟调用失败: {e}")
+
+
+# 获取指定供应商API
+@app.get("/api/providers/{provider_id}")
+async def get_provider(provider_id: str):
+    """读取指定供应商"""
+    try:
+        provider = api_provider_service.get_provider(provider_id)
+        if provider:
+            return provider
+        else:
+            raise HTTPException(status_code=404, detail="供应商不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取供应商失败: {e}")
+
+
+# 启用供应商API
+@app.post("/api/providers/{provider_id}/enable")
+async def enable_provider(provider_id: str):
+    """启用供应商"""
+    try:
+        provider = api_provider_service.enable_provider(provider_id)
+        if provider:
+            return provider
+        else:
+            raise HTTPException(status_code=404, detail="供应商不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"启用供应商失败: {e}")
+
+
+# 禁用供应商API
+@app.post("/api/providers/{provider_id}/disable")
+async def disable_provider(provider_id: str):
+    """禁用供应商"""
+    try:
+        provider = api_provider_service.disable_provider(provider_id)
+        if provider:
+            return provider
+        else:
+            raise HTTPException(status_code=404, detail="供应商不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"禁用供应商失败: {e}")
+
+
+# 设置额度API
+@app.post("/api/providers/{provider_id}/quota")
+async def set_provider_quota(provider_id: str, request: ProviderQuotaRequest):
+    """设置每日/月度额度"""
+    try:
+        provider = api_provider_service.set_quota(
+            provider_id=provider_id,
+            daily_limit=request.daily_limit,
+            monthly_limit=request.monthly_limit
+        )
+        if provider:
+            return provider
+        else:
+            raise HTTPException(status_code=404, detail="供应商不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"设置额度失败: {e}")
 
 
 if __name__ == "__main__":

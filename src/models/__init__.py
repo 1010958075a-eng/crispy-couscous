@@ -77,6 +77,18 @@ from .log import (
     LogLevel,
     LogStatus
 )
+from .api_provider import (
+    ApiProvider,
+    ApiCallRecord,
+    ApiQuotaRecord,
+    ProviderType,
+    CostLevel,
+    RiskLevel,
+    CallStatus,
+    BUILTIN_PROVIDERS,
+    HIGH_RISK_KEYWORDS,
+    HIGH_RISK_PROVIDER_TYPES
+)
 
 __all__ = [
     # Product models
@@ -150,5 +162,16 @@ __all__ = [
     "Log",
     "LogType",
     "LogLevel",
-    "LogStatus"
+    "LogStatus",
+    # API Provider models (v1.1)
+    "ApiProvider",
+    "ApiCallRecord",
+    "ApiQuotaRecord",
+    "ProviderType",
+    "CostLevel",
+    "RiskLevel",
+    "CallStatus",
+    "BUILTIN_PROVIDERS",
+    "HIGH_RISK_KEYWORDS",
+    "HIGH_RISK_PROVIDER_TYPES"
 ]

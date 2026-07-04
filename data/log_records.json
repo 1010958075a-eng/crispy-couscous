@@ -99,5 +99,35 @@
       "workflow_status": "blocked"
     },
     "created_at": "2026-07-04T17:20:27.152703"
+  },
+  {
+    "log_id": "ce1dc68e-19c8-41bb-8247-d19d1ab5729c",
+    "log_type": "workflow",
+    "source_module": "workflow_service",
+    "source_id": "1f2086c0-eed2-4f7b-b53b-663945b4bc2d",
+    "action": "create_workflow",
+    "status": "success",
+    "risk_level": "low",
+    "message": "创建工作流: 生成一个标题",
+    "details": {
+      "workflow_id": "1f2086c0-eed2-4f7b-b53b-663945b4bc2d",
+      "workflow_status": "pending"
+    },
+    "created_at": "2026-07-04T17:33:53.516918"
+  },
+  {
+    "log_id": "4fe3a0d9-9091-426f-bd1b-b2eb9bc640f3",
+    "log_type": "workflow",
+    "source_module": "workflow_service",
+    "source_id": "45699ced-037f-40c6-ab3b-064d8a36bbbf",
+    "action": "create_workflow",
+    "status": "success",
+    "risk_level": "high",
+    "message": "创建工作流: 自动登录淘宝并自动上架",
+    "details": {
+      "workflow_id": "45699ced-037f-40c6-ab3b-064d8a36bbbf",
+      "workflow_status": "blocked"
+    },
+    "created_at": "2026-07-04T17:34:04.807128"
   }
 ]

@@ -1,0 +1,103 @@
+[
+  {
+    "log_id": "2c265bb6-76a6-4501-b32e-8997a049932c",
+    "log_type": "system",
+    "source_module": "test",
+    "source_id": null,
+    "action": "test_log",
+    "status": "success",
+    "risk_level": null,
+    "message": "Test log entry",
+    "details": null,
+    "created_at": "2026-07-04T17:14:46.938555"
+  },
+  {
+    "log_id": "0e563271-eb4b-4e26-a73a-6009c741d188",
+    "log_type": "workflow",
+    "source_module": "workflow_service",
+    "source_id": "75926193-55b9-4ed6-9e49-b6065de8017b",
+    "action": "create_workflow",
+    "status": "success",
+    "risk_level": "low",
+    "message": "创建工作流: 生成一个标题",
+    "details": {
+      "workflow_id": "75926193-55b9-4ed6-9e49-b6065de8017b",
+      "workflow_status": "pending"
+    },
+    "created_at": "2026-07-04T17:15:04.020411"
+  },
+  {
+    "log_id": "5650e465-4ac5-434d-a9a2-393f4127c23f",
+    "log_type": "workflow",
+    "source_module": "workflow_service",
+    "source_id": "be1fadaa-c08a-4178-a511-acc40290c76b",
+    "action": "create_workflow",
+    "status": "success",
+    "risk_level": "high",
+    "message": "创建工作流: 自动登录淘宝并自动上架",
+    "details": {
+      "workflow_id": "be1fadaa-c08a-4178-a511-acc40290c76b",
+      "workflow_status": "blocked"
+    },
+    "created_at": "2026-07-04T17:15:13.711320"
+  },
+  {
+    "log_id": "17387013-664b-4ef2-a5cc-c105846cc379",
+    "log_type": "risk",
+    "source_module": "workflow_service",
+    "source_id": "be1fadaa-c08a-4178-a511-acc40290c76b",
+    "action": "manual_confirmation",
+    "status": "success",
+    "risk_level": "high",
+    "message": "人工确认高风险工作流: admin",
+    "details": {
+      "workflow_id": "be1fadaa-c08a-4178-a511-acc40290c76b",
+      "confirmed_by": "admin"
+    },
+    "created_at": "2026-07-04T17:15:25.314205"
+  },
+  {
+    "log_id": "634bf3ab-3d23-49a6-bc53-501dd416b520",
+    "log_type": "system",
+    "source_module": "v0.9_log_center_test",
+    "source_id": "LOG-TEST-001",
+    "action": "create_log",
+    "status": "success",
+    "risk_level": "low",
+    "message": "日志中心验收测试",
+    "details": {
+      "case": "log_center"
+    },
+    "created_at": "2026-07-04T17:20:27.127974"
+  },
+  {
+    "log_id": "df206633-e20c-4411-8276-e4a21e6ad05d",
+    "log_type": "workflow",
+    "source_module": "workflow_service",
+    "source_id": "8b4b0e0a-9ef3-4db3-9425-d8f8db256d34",
+    "action": "create_workflow",
+    "status": "success",
+    "risk_level": "low",
+    "message": "创建工作流: 给无痕薄杯文胸生成标题和关键词",
+    "details": {
+      "workflow_id": "8b4b0e0a-9ef3-4db3-9425-d8f8db256d34",
+      "workflow_status": "pending"
+    },
+    "created_at": "2026-07-04T17:20:27.150094"
+  },
+  {
+    "log_id": "15f69b7d-1d6d-4b03-a854-10392b166740",
+    "log_type": "workflow",
+    "source_module": "workflow_service",
+    "source_id": "82da3b0d-33c4-4d80-add3-8c71598992c2",
+    "action": "create_workflow",
+    "status": "success",
+    "risk_level": "high",
+    "message": "创建工作流: 自动登录淘宝并自动上架、自动改价、自动开车投放、自动扣费",
+    "details": {
+      "workflow_id": "82da3b0d-33c4-4d80-add3-8c71598992c2",
+      "workflow_status": "blocked"
+    },
+    "created_at": "2026-07-04T17:20:27.152703"
+  }
+]

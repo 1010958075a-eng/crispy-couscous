@@ -315,5 +315,410 @@
     "confirmed_at": null,
     "created_at": "2026-07-04T16:41:53.832183",
     "updated_at": "2026-07-04T16:41:53.832183"
+  },
+  {
+    "workflow_id": "75926193-55b9-4ed6-9e49-b6065de8017b",
+    "original_request": "生成一个标题",
+    "task_id": "ad74879c-91d9-483f-83bf-b06dd856c884",
+    "workflow_status": "pending",
+    "risk_level": "low",
+    "human_confirmation_required": false,
+    "blocked_actions": [],
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "创建任务",
+        "step_type": "task_creation",
+        "description": "在任务中心创建任务记录",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:04.019459",
+        "completed_at": "2026-07-04T17:15:04.019459",
+        "result": {
+          "task_id": "ad74879c-91d9-483f-83bf-b06dd856c884"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "推荐工具",
+        "step_type": "tool_recommendation",
+        "description": "根据任务需求推荐工具",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:04.019465",
+        "completed_at": "2026-07-04T17:15:04.019465",
+        "result": {
+          "recommended_tools": [
+            "title_generator"
+          ]
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "生成工具计划",
+        "step_type": "tool_plan_generation",
+        "description": "生成工具调用计划",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:04.019468",
+        "completed_at": "2026-07-04T17:15:04.019468",
+        "result": {
+          "tool_plan_id": "b95ab288-4f4c-45e5-bd1b-a9cf46fcfe3a"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 4,
+        "step_name": "内容生成",
+        "step_type": "content_generation",
+        "description": "生成内容（占位，本阶段不执行）",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "本阶段为占位，不实际执行内容生成"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 5,
+        "step_name": "验收检查",
+        "step_type": "acceptance_check",
+        "description": "检查生成内容完整性",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待执行"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 6,
+        "step_name": "完成归档",
+        "step_type": "archive",
+        "description": "工作流完成归档",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待完成"
+        },
+        "error_message": null
+      }
+    ],
+    "current_step_number": 1,
+    "confirmed_by": null,
+    "confirmed_at": null,
+    "created_at": "2026-07-04T17:15:04.019492",
+    "updated_at": "2026-07-04T17:15:04.019493"
+  },
+  {
+    "workflow_id": "be1fadaa-c08a-4178-a511-acc40290c76b",
+    "original_request": "自动登录淘宝并自动上架",
+    "task_id": "dbca9bda-88e7-4398-bbd3-5438d1095576",
+    "workflow_status": "running",
+    "risk_level": "high",
+    "human_confirmation_required": true,
+    "blocked_actions": [
+      "自动上架",
+      "自动登录"
+    ],
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "创建任务",
+        "step_type": "task_creation",
+        "description": "在任务中心创建任务记录",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:13.710486",
+        "completed_at": "2026-07-04T17:15:13.710486",
+        "result": {
+          "task_id": "dbca9bda-88e7-4398-bbd3-5438d1095576"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "推荐工具",
+        "step_type": "tool_recommendation",
+        "description": "根据任务需求推荐工具",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:13.710493",
+        "completed_at": "2026-07-04T17:15:13.710494",
+        "result": {
+          "recommended_tools": [
+            "listing_package_generator"
+          ]
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "生成工具计划",
+        "step_type": "tool_plan_generation",
+        "description": "生成工具调用计划",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:13.710496",
+        "completed_at": "2026-07-04T17:15:13.710496",
+        "result": {
+          "tool_plan_id": "6f2d25e7-b0fb-4924-a108-73c62a4c6444"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 4,
+        "step_name": "风险检查",
+        "step_type": "risk_check",
+        "description": "检查高风险动作",
+        "status": "completed",
+        "started_at": "2026-07-04T17:15:13.710498",
+        "completed_at": "2026-07-04T17:15:13.710498",
+        "result": {
+          "blocked_actions": [
+            "自动上架",
+            "自动登录"
+          ]
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 5,
+        "step_name": "人工确认",
+        "step_type": "manual_confirmation",
+        "description": "高风险动作需要人工确认",
+        "status": "completed",
+        "started_at": null,
+        "completed_at": "2026-07-04T17:15:25.313475",
+        "result": {
+          "confirmed_by": "admin"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 6,
+        "step_name": "完成归档",
+        "step_type": "archive",
+        "description": "工作流完成归档",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待完成"
+        },
+        "error_message": null
+      }
+    ],
+    "current_step_number": 1,
+    "confirmed_by": "admin",
+    "confirmed_at": "2026-07-04T17:15:25.313434",
+    "created_at": "2026-07-04T17:15:13.710522",
+    "updated_at": "2026-07-04T17:15:25.313458"
+  },
+  {
+    "workflow_id": "8b4b0e0a-9ef3-4db3-9425-d8f8db256d34",
+    "original_request": "给无痕薄杯文胸生成标题和关键词",
+    "task_id": "cd8d48fc-19b8-45df-82f4-1b32279594e0",
+    "workflow_status": "pending",
+    "risk_level": "low",
+    "human_confirmation_required": false,
+    "blocked_actions": [],
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "创建任务",
+        "step_type": "task_creation",
+        "description": "在任务中心创建任务记录",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.149216",
+        "completed_at": "2026-07-04T17:20:27.149216",
+        "result": {
+          "task_id": "cd8d48fc-19b8-45df-82f4-1b32279594e0"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "推荐工具",
+        "step_type": "tool_recommendation",
+        "description": "根据任务需求推荐工具",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.149227",
+        "completed_at": "2026-07-04T17:20:27.149227",
+        "result": {
+          "recommended_tools": [
+            "title_generator",
+            "keyword_generator"
+          ]
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "生成工具计划",
+        "step_type": "tool_plan_generation",
+        "description": "生成工具调用计划",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.149229",
+        "completed_at": "2026-07-04T17:20:27.149230",
+        "result": {
+          "tool_plan_id": "8b875fbe-fe8c-4cb0-ae83-c53436edf3ee"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 4,
+        "step_name": "内容生成",
+        "step_type": "content_generation",
+        "description": "生成内容（占位，本阶段不执行）",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "本阶段为占位，不实际执行内容生成"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 5,
+        "step_name": "验收检查",
+        "step_type": "acceptance_check",
+        "description": "检查生成内容完整性",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待执行"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 6,
+        "step_name": "完成归档",
+        "step_type": "archive",
+        "description": "工作流完成归档",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待完成"
+        },
+        "error_message": null
+      }
+    ],
+    "current_step_number": 1,
+    "confirmed_by": null,
+    "confirmed_at": null,
+    "created_at": "2026-07-04T17:20:27.149244",
+    "updated_at": "2026-07-04T17:20:27.149245"
+  },
+  {
+    "workflow_id": "82da3b0d-33c4-4d80-add3-8c71598992c2",
+    "original_request": "自动登录淘宝并自动上架、自动改价、自动开车投放、自动扣费",
+    "task_id": "8f2327af-04b9-464e-aa2e-1e7c13ebcfee",
+    "workflow_status": "blocked",
+    "risk_level": "high",
+    "human_confirmation_required": true,
+    "blocked_actions": [
+      "自动投放",
+      "自动登录",
+      "自动上架",
+      "自动开车",
+      "自动扣费",
+      "自动改价"
+    ],
+    "steps": [
+      {
+        "step_number": 1,
+        "step_name": "创建任务",
+        "step_type": "task_creation",
+        "description": "在任务中心创建任务记录",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.152070",
+        "completed_at": "2026-07-04T17:20:27.152070",
+        "result": {
+          "task_id": "8f2327af-04b9-464e-aa2e-1e7c13ebcfee"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 2,
+        "step_name": "推荐工具",
+        "step_type": "tool_recommendation",
+        "description": "根据任务需求推荐工具",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.152072",
+        "completed_at": "2026-07-04T17:20:27.152072",
+        "result": {
+          "recommended_tools": [
+            "listing_package_generator"
+          ]
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 3,
+        "step_name": "生成工具计划",
+        "step_type": "tool_plan_generation",
+        "description": "生成工具调用计划",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.152074",
+        "completed_at": "2026-07-04T17:20:27.152074",
+        "result": {
+          "tool_plan_id": "6ea31360-5f96-4f9a-ad4c-96d854cda606"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 4,
+        "step_name": "风险检查",
+        "step_type": "risk_check",
+        "description": "检查高风险动作",
+        "status": "completed",
+        "started_at": "2026-07-04T17:20:27.152079",
+        "completed_at": "2026-07-04T17:20:27.152079",
+        "result": {
+          "blocked_actions": [
+            "自动投放",
+            "自动登录",
+            "自动上架",
+            "自动开车",
+            "自动扣费",
+            "自动改价"
+          ]
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 5,
+        "step_name": "人工确认",
+        "step_type": "manual_confirmation",
+        "description": "高风险动作需要人工确认",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待人工确认"
+        },
+        "error_message": null
+      },
+      {
+        "step_number": 6,
+        "step_name": "完成归档",
+        "step_type": "archive",
+        "description": "工作流完成归档",
+        "status": "pending",
+        "started_at": null,
+        "completed_at": null,
+        "result": {
+          "message": "等待完成"
+        },
+        "error_message": null
+      }
+    ],
+    "current_step_number": 1,
+    "confirmed_by": null,
+    "confirmed_at": null,
+    "created_at": "2026-07-04T17:20:27.152087",
+    "updated_at": "2026-07-04T17:20:27.152087"
   }
 ]

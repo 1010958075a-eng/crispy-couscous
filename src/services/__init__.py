@@ -18,6 +18,7 @@ from .task_service import TaskService
 from .acceptance_service import AcceptanceService
 from .tool_service import ToolService
 from .workflow_service import WorkflowService
+from .log_service import LogService
 
 __all__ = [
     "ProductService",
@@ -35,5 +36,6 @@ __all__ = [
     "TaskService",
     "AcceptanceService",
     "ToolService",
-    "WorkflowService"
+    "WorkflowService",
+    "LogService"
 ]

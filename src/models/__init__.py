@@ -71,6 +71,12 @@ from .workflow import (
     StepStatus,
     StepType
 )
+from .log import (
+    Log,
+    LogType,
+    LogLevel,
+    LogStatus
+)
 
 __all__ = [
     # Product models
@@ -139,5 +145,10 @@ __all__ = [
     "WorkflowStep",
     "WorkflowStatus",
     "StepStatus",
-    "StepType"
+    "StepType",
+    # Log models (v0.9)
+    "Log",
+    "LogType",
+    "LogLevel",
+    "LogStatus"
 ]

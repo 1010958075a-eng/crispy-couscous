@@ -25,8 +25,9 @@ from models import Task, TaskStep, TaskStatus, RiskLevel
 from models import AcceptanceReport, AcceptanceIssue, AcceptanceStatus, TargetType
 from models import Tool, ToolPlan, ExecutionStep, ToolType, ToolCategory, PlanStatus
 from models import Workflow, WorkflowStep, WorkflowStatus, StepStatus, StepType
+from models import Log, LogType, LogLevel, LogStatus
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -63,7 +64,8 @@ content_service = ContentService(knowledge_storage)
 task_service = TaskService(knowledge_storage)
 acceptance_service = AcceptanceService(knowledge_storage)
 tool_service = ToolService(knowledge_storage)
-workflow_service = WorkflowService(knowledge_storage, task_service, tool_service)
+log_service = LogService(knowledge_storage)
+workflow_service = WorkflowService(knowledge_storage, task_service, tool_service, log_service)
 
 
 # Pydantic模型
@@ -1422,6 +1424,78 @@ async def confirm_workflow(workflow_id: str, request: WorkflowConfirmRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"确认工作流失败: {e}")
+
+
+# ============ 日志中心API (v0.9) ============
+
+# Pydantic模型
+class LogCreateRequest(BaseModel):
+    log_type: str
+    source_module: str
+    source_id: Optional[str] = None
+    action: str
+    status: str
+    message: str
+    risk_level: Optional[str] = None
+    details: Optional[Dict[str, Any]] = None
+
+
+# 创建日志API
+@app.post("/api/logs/create")
+async def create_log(request: LogCreateRequest):
+    """创建日志"""
+    try:
+        log = log_service.create_log(
+            log_type=request.log_type,
+            source_module=request.source_module,
+            source_id=request.source_id,
+            action=request.action,
+            status=request.status,
+            message=request.message,
+            risk_level=request.risk_level,
+            details=request.details
+        )
+        return log.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建日志失败: {e}")
+
+
+# 获取所有日志API
+@app.get("/api/logs")
+async def get_logs():
+    """读取所有日志"""
+    try:
+        logs = log_service.get_logs()
+        return logs
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取日志列表失败: {e}")
+
+
+# 获取指定日志API
+@app.get("/api/logs/{log_id}")
+async def get_log(log_id: str):
+    """读取指定日志"""
+    try:
+        log = log_service.get_log(log_id)
+        if log:
+            return log
+        else:
+            raise HTTPException(status_code=404, detail="日志不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取日志失败: {e}")
+
+
+# 按类型获取日志API
+@app.get("/api/logs/type/{log_type}")
+async def get_logs_by_type(log_type: str):
+    """按类型读取日志"""
+    try:
+        logs = log_service.get_logs_by_type(log_type)
+        return logs
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"按类型获取日志失败: {e}")
 
 
 if __name__ == "__main__":

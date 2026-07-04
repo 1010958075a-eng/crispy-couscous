@@ -14,9 +14,11 @@ from models.workflow import (
     StepType
 )
 from models.tool import RiskLevel
+from models.log import LogStatus
 from .knowledge_storage import KnowledgeStorage
 from .task_service import TaskService
 from .tool_service import ToolService
+from .log_service import LogService
 
 
 # 高风险动作关键词
@@ -40,11 +42,13 @@ class WorkflowService:
         self,
         knowledge_storage: KnowledgeStorage,
         task_service: TaskService,
-        tool_service: ToolService
+        tool_service: ToolService,
+        log_service: Optional[LogService] = None
     ):
         self.knowledge_storage = knowledge_storage
         self.task_service = task_service
         self.tool_service = tool_service
+        self.log_service = log_service
     
     def create_workflow(self, original_request: str) -> Workflow:
         """创建工作流"""
@@ -108,6 +112,19 @@ class WorkflowService:
         
         # 保存工作流
         self.knowledge_storage.save_workflow(workflow)
+        
+        # 写入日志
+        if self.log_service:
+            self.log_service.create_log(
+                log_type="workflow",
+                source_module="workflow_service",
+                source_id=workflow.workflow_id,
+                action="create_workflow",
+                status=LogStatus.SUCCESS.value,
+                message=f"创建工作流: {original_request}",
+                risk_level=risk_level,
+                details={"workflow_id": workflow.workflow_id, "workflow_status": workflow_status}
+            )
         
         return workflow
     
@@ -342,5 +359,18 @@ class WorkflowService:
                 updated_workflows.append(wf)
         
         self.knowledge_storage.save_workflows(updated_workflows)
+        
+        # 写入日志
+        if self.log_service:
+            self.log_service.create_log(
+                log_type="risk",
+                source_module="workflow_service",
+                source_id=workflow_id,
+                action="manual_confirmation",
+                status=LogStatus.SUCCESS.value,
+                message=f"人工确认高风险工作流: {confirmed_by}",
+                risk_level="high",
+                details={"workflow_id": workflow_id, "confirmed_by": confirmed_by}
+            )
         
         return workflow_dict

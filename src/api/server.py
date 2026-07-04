@@ -24,8 +24,9 @@ from models import VideoScriptScene, VideoScriptGeneration, XiaohongshuNote
 from models import Task, TaskStep, TaskStatus, RiskLevel
 from models import AcceptanceReport, AcceptanceIssue, AcceptanceStatus, TargetType
 from models import Tool, ToolPlan, ExecutionStep, ToolType, ToolCategory, PlanStatus
+from models import Workflow, WorkflowStep, WorkflowStatus, StepStatus, StepType
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -62,6 +63,7 @@ content_service = ContentService(knowledge_storage)
 task_service = TaskService(knowledge_storage)
 acceptance_service = AcceptanceService(knowledge_storage)
 tool_service = ToolService(knowledge_storage)
+workflow_service = WorkflowService(knowledge_storage, task_service, tool_service)
 
 
 # Pydantic模型
@@ -1310,6 +1312,116 @@ async def get_tool_plan(plan_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取工具计划失败: {e}")
+
+
+# ============ 工作流中心API (v0.8) ============
+
+# Pydantic模型
+class WorkflowCreateRequest(BaseModel):
+    original_request: str
+
+class WorkflowStatusUpdateRequest(BaseModel):
+    status: str
+
+class StepStatusUpdateRequest(BaseModel):
+    status: str
+    result: Optional[Dict[str, Any]] = None
+    error_message: Optional[str] = None
+
+class WorkflowConfirmRequest(BaseModel):
+    confirmed_by: str
+
+
+# 创建工作流API
+@app.post("/api/workflows/create")
+async def create_workflow(request: WorkflowCreateRequest):
+    """创建工作流"""
+    try:
+        workflow = workflow_service.create_workflow(request.original_request)
+        return workflow.to_dict()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建工作流失败: {e}")
+
+
+# 获取所有工作流API
+@app.get("/api/workflows")
+async def get_workflows():
+    """读取所有工作流"""
+    try:
+        workflows = workflow_service.get_workflows()
+        return workflows
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工作流列表失败: {e}")
+
+
+# 获取指定工作流API
+@app.get("/api/workflows/{workflow_id}")
+async def get_workflow(workflow_id: str):
+    """读取指定工作流"""
+    try:
+        workflow = workflow_service.get_workflow(workflow_id)
+        if workflow:
+            return workflow
+        else:
+            raise HTTPException(status_code=404, detail="工作流不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取工作流失败: {e}")
+
+
+# 更新工作流状态API
+@app.post("/api/workflows/{workflow_id}/status")
+async def update_workflow_status(workflow_id: str, request: WorkflowStatusUpdateRequest):
+    """更新工作流状态"""
+    try:
+        workflow = workflow_service.update_workflow_status(workflow_id, request.status)
+        if workflow:
+            return workflow
+        else:
+            raise HTTPException(status_code=404, detail="工作流不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"更新工作流状态失败: {e}")
+
+
+# 更新步骤状态API
+@app.post("/api/workflows/{workflow_id}/step/{step_number}/status")
+async def update_step_status(workflow_id: str, step_number: int, request: StepStatusUpdateRequest):
+    """更新步骤状态"""
+    try:
+        workflow = workflow_service.update_step_status(
+            workflow_id,
+            step_number,
+            request.status,
+            request.result,
+            request.error_message
+        )
+        if workflow:
+            return workflow
+        else:
+            raise HTTPException(status_code=404, detail="工作流不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"更新步骤状态失败: {e}")
+
+
+# 确认工作流API
+@app.post("/api/workflows/{workflow_id}/confirm")
+async def confirm_workflow(workflow_id: str, request: WorkflowConfirmRequest):
+    """确认工作流（人工确认）"""
+    try:
+        workflow = workflow_service.confirm_workflow(workflow_id, request.confirmed_by)
+        if workflow:
+            return workflow
+        else:
+            raise HTTPException(status_code=404, detail="工作流不存在或不需要确认")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"确认工作流失败: {e}")
 
 
 if __name__ == "__main__":

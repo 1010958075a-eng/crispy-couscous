@@ -77,6 +77,9 @@ class KnowledgeStorage:
         self.tool_registry_file = self.base_path / "tool_registry.json"
         self.tool_plan_records_file = self.base_path / "tool_plan_records.json"
 
+        # v0.8 新增文件路径
+        self.workflow_records_file = self.base_path / "workflow_records.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -668,5 +671,31 @@ class KnowledgeStorage:
         data_list = self._load_json(self.tool_plan_records_file)
         for data in data_list:
             if data.get("plan_id") == plan_id:
+                return data
+        return None
+
+    # v0.8 新增存储方法
+
+    # 工作流记录
+    def save_workflow(self, workflow):
+        """保存工作流"""
+        data_list = self._load_json(self.workflow_records_file)
+        data_list.append(workflow.to_dict())
+        self._save_json(self.workflow_records_file, data_list)
+
+    def save_workflows(self, workflows):
+        """保存工作流列表"""
+        self._save_json(self.workflow_records_file, workflows)
+
+    def load_workflows(self):
+        """加载所有工作流"""
+        data_list = self._load_json(self.workflow_records_file)
+        return data_list
+
+    def load_workflow(self, workflow_id: str):
+        """加载指定工作流"""
+        data_list = self._load_json(self.workflow_records_file)
+        for data in data_list:
+            if data.get("workflow_id") == workflow_id:
                 return data
         return None

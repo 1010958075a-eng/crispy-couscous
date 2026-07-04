@@ -64,6 +64,13 @@ from .tool import (
     PlanStatus,
     BUILTIN_TOOLS
 )
+from .workflow import (
+    Workflow,
+    WorkflowStep,
+    WorkflowStatus,
+    StepStatus,
+    StepType
+)
 
 __all__ = [
     # Product models
@@ -126,5 +133,11 @@ __all__ = [
     "ToolType",
     "ToolCategory",
     "PlanStatus",
-    "BUILTIN_TOOLS"
+    "BUILTIN_TOOLS",
+    # Workflow models (v0.8)
+    "Workflow",
+    "WorkflowStep",
+    "WorkflowStatus",
+    "StepStatus",
+    "StepType"
 ]

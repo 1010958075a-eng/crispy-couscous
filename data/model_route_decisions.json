@@ -1,0 +1,218 @@
+[
+  {
+    "decision_id": "43f18dcd-d6ff-4711-8896-d1cb66117fa2",
+    "task_text": "生成一个产品标题",
+    "task_type": "title_generation",
+    "feature_name": "title_generation",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "cost_first",
+    "selected_expert_ids": [
+      "title_expert",
+      "cost_control_expert"
+    ],
+    "candidate_model_ids": [
+      "openai_low_cost_text",
+      "qwen_low_cost_text",
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock",
+      "remove_bg_mock"
+    ],
+    "selected_model_id": "qwen_low_cost_text",
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "estimated_points": 1,
+    "estimated_cost_level": "low",
+    "requires_human_approval": false,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to qwen-turbo based on cost_first policy",
+    "created_at": "2026-07-05T07:42:13.744442"
+  },
+  {
+    "decision_id": "775142a4-e840-47c0-bf1e-79eebbd808a2",
+    "task_text": "生成关键词",
+    "task_type": "keyword_generation",
+    "feature_name": "keyword_generation",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "cost_first",
+    "selected_expert_ids": [
+      "keyword_expert",
+      "cost_control_expert"
+    ],
+    "candidate_model_ids": [
+      "openai_low_cost_text",
+      "qwen_low_cost_text",
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock",
+      "remove_bg_mock"
+    ],
+    "selected_model_id": "qwen_low_cost_text",
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "estimated_points": 1,
+    "estimated_cost_level": "low",
+    "requires_human_approval": false,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to qwen-turbo based on cost_first policy",
+    "created_at": "2026-07-05T07:42:13.744445"
+  },
+  {
+    "decision_id": "d58c19a7-80ac-4ace-8dd9-a2e445f2ebb8",
+    "task_text": "知识库问答",
+    "task_type": "knowledge_qa",
+    "feature_name": "knowledge_qa",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "balanced",
+    "selected_expert_ids": [
+      "knowledge_base_expert"
+    ],
+    "candidate_model_ids": [
+      "openai_low_cost_text",
+      "qwen_low_cost_text",
+      "qwen_balanced_text",
+      "dify_knowledge_router",
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock",
+      "wanxiang_image_mock",
+      "remove_bg_mock"
+    ],
+    "selected_model_id": "dify_knowledge_router",
+    "fallback_model_ids": [
+      "qwen_low_cost_text"
+    ],
+    "estimated_points": 2,
+    "estimated_cost_level": "medium",
+    "requires_human_approval": false,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to dify-knowledge based on balanced policy",
+    "created_at": "2026-07-05T07:42:13.744446"
+  },
+  {
+    "decision_id": "5516be16-b6af-4c70-af62-862775a0c07f",
+    "task_text": "生成图片提示词",
+    "task_type": "image_prompt_generation",
+    "feature_name": "image_prompt_generation",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "balanced",
+    "selected_expert_ids": [
+      "visual_prompt_expert"
+    ],
+    "candidate_model_ids": [
+      "openai_low_cost_text",
+      "qwen_low_cost_text",
+      "qwen_balanced_text",
+      "dify_knowledge_router",
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock",
+      "wanxiang_image_mock",
+      "remove_bg_mock"
+    ],
+    "selected_model_id": "qwen_balanced_text",
+    "fallback_model_ids": [
+      "wanxiang_image_mock"
+    ],
+    "estimated_points": 5,
+    "estimated_cost_level": "medium",
+    "requires_human_approval": false,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to qwen-plus based on balanced policy",
+    "created_at": "2026-07-05T07:42:13.744448"
+  },
+  {
+    "decision_id": "57412241-9611-4fa1-b63d-4bfb2aee3d33",
+    "task_text": "执行工作流",
+    "task_type": "workflow_execution",
+    "feature_name": "workflow_execution",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "cost_first",
+    "selected_expert_ids": [
+      "cost_control_expert",
+      "approval_gate_expert"
+    ],
+    "candidate_model_ids": [
+      "openai_low_cost_text",
+      "qwen_low_cost_text",
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock",
+      "remove_bg_mock"
+    ],
+    "selected_model_id": "qwen_low_cost_text",
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "estimated_points": 5,
+    "estimated_cost_level": "low",
+    "requires_human_approval": false,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to qwen-turbo based on cost_first policy",
+    "created_at": "2026-07-05T07:42:13.744450"
+  },
+  {
+    "decision_id": "3e229482-1625-46e5-9f63-e4f1c39024ce",
+    "task_text": "风险检查",
+    "task_type": "risk_check",
+    "feature_name": "risk_check",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "high_risk_guarded",
+    "selected_expert_ids": [
+      "risk_control_expert",
+      "approval_gate_expert"
+    ],
+    "candidate_model_ids": [
+      "openai_low_cost_text",
+      "qwen_low_cost_text",
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock",
+      "remove_bg_mock"
+    ],
+    "selected_model_id": "qwen_low_cost_text",
+    "fallback_model_ids": [],
+    "estimated_points": 1,
+    "estimated_cost_level": "low",
+    "requires_human_approval": true,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to qwen-turbo based on high_risk_guarded policy",
+    "created_at": "2026-07-05T07:42:13.744451"
+  },
+  {
+    "decision_id": "ef4c5203-dea4-41bb-9775-d0b9ce54409a",
+    "task_text": "生成标题",
+    "task_type": "title_generation",
+    "feature_name": "title_generation",
+    "customer_id": null,
+    "account_id": null,
+    "route_policy": "local_only",
+    "selected_expert_ids": [
+      "title_expert",
+      "cost_control_expert"
+    ],
+    "candidate_model_ids": [
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock"
+    ],
+    "selected_model_id": "ollama_qwen_local_mock",
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "estimated_points": 1,
+    "estimated_cost_level": "low",
+    "requires_human_approval": false,
+    "status": "success",
+    "blocked_reason": null,
+    "decision_reason": "Routed to qwen2.5-7b based on local_only policy",
+    "created_at": "2026-07-05T07:42:13.744393"
+  }
+]

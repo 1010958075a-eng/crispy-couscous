@@ -1,0 +1,325 @@
+[
+  {
+    "rule_id": "rule_title_generation",
+    "task_type": "title_generation",
+    "feature_name": "title_generation",
+    "route_policy": "cost_first",
+    "preferred_expert_ids": [
+      "title_expert",
+      "cost_control_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_low_cost_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "low",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928824",
+    "updated_at": "2026-07-05T06:05:20.928825"
+  },
+  {
+    "rule_id": "rule_keyword_generation",
+    "task_type": "keyword_generation",
+    "feature_name": "keyword_generation",
+    "route_policy": "cost_first",
+    "preferred_expert_ids": [
+      "keyword_expert",
+      "cost_control_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_low_cost_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "low",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928829",
+    "updated_at": "2026-07-05T06:05:20.928829"
+  },
+  {
+    "rule_id": "rule_detail_page_generation",
+    "task_type": "detail_page_generation",
+    "feature_name": "detail_page_generation",
+    "route_policy": "quality_first",
+    "preferred_expert_ids": [
+      "detail_page_expert",
+      "approval_gate_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_balanced_text",
+      "openai_high_quality_text"
+    ],
+    "fallback_model_ids": [
+      "vllm_qwen_local_mock"
+    ],
+    "min_quality_level": "high",
+    "max_cost_level": "high",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928831",
+    "updated_at": "2026-07-05T06:05:20.928831"
+  },
+  {
+    "rule_id": "rule_operations_analysis",
+    "task_type": "operations_analysis",
+    "feature_name": "operations_analysis",
+    "route_policy": "quality_first",
+    "preferred_expert_ids": [
+      "operations_analysis_expert",
+      "approval_gate_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_balanced_text",
+      "openai_high_quality_text"
+    ],
+    "fallback_model_ids": [
+      "vllm_qwen_local_mock"
+    ],
+    "min_quality_level": "high",
+    "max_cost_level": "high",
+    "local_only_required": false,
+    "human_approval_required": true,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928833",
+    "updated_at": "2026-07-05T06:05:20.928833"
+  },
+  {
+    "rule_id": "rule_local_only",
+    "task_type": "title_generation",
+    "feature_name": "title_generation",
+    "route_policy": "local_only",
+    "preferred_expert_ids": [
+      "local_privacy_expert",
+      "title_expert"
+    ],
+    "preferred_model_ids": [
+      "ollama_qwen_local_mock",
+      "vllm_qwen_local_mock"
+    ],
+    "fallback_model_ids": [],
+    "min_quality_level": "medium",
+    "max_cost_level": "low",
+    "local_only_required": true,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928835",
+    "updated_at": "2026-07-05T06:05:20.928836"
+  },
+  {
+    "rule_id": "rule_risk_guarded",
+    "task_type": "advanced_analysis",
+    "feature_name": "advanced_analysis",
+    "route_policy": "high_risk_guarded",
+    "preferred_expert_ids": [
+      "risk_control_expert",
+      "approval_gate_expert"
+    ],
+    "preferred_model_ids": [
+      "openai_high_quality_text",
+      "qwen_balanced_text"
+    ],
+    "fallback_model_ids": [],
+    "min_quality_level": "high",
+    "max_cost_level": "high",
+    "local_only_required": false,
+    "human_approval_required": true,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928838",
+    "updated_at": "2026-07-05T06:05:20.928838"
+  },
+  {
+    "rule_id": "rule_knowledge_qa",
+    "task_type": "knowledge_qa",
+    "feature_name": "knowledge_qa",
+    "route_policy": "balanced",
+    "preferred_expert_ids": [
+      "knowledge_base_expert"
+    ],
+    "preferred_model_ids": [
+      "dify_knowledge_router",
+      "qwen_balanced_text"
+    ],
+    "fallback_model_ids": [
+      "qwen_low_cost_text"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "medium",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928840",
+    "updated_at": "2026-07-05T06:05:20.928840"
+  },
+  {
+    "rule_id": "rule_image_prompt_generation",
+    "task_type": "image_prompt_generation",
+    "feature_name": "image_prompt_generation",
+    "route_policy": "balanced",
+    "preferred_expert_ids": [
+      "visual_prompt_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_balanced_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [
+      "wanxiang_image_mock"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "medium",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928842",
+    "updated_at": "2026-07-05T06:05:20.928842"
+  },
+  {
+    "rule_id": "rule_workflow_execution",
+    "task_type": "workflow_execution",
+    "feature_name": "workflow_execution",
+    "route_policy": "cost_first",
+    "preferred_expert_ids": [
+      "cost_control_expert",
+      "approval_gate_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_low_cost_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [
+      "ollama_qwen_local_mock"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "low",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928844",
+    "updated_at": "2026-07-05T06:05:20.928844"
+  },
+  {
+    "rule_id": "rule_risk_check",
+    "task_type": "risk_check",
+    "feature_name": "risk_check",
+    "route_policy": "high_risk_guarded",
+    "preferred_expert_ids": [
+      "risk_control_expert",
+      "approval_gate_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_low_cost_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [],
+    "min_quality_level": "medium",
+    "max_cost_level": "low",
+    "local_only_required": false,
+    "human_approval_required": true,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928846",
+    "updated_at": "2026-07-05T06:05:20.928846"
+  },
+  {
+    "rule_id": "rule_xiaohongshu_generation",
+    "task_type": "xiaohongshu_generation",
+    "feature_name": "xiaohongshu_generation",
+    "route_policy": "cost_first",
+    "preferred_expert_ids": [
+      "xiaohongshu_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_balanced_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [
+      "qwen_low_cost_text"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "medium",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928848",
+    "updated_at": "2026-07-05T06:05:20.928848"
+  },
+  {
+    "rule_id": "rule_video_script_generation",
+    "task_type": "video_script_generation",
+    "feature_name": "video_script_generation",
+    "route_policy": "balanced",
+    "preferred_expert_ids": [
+      "video_script_expert"
+    ],
+    "preferred_model_ids": [
+      "qwen_balanced_text",
+      "openai_low_cost_text"
+    ],
+    "fallback_model_ids": [
+      "qwen_low_cost_text"
+    ],
+    "min_quality_level": "medium",
+    "max_cost_level": "medium",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928850",
+    "updated_at": "2026-07-05T06:05:20.928850"
+  },
+  {
+    "rule_id": "rule_remove_bg",
+    "task_type": "remove_bg",
+    "feature_name": "remove_bg",
+    "route_policy": "cost_first",
+    "preferred_expert_ids": [
+      "visual_prompt_expert",
+      "cost_control_expert"
+    ],
+    "preferred_model_ids": [
+      "remove_bg_mock"
+    ],
+    "fallback_model_ids": [],
+    "min_quality_level": "medium",
+    "max_cost_level": "low",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928852",
+    "updated_at": "2026-07-05T06:05:20.928852"
+  },
+  {
+    "rule_id": "rule_advanced_analysis",
+    "task_type": "advanced_analysis",
+    "feature_name": "advanced_analysis",
+    "route_policy": "quality_first",
+    "preferred_expert_ids": [
+      "operations_analysis_expert",
+      "cost_control_expert"
+    ],
+    "preferred_model_ids": [
+      "openai_high_quality_text",
+      "qwen_balanced_text"
+    ],
+    "fallback_model_ids": [
+      "vllm_qwen_local_mock"
+    ],
+    "min_quality_level": "high",
+    "max_cost_level": "high",
+    "local_only_required": false,
+    "human_approval_required": false,
+    "enabled": true,
+    "created_at": "2026-07-05T06:05:20.928854",
+    "updated_at": "2026-07-05T06:05:20.928854"
+  }
+]

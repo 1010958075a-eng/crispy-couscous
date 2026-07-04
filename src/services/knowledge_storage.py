@@ -94,6 +94,12 @@ class KnowledgeStorage:
         self.feature_point_rules_file = self.base_path / "feature_point_rules.json"
         self.usage_records_file = self.base_path / "usage_records.json"
 
+        # v1.3 新增文件路径
+        self.model_profiles_file = self.base_path / "model_profiles.json"
+        self.business_experts_file = self.base_path / "business_experts.json"
+        self.model_route_rules_file = self.base_path / "model_route_rules.json"
+        self.model_route_decisions_file = self.base_path / "model_route_decisions.json"
+
     def _load_json(self, file_path: Path) -> List[Dict]:
         """加载JSON文件"""
         if not file_path.exists():
@@ -1019,4 +1025,177 @@ class KnowledgeStorage:
         for record in usage_records:
             if record.usage_id == usage_id:
                 return record
+        return None
+
+    # v1.3 新增存储方法
+
+    # 模型档案
+    def save_model_profiles(self, models):
+        """保存模型档案列表"""
+        model_dicts = [m.to_dict() for m in models]
+        self._save_json(self.model_profiles_file, model_dicts)
+
+    def load_model_profiles(self):
+        """加载模型档案列表"""
+        data_list = self._load_json(self.model_profiles_file)
+        if data_list:
+            # 从存储恢复模型对象
+            models = []
+            for model_dict in data_list:
+                from models.model_router import ModelProfile
+                model = ModelProfile(
+                    model_id=model_dict["model_id"],
+                    provider_id=model_dict["provider_id"],
+                    model_name=model_dict["model_name"],
+                    provider_type=model_dict["provider_type"],
+                    model_tier=model_dict["model_tier"],
+                    capability_tags=model_dict["capability_tags"],
+                    supported_task_types=model_dict["supported_task_types"],
+                    cost_level=model_dict["cost_level"],
+                    quality_level=model_dict["quality_level"],
+                    speed_level=model_dict["speed_level"],
+                    privacy_level=model_dict["privacy_level"],
+                    supports_local_only=model_dict["supports_local_only"],
+                    supports_streaming=model_dict["supports_streaming"],
+                    supports_batch=model_dict["supports_batch"],
+                    supports_rag=model_dict["supports_rag"],
+                    supports_image=model_dict["supports_image"],
+                    supports_text=model_dict["supports_text"],
+                    enabled=model_dict["enabled"]
+                )
+                models.append(model)
+            return models
+        else:
+            return []
+
+    def load_model_profile(self, model_id: str):
+        """加载指定模型档案"""
+        models = self.load_model_profiles()
+        for model in models:
+            if model.model_id == model_id:
+                return model
+        return None
+
+    # 业务专家
+    def save_business_experts(self, experts):
+        """保存业务专家列表"""
+        expert_dicts = [e.to_dict() for e in experts]
+        self._save_json(self.business_experts_file, expert_dicts)
+
+    def load_business_experts(self):
+        """加载业务专家列表"""
+        data_list = self._load_json(self.business_experts_file)
+        if data_list:
+            # 从存储恢复专家对象
+            experts = []
+            for expert_dict in data_list:
+                from models.model_router import BusinessExpert
+                expert = BusinessExpert(
+                    expert_id=expert_dict["expert_id"],
+                    expert_name=expert_dict["expert_name"],
+                    expert_type=expert_dict["expert_type"],
+                    supported_task_types=expert_dict["supported_task_types"],
+                    capability_tags=expert_dict["capability_tags"],
+                    risk_level=expert_dict["risk_level"],
+                    default_priority=expert_dict["default_priority"],
+                    enabled=expert_dict["enabled"]
+                )
+                experts.append(expert)
+            return experts
+        else:
+            return []
+
+    def load_business_expert(self, expert_id: str):
+        """加载指定业务专家"""
+        experts = self.load_business_experts()
+        for expert in experts:
+            if expert.expert_id == expert_id:
+                return expert
+        return None
+
+    # 路由规则
+    def save_model_route_rules(self, rules):
+        """保存路由规则列表"""
+        rule_dicts = [r.to_dict() for r in rules]
+        self._save_json(self.model_route_rules_file, rule_dicts)
+
+    def load_model_route_rules(self):
+        """加载路由规则列表"""
+        data_list = self._load_json(self.model_route_rules_file)
+        if data_list:
+            # 从存储恢复规则对象
+            rules = []
+            for rule_dict in data_list:
+                from models.model_router import ModelRouteRule
+                rule = ModelRouteRule(
+                    rule_id=rule_dict["rule_id"],
+                    task_type=rule_dict["task_type"],
+                    feature_name=rule_dict["feature_name"],
+                    route_policy=rule_dict["route_policy"],
+                    preferred_expert_ids=rule_dict["preferred_expert_ids"],
+                    preferred_model_ids=rule_dict["preferred_model_ids"],
+                    fallback_model_ids=rule_dict["fallback_model_ids"],
+                    min_quality_level=rule_dict["min_quality_level"],
+                    max_cost_level=rule_dict["max_cost_level"],
+                    local_only_required=rule_dict["local_only_required"],
+                    human_approval_required=rule_dict["human_approval_required"],
+                    enabled=rule_dict["enabled"]
+                )
+                rules.append(rule)
+            return rules
+        else:
+            return []
+
+    def load_model_route_rule(self, rule_id: str):
+        """加载指定路由规则"""
+        rules = self.load_model_route_rules()
+        for rule in rules:
+            if rule.rule_id == rule_id:
+                return rule
+        return None
+
+    # 路由决策记录
+    def save_model_route_decisions(self, decisions):
+        """保存路由决策记录列表"""
+        decision_dicts = [d.to_dict() for d in decisions]
+        self._save_json(self.model_route_decisions_file, decision_dicts)
+
+    def load_model_route_decisions(self):
+        """加载路由决策记录列表"""
+        data_list = self._load_json(self.model_route_decisions_file)
+        if data_list:
+            # 从存储恢复决策对象
+            decisions = []
+            for decision_dict in data_list:
+                from models.model_router import ModelRouteDecision
+                decision = ModelRouteDecision(
+                    decision_id=decision_dict["decision_id"],
+                    task_text=decision_dict["task_text"],
+                    task_type=decision_dict["task_type"],
+                    feature_name=decision_dict["feature_name"],
+                    customer_id=decision_dict["customer_id"],
+                    account_id=decision_dict["account_id"],
+                    route_policy=decision_dict["route_policy"],
+                    selected_expert_ids=decision_dict["selected_expert_ids"],
+                    candidate_model_ids=decision_dict["candidate_model_ids"],
+                    selected_model_id=decision_dict["selected_model_id"],
+                    fallback_model_ids=decision_dict["fallback_model_ids"],
+                    estimated_points=decision_dict["estimated_points"],
+                    estimated_cost_level=decision_dict["estimated_cost_level"],
+                    requires_human_approval=decision_dict["requires_human_approval"],
+                    status=decision_dict["status"],
+                    blocked_reason=decision_dict["blocked_reason"],
+                    decision_reason=decision_dict["decision_reason"]
+                )
+                decisions.append(decision)
+            return decisions
+        else:
+            return []
+
+    def load_model_route_decision(self, decision_id: str):
+        """加载指定路由决策记录"""
+        decisions = self.load_model_route_decisions()
+        for decision in decisions:
+            if decision.decision_id == decision_id:
+                return decision
         return None

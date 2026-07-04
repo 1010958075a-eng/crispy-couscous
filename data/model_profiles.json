@@ -1,0 +1,265 @@
+[
+  {
+    "model_id": "openai_low_cost_text",
+    "provider_id": "openai_text",
+    "model_name": "gpt-3.5-turbo",
+    "provider_type": "text_model",
+    "model_tier": "low_cost",
+    "capability_tags": [
+      "text_generation",
+      "translation",
+      "summarization"
+    ],
+    "supported_task_types": [
+      "title_generation",
+      "keyword_generation",
+      "xiaohongshu_generation",
+      "video_script_generation"
+    ],
+    "cost_level": "low",
+    "quality_level": "medium",
+    "speed_level": "fast",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": true,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938255",
+    "updated_at": "2026-07-04T21:56:58.938259"
+  },
+  {
+    "model_id": "openai_high_quality_text",
+    "provider_id": "openai_text",
+    "model_name": "gpt-4",
+    "provider_type": "text_model",
+    "model_tier": "high_quality",
+    "capability_tags": [
+      "text_generation",
+      "translation",
+      "summarization",
+      "analysis"
+    ],
+    "supported_task_types": [
+      "detail_page_generation",
+      "operations_analysis",
+      "advanced_analysis"
+    ],
+    "cost_level": "high",
+    "quality_level": "high",
+    "speed_level": "slow",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": true,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938263",
+    "updated_at": "2026-07-04T21:56:58.938264"
+  },
+  {
+    "model_id": "qwen_low_cost_text",
+    "provider_id": "qwen_text",
+    "model_name": "qwen-turbo",
+    "provider_type": "text_model",
+    "model_tier": "low_cost",
+    "capability_tags": [
+      "text_generation",
+      "translation",
+      "summarization"
+    ],
+    "supported_task_types": [
+      "title_generation",
+      "keyword_generation",
+      "xiaohongshu_generation"
+    ],
+    "cost_level": "low",
+    "quality_level": "medium",
+    "speed_level": "fast",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": true,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938267",
+    "updated_at": "2026-07-04T21:56:58.938267"
+  },
+  {
+    "model_id": "qwen_balanced_text",
+    "provider_id": "qwen_text",
+    "model_name": "qwen-plus",
+    "provider_type": "text_model",
+    "model_tier": "balanced",
+    "capability_tags": [
+      "text_generation",
+      "translation",
+      "summarization",
+      "analysis"
+    ],
+    "supported_task_types": [
+      "detail_page_generation",
+      "video_script_generation",
+      "operations_analysis"
+    ],
+    "cost_level": "medium",
+    "quality_level": "high",
+    "speed_level": "medium",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": true,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938270",
+    "updated_at": "2026-07-04T21:56:58.938271"
+  },
+  {
+    "model_id": "dify_knowledge_router",
+    "provider_id": "dify_knowledge",
+    "model_name": "dify-knowledge",
+    "provider_type": "knowledge_base",
+    "model_tier": "balanced",
+    "capability_tags": [
+      "rag",
+      "knowledge_qa"
+    ],
+    "supported_task_types": [
+      "knowledge_qa"
+    ],
+    "cost_level": "medium",
+    "quality_level": "medium",
+    "speed_level": "medium",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": true,
+    "supports_batch": true,
+    "supports_rag": true,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938273",
+    "updated_at": "2026-07-04T21:56:58.938274"
+  },
+  {
+    "model_id": "ollama_qwen_local_mock",
+    "provider_id": "ollama_local",
+    "model_name": "qwen2.5-7b",
+    "provider_type": "local_model",
+    "model_tier": "local_only",
+    "capability_tags": [
+      "text_generation",
+      "translation",
+      "summarization"
+    ],
+    "supported_task_types": [
+      "title_generation",
+      "keyword_generation",
+      "detail_page_generation"
+    ],
+    "cost_level": "low",
+    "quality_level": "medium",
+    "speed_level": "medium",
+    "privacy_level": "local_only",
+    "supports_local_only": true,
+    "supports_streaming": true,
+    "supports_batch": false,
+    "supports_rag": false,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938277",
+    "updated_at": "2026-07-04T21:56:58.938277"
+  },
+  {
+    "model_id": "vllm_qwen_local_mock",
+    "provider_id": "ollama_local",
+    "model_name": "qwen2.5-14b",
+    "provider_type": "local_model",
+    "model_tier": "local_only",
+    "capability_tags": [
+      "text_generation",
+      "translation",
+      "summarization",
+      "analysis"
+    ],
+    "supported_task_types": [
+      "detail_page_generation",
+      "operations_analysis",
+      "advanced_analysis"
+    ],
+    "cost_level": "low",
+    "quality_level": "high",
+    "speed_level": "medium",
+    "privacy_level": "local_only",
+    "supports_local_only": true,
+    "supports_streaming": true,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": false,
+    "supports_text": true,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938280",
+    "updated_at": "2026-07-04T21:56:58.938280"
+  },
+  {
+    "model_id": "wanxiang_image_mock",
+    "provider_id": "wanxiang_image",
+    "model_name": "wanxiang-image",
+    "provider_type": "image_model",
+    "model_tier": "balanced",
+    "capability_tags": [
+      "image_generation"
+    ],
+    "supported_task_types": [
+      "image_prompt_generation"
+    ],
+    "cost_level": "medium",
+    "quality_level": "high",
+    "speed_level": "slow",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": false,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": true,
+    "supports_text": false,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938282",
+    "updated_at": "2026-07-04T21:56:58.938283"
+  },
+  {
+    "model_id": "remove_bg_mock",
+    "provider_id": "remove_bg",
+    "model_name": "remove-bg-service",
+    "provider_type": "image_remove_bg",
+    "model_tier": "low_cost",
+    "capability_tags": [
+      "remove_bg"
+    ],
+    "supported_task_types": [
+      "remove_bg"
+    ],
+    "cost_level": "low",
+    "quality_level": "medium",
+    "speed_level": "fast",
+    "privacy_level": "private",
+    "supports_local_only": false,
+    "supports_streaming": false,
+    "supports_batch": true,
+    "supports_rag": false,
+    "supports_image": true,
+    "supports_text": false,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938285",
+    "updated_at": "2026-07-04T21:56:58.938286"
+  }
+]

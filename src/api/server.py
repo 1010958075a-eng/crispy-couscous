@@ -28,8 +28,9 @@ from models import Workflow, WorkflowStep, WorkflowStatus, StepStatus, StepType
 from models import Log, LogType, LogLevel, LogStatus
 from models import ApiProvider, ApiCallRecord, ApiQuotaRecord, ProviderType, CostLevel, RiskLevel, CallStatus
 from models import SubscriptionPlan, CustomerQuotaAccount, FeaturePointRule, UsageRecord, PlanLevel, AccountStatus, UsageStatus
+from models import ModelProfile, BusinessExpert, ModelRouteRule, ModelRouteDecision, RoutePolicy, TaskType
 from services import ProductService, OrderService, AnalyticsService, LearningService, TaskPlanner, KnowledgeStorage
-from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService, ApiProviderService, SubscriptionService
+from services import TitleService, KeywordService, ImagePromptService, PackageService, DetailService, ContentService, TaskService, AcceptanceService, ToolService, WorkflowService, LogService, ApiProviderService, SubscriptionService, ModelRouterService
 
 # 导入枚举类型
 from models.merchant import Platform as PlatformEnum, PriceRange as PriceRangeEnum
@@ -70,6 +71,7 @@ log_service = LogService(knowledge_storage)
 workflow_service = WorkflowService(knowledge_storage, task_service, tool_service, log_service)
 api_provider_service = ApiProviderService(knowledge_storage)
 subscription_service = SubscriptionService(knowledge_storage)
+model_router_service = ModelRouterService(knowledge_storage, api_provider_service, subscription_service)
 
 
 # Pydantic模型
@@ -1945,6 +1947,276 @@ async def get_usage_record(usage_id: str):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取消费记录失败: {e}")
+
+
+# ============ 模型路由中心API (v1.3) ============
+
+# Pydantic模型
+class ModelProfileCreateRequest(BaseModel):
+    provider_id: str
+    model_name: str
+    provider_type: str
+    model_tier: str
+    capability_tags: List[str]
+    supported_task_types: List[str]
+    cost_level: str
+    quality_level: str
+    speed_level: str
+    privacy_level: str
+    supports_local_only: bool
+    supports_streaming: bool
+    supports_batch: bool
+    supports_rag: bool
+    supports_image: bool
+    supports_text: bool
+
+
+class BusinessExpertCreateRequest(BaseModel):
+    expert_name: str
+    expert_type: str
+    supported_task_types: List[str]
+    capability_tags: List[str]
+    risk_level: str
+    default_priority: int
+
+
+class RouteRuleCreateRequest(BaseModel):
+    task_type: str
+    feature_name: str
+    route_policy: str
+    preferred_expert_ids: List[str]
+    preferred_model_ids: List[str]
+    fallback_model_ids: List[str]
+    min_quality_level: Optional[str] = None
+    max_cost_level: Optional[str] = None
+    local_only_required: bool = False
+    human_approval_required: bool = False
+
+
+class ClassifyTaskRequest(BaseModel):
+    task_text: str
+    feature_name: Optional[str] = None
+
+
+class RouteRequest(BaseModel):
+    task_text: str
+    task_type: Optional[str] = None
+    feature_name: Optional[str] = None
+    customer_id: Optional[str] = None
+    account_id: Optional[str] = None
+    route_policy: Optional[str] = None
+    local_only: bool = False
+    high_risk: bool = False
+
+
+# 获取所有模型档案API
+@app.get("/api/model-router/models")
+async def get_model_profiles():
+    """读取所有模型档案"""
+    try:
+        models = model_router_service.get_model_profiles()
+        return models
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取模型档案失败: {e}")
+
+
+# 获取指定模型档案API
+@app.get("/api/model-router/models/{model_id}")
+async def get_model_profile(model_id: str):
+    """读取指定模型档案"""
+    try:
+        model = model_router_service.get_model_profile(model_id)
+        if model:
+            return model
+        else:
+            raise HTTPException(status_code=404, detail="模型档案不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取模型档案失败: {e}")
+
+
+# 创建模型档案API
+@app.post("/api/model-router/models/create")
+async def create_model_profile(request: ModelProfileCreateRequest):
+    """创建模型档案"""
+    try:
+        model = model_router_service.create_model_profile(
+            provider_id=request.provider_id,
+            model_name=request.model_name,
+            provider_type=request.provider_type,
+            model_tier=request.model_tier,
+            capability_tags=request.capability_tags,
+            supported_task_types=request.supported_task_types,
+            cost_level=request.cost_level,
+            quality_level=request.quality_level,
+            speed_level=request.speed_level,
+            privacy_level=request.privacy_level,
+            supports_local_only=request.supports_local_only,
+            supports_streaming=request.supports_streaming,
+            supports_batch=request.supports_batch,
+            supports_rag=request.supports_rag,
+            supports_image=request.supports_image,
+            supports_text=request.supports_text
+        )
+        return model
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建模型档案失败: {e}")
+
+
+# 获取所有业务专家API
+@app.get("/api/model-router/experts")
+async def get_business_experts():
+    """读取所有业务专家"""
+    try:
+        experts = model_router_service.get_business_experts()
+        return experts
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取业务专家失败: {e}")
+
+
+# 获取指定业务专家API
+@app.get("/api/model-router/experts/{expert_id}")
+async def get_business_expert(expert_id: str):
+    """读取指定业务专家"""
+    try:
+        expert = model_router_service.get_business_expert(expert_id)
+        if expert:
+            return expert
+        else:
+            raise HTTPException(status_code=404, detail="业务专家不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取业务专家失败: {e}")
+
+
+# 创建业务专家API
+@app.post("/api/model-router/experts/create")
+async def create_business_expert(request: BusinessExpertCreateRequest):
+    """创建业务专家"""
+    try:
+        expert = model_router_service.create_business_expert(
+            expert_name=request.expert_name,
+            expert_type=request.expert_type,
+            supported_task_types=request.supported_task_types,
+            capability_tags=request.capability_tags,
+            risk_level=request.risk_level,
+            default_priority=request.default_priority
+        )
+        return expert
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建业务专家失败: {e}")
+
+
+# 获取所有路由规则API
+@app.get("/api/model-router/rules")
+async def get_route_rules():
+    """读取所有路由规则"""
+    try:
+        rules = model_router_service.get_route_rules()
+        return rules
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取路由规则失败: {e}")
+
+
+# 获取指定路由规则API
+@app.get("/api/model-router/rules/{rule_id}")
+async def get_route_rule(rule_id: str):
+    """读取指定路由规则"""
+    try:
+        rule = model_router_service.get_route_rule(rule_id)
+        if rule:
+            return rule
+        else:
+            raise HTTPException(status_code=404, detail="路由规则不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取路由规则失败: {e}")
+
+
+# 创建路由规则API
+@app.post("/api/model-router/rules/create")
+async def create_route_rule(request: RouteRuleCreateRequest):
+    """创建路由规则"""
+    try:
+        rule = model_router_service.create_route_rule(
+            task_type=request.task_type,
+            feature_name=request.feature_name,
+            route_policy=request.route_policy,
+            preferred_expert_ids=request.preferred_expert_ids,
+            preferred_model_ids=request.preferred_model_ids,
+            fallback_model_ids=request.fallback_model_ids,
+            min_quality_level=request.min_quality_level,
+            max_cost_level=request.max_cost_level,
+            local_only_required=request.local_only_required,
+            human_approval_required=request.human_approval_required
+        )
+        return rule
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"创建路由规则失败: {e}")
+
+
+# 任务类型识别API
+@app.post("/api/model-router/classify-task")
+async def classify_task(request: ClassifyTaskRequest):
+    """识别任务类型"""
+    try:
+        result = model_router_service.classify_task(
+            task_text=request.task_text,
+            feature_name=request.feature_name
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"识别任务类型失败: {e}")
+
+
+# 路由决策API
+@app.post("/api/model-router/route")
+async def route(request: RouteRequest):
+    """路由决策"""
+    try:
+        result = model_router_service.route(
+            task_text=request.task_text,
+            task_type=request.task_type,
+            feature_name=request.feature_name,
+            customer_id=request.customer_id,
+            account_id=request.account_id,
+            route_policy=request.route_policy,
+            local_only=request.local_only,
+            high_risk=request.high_risk
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"路由决策失败: {e}")
+
+
+# 获取路由决策记录API
+@app.get("/api/model-router/decisions")
+async def get_route_decisions():
+    """读取路由决策记录"""
+    try:
+        decisions = model_router_service.get_route_decisions()
+        return decisions
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取路由决策记录失败: {e}")
+
+
+# 获取指定路由决策记录API
+@app.get("/api/model-router/decisions/{decision_id}")
+async def get_route_decision(decision_id: str):
+    """读取指定路由决策记录"""
+    try:
+        decision = model_router_service.get_route_decision(decision_id)
+        if decision:
+            return decision
+        else:
+            raise HTTPException(status_code=404, detail="路由决策记录不存在")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取路由决策记录失败: {e}")
 
 
 if __name__ == "__main__":

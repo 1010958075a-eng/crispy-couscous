@@ -1,0 +1,225 @@
+[
+  {
+    "expert_id": "title_expert",
+    "expert_name": "标题生成专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "title_generation"
+    ],
+    "capability_tags": [
+      "title",
+      "marketing",
+      "seo"
+    ],
+    "risk_level": "low",
+    "default_priority": 1,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938289",
+    "updated_at": "2026-07-04T21:56:58.938290"
+  },
+  {
+    "expert_id": "keyword_expert",
+    "expert_name": "关键词生成专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "keyword_generation"
+    ],
+    "capability_tags": [
+      "keyword",
+      "marketing",
+      "seo"
+    ],
+    "risk_level": "low",
+    "default_priority": 1,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938291",
+    "updated_at": "2026-07-04T21:56:58.938292"
+  },
+  {
+    "expert_id": "detail_page_expert",
+    "expert_name": "详情页生成专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "detail_page_generation"
+    ],
+    "capability_tags": [
+      "detail",
+      "marketing",
+      "sales"
+    ],
+    "risk_level": "medium",
+    "default_priority": 2,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938293",
+    "updated_at": "2026-07-04T21:56:58.938293"
+  },
+  {
+    "expert_id": "visual_prompt_expert",
+    "expert_name": "视觉提示词专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "image_prompt_generation"
+    ],
+    "capability_tags": [
+      "visual",
+      "image",
+      "prompt"
+    ],
+    "risk_level": "low",
+    "default_priority": 2,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938294",
+    "updated_at": "2026-07-04T21:56:58.938295"
+  },
+  {
+    "expert_id": "xiaohongshu_expert",
+    "expert_name": "小红书生成专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "xiaohongshu_generation"
+    ],
+    "capability_tags": [
+      "xiaohongshu",
+      "social",
+      "content"
+    ],
+    "risk_level": "low",
+    "default_priority": 1,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938296",
+    "updated_at": "2026-07-04T21:56:58.938296"
+  },
+  {
+    "expert_id": "video_script_expert",
+    "expert_name": "视频脚本生成专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "video_script_generation"
+    ],
+    "capability_tags": [
+      "video",
+      "script",
+      "content"
+    ],
+    "risk_level": "medium",
+    "default_priority": 2,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938297",
+    "updated_at": "2026-07-04T21:56:58.938297"
+  },
+  {
+    "expert_id": "operations_analysis_expert",
+    "expert_name": "运营分析专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "operations_analysis",
+      "advanced_analysis"
+    ],
+    "capability_tags": [
+      "analysis",
+      "operations",
+      "data"
+    ],
+    "risk_level": "medium",
+    "default_priority": 3,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938299",
+    "updated_at": "2026-07-04T21:56:58.938299"
+  },
+  {
+    "expert_id": "knowledge_base_expert",
+    "expert_name": "知识库专家",
+    "expert_type": "domain",
+    "supported_task_types": [
+      "knowledge_qa"
+    ],
+    "capability_tags": [
+      "knowledge",
+      "rag",
+      "qa"
+    ],
+    "risk_level": "low",
+    "default_priority": 2,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938300",
+    "updated_at": "2026-07-04T21:56:58.938300"
+  },
+  {
+    "expert_id": "risk_control_expert",
+    "expert_name": "风控专家",
+    "expert_type": "risk",
+    "supported_task_types": [
+      "risk_check"
+    ],
+    "capability_tags": [
+      "risk",
+      "security",
+      "compliance"
+    ],
+    "risk_level": "high",
+    "default_priority": 4,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938302",
+    "updated_at": "2026-07-04T21:56:58.938302"
+  },
+  {
+    "expert_id": "cost_control_expert",
+    "expert_name": "成本控制专家",
+    "expert_type": "cost",
+    "supported_task_types": [
+      "title_generation",
+      "keyword_generation",
+      "xiaohongshu_generation"
+    ],
+    "capability_tags": [
+      "cost",
+      "optimization",
+      "budget"
+    ],
+    "risk_level": "low",
+    "default_priority": 1,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938304",
+    "updated_at": "2026-07-04T21:56:58.938304"
+  },
+  {
+    "expert_id": "approval_gate_expert",
+    "expert_name": "审批闸门专家",
+    "expert_type": "approval",
+    "supported_task_types": [
+      "detail_page_generation",
+      "operations_analysis",
+      "advanced_analysis"
+    ],
+    "capability_tags": [
+      "approval",
+      "review",
+      "gate"
+    ],
+    "risk_level": "high",
+    "default_priority": 5,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938306",
+    "updated_at": "2026-07-04T21:56:58.938306"
+  },
+  {
+    "expert_id": "local_privacy_expert",
+    "expert_name": "本地隐私专家",
+    "expert_type": "privacy",
+    "supported_task_types": [
+      "title_generation",
+      "keyword_generation",
+      "detail_page_generation"
+    ],
+    "capability_tags": [
+      "privacy",
+      "local",
+      "data_protection"
+    ],
+    "risk_level": "low",
+    "default_priority": 3,
+    "enabled": true,
+    "created_at": "2026-07-04T21:56:58.938308",
+    "updated_at": "2026-07-04T21:56:58.938308"
+  }
+]

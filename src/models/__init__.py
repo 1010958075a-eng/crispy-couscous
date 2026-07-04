@@ -102,6 +102,23 @@ from .subscription import (
     BUILTIN_FEATURE_RULES,
     HIGH_RISK_FEATURES
 )
+from .model_router import (
+    ModelProfile,
+    BusinessExpert,
+    ModelRouteRule,
+    ModelRouteDecision,
+    ModelTier,
+    CostLevel as ModelCostLevel,
+    QualityLevel,
+    SpeedLevel,
+    PrivacyLevel,
+    RoutePolicy,
+    TaskType,
+    ExpertType,
+    BUILTIN_MODEL_PROFILES,
+    BUILTIN_BUSINESS_EXPERTS,
+    BUILTIN_ROUTE_RULES
+)
 
 __all__ = [
     # Product models
@@ -198,5 +215,21 @@ __all__ = [
     "FeatureType",
     "BUILTIN_PLANS",
     "BUILTIN_FEATURE_RULES",
-    "HIGH_RISK_FEATURES"
+    "HIGH_RISK_FEATURES",
+    # Model Router models (v1.3)
+    "ModelProfile",
+    "BusinessExpert",
+    "ModelRouteRule",
+    "ModelRouteDecision",
+    "ModelTier",
+    "ModelCostLevel",
+    "QualityLevel",
+    "SpeedLevel",
+    "PrivacyLevel",
+    "RoutePolicy",
+    "TaskType",
+    "ExpertType",
+    "BUILTIN_MODEL_PROFILES",
+    "BUILTIN_BUSINESS_EXPERTS",
+    "BUILTIN_ROUTE_RULES"
 ]

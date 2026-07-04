@@ -21,6 +21,7 @@ from .workflow_service import WorkflowService
 from .log_service import LogService
 from .api_provider_service import ApiProviderService
 from .subscription_service import SubscriptionService
+from .model_router_service import ModelRouterService
 
 __all__ = [
     "ProductService",
@@ -41,5 +42,6 @@ __all__ = [
     "WorkflowService",
     "LogService",
     "ApiProviderService",
-    "SubscriptionService"
+    "SubscriptionService",
+    "ModelRouterService"
 ]

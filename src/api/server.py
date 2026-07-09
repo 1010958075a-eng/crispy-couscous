@@ -2,10 +2,13 @@
 产品B - REST API服务器
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
+import os
+import secrets
 import sys
 from pathlib import Path
 
@@ -42,14 +45,65 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# 添加CORS中间件
+# CORS配置
+# 通过环境变量 ALLOWED_ORIGINS（逗号分隔）配置允许的来源。
+# 默认仅允许本地开发来源，避免任意来源携带凭证访问。
+_allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000")
+ALLOWED_ORIGINS = [o.strip() for o in _allowed_origins_env.split(",") if o.strip()]
+
+# 不允许在携带凭证（allow_credentials=True）的同时使用通配来源 "*"，
+# 这既不被浏览器接受，也会带来安全风险。
+_allow_credentials = "*" not in ALLOWED_ORIGINS
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=_allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# API密钥鉴权
+# 通过环境变量 API_KEY 启用。设置后，除健康检查与文档端点外，
+# 所有请求必须携带匹配的 X-API-Key 请求头。
+API_KEY = os.getenv("API_KEY")
+
+# 无需鉴权的公开路径
+_AUTH_EXEMPT_PATHS = {
+    "/health",
+    "/api/learning/health",
+    "/docs",
+    "/redoc",
+    "/openapi.json",
+}
+
+if not API_KEY:
+    import warnings
+    warnings.warn(
+        "未设置 API_KEY 环境变量：API 鉴权已禁用，所有端点均可匿名访问。"
+        "请在生产环境中设置 API_KEY 以启用鉴权。",
+        stacklevel=1,
+    )
+
+
+@app.middleware("http")
+async def api_key_auth(request: Request, call_next):
+    """基于 X-API-Key 的请求鉴权中间件。"""
+    # 未配置密钥时不强制鉴权（保持开发/演示可用）
+    if not API_KEY:
+        return await call_next(request)
+
+    path = request.url.path
+    # 放行公开路径与 CORS 预检请求
+    if request.method == "OPTIONS" or path in _AUTH_EXEMPT_PATHS:
+        return await call_next(request)
+
+    provided = request.headers.get("X-API-Key", "")
+    if not secrets.compare_digest(provided, API_KEY):
+        return JSONResponse(status_code=401, content={"detail": "无效或缺失的 API 密钥"})
+
+    return await call_next(request)
 
 # 初始化服务
 product_service = ProductService()
@@ -2221,4 +2275,8 @@ async def get_route_decision(decision_id: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # 通过环境变量配置监听地址，默认仅绑定回环地址以避免无意暴露到外网。
+    # 如需对外提供服务，请显式设置 HOST=0.0.0.0 并同时启用 API_KEY 鉴权。
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run(app, host=host, port=port)

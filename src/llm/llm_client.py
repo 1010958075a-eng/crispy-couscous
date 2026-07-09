@@ -73,8 +73,8 @@ class OpenAILLMClient(LLMClient):
                 api_key=config.api_key,
                 base_url=config.openai_base_url
             )
-        except ImportError:
-            raise ImportError("请安装openai库: pip install openai")
+        except ImportError as e:
+            raise ImportError("请安装openai库: pip install openai") from e
     
     async def complete(
         self,
@@ -95,7 +95,7 @@ class OpenAILLMClient(LLMClient):
             )
             return response.choices[0].message.content
         except Exception as e:
-            raise Exception(f"OpenAI API调用失败: {str(e)}")
+            raise RuntimeError(f"OpenAI API调用失败: {e}") from e
 
 
 class AnthropicLLMClient(LLMClient):
@@ -110,8 +110,8 @@ class AnthropicLLMClient(LLMClient):
                 api_key=config.api_key,
                 timeout=self.config.timeout
             )
-        except ImportError:
-            raise ImportError("请安装anthropic库: pip install anthropic")
+        except ImportError as e:
+            raise ImportError("请安装anthropic库: pip install anthropic") from e
     
     async def complete(
         self,
@@ -132,7 +132,7 @@ class AnthropicLLMClient(LLMClient):
             )
             return response.content[0].text
         except Exception as e:
-            raise Exception(f"Anthropic API调用失败: {str(e)}")
+            raise RuntimeError(f"Anthropic API调用失败: {e}") from e
 
 
 def create_llm_client(config: Optional[LLMConfig] = None) -> LLMClient:

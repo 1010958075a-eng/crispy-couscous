@@ -3,6 +3,7 @@
 """
 
 import json
+import logging
 import uuid
 from pathlib import Path
 from typing import List, Optional, Dict, Any
@@ -23,6 +24,8 @@ from models import (
     ReviewRecord
 )
 from models.merchant import Platform, PriceRange
+
+logger = logging.getLogger(__name__)
 
 
 class KnowledgeStorage:
@@ -101,23 +104,33 @@ class KnowledgeStorage:
         self.model_route_decisions_file = self.base_path / "model_route_decisions.json"
 
     def _load_json(self, file_path: Path) -> List[Dict]:
-        """加载JSON文件"""
+        """加载JSON文件
+
+        文件不存在时返回空列表；但读取或解析已存在文件失败时不再静默吞掉错误
+        （避免把损坏的数据当成空数据，从而在后续保存时覆盖并丢失原有内容），
+        而是记录日志并向上抛出异常。
+        """
         if not file_path.exists():
             return []
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except Exception as e:
-            print(f"加载文件失败 {file_path}: {e}")
-            return []
+        except (OSError, json.JSONDecodeError) as e:
+            logger.error("加载文件失败 %s: %s", file_path, e)
+            raise
 
     def _save_json(self, file_path: Path, data: List[Dict]):
-        """保存JSON文件"""
+        """保存JSON文件
+
+        保存失败时记录日志并向上抛出异常，避免调用方（及 API）在实际写入
+        失败的情况下仍然返回成功、造成数据静默丢失。
+        """
         try:
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            print(f"保存文件失败 {file_path}: {e}")
+        except (OSError, TypeError) as e:
+            logger.error("保存文件失败 %s: %s", file_path, e)
+            raise
 
     # 商家档案
     def save_merchant_profile(self, profile: MerchantProfile):

@@ -23,7 +23,7 @@ from models import (
     ReviewRecord
 )
 from models.merchant import Platform, PriceRange
-from utils import find_by_id, find_dict_by_field
+from utils import find_by_id, find_by_attr, find_dict_by_field
 
 
 class KnowledgeStorage:
@@ -1116,4 +1116,3 @@ class KnowledgeStorage:
     def load_model_route_decision(self, decision_id: str):
         """加载指定路由决策记录"""
         return find_by_attr(self.load_model_route_decisions(), "decision_id", decision_id)
-        return None

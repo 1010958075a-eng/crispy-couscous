@@ -4,6 +4,9 @@
 
 import json
 import logging
+import os
+import tempfile
+import threading
 import uuid
 from pathlib import Path
 from typing import List, Optional, Dict, Any
@@ -42,6 +45,10 @@ class KnowledgeStorage:
 
         # 创建data目录
         self.base_path.mkdir(parents=True, exist_ok=True)
+
+        # 保护并发读写：多个服务共享同一个 KnowledgeStorage 实例，
+        # FastAPI 会在线程池中并发执行请求，加锁避免交叉写入相互覆盖。
+        self._io_lock = threading.RLock()
 
         # 文件路径
         self.merchant_profile_file = self.base_path / "merchant_profile.json"
@@ -112,25 +119,41 @@ class KnowledgeStorage:
         """
         if not file_path.exists():
             return []
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except (OSError, json.JSONDecodeError) as e:
-            logger.error("加载文件失败 %s: %s", file_path, e)
-            raise
+        with self._io_lock:
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except (OSError, json.JSONDecodeError) as e:
+                logger.error("加载文件失败 %s: %s", file_path, e)
+                raise
 
     def _save_json(self, file_path: Path, data: List[Dict]):
-        """保存JSON文件
+        """原子化保存JSON文件
 
-        保存失败时记录日志并向上抛出异常，避免调用方（及 API）在实际写入
-        失败的情况下仍然返回成功、造成数据静默丢失。
+        - 先写入同目录下的临时文件并 flush + fsync，再用 os.replace 原子替换目标
+          文件；进程即使在写入过程中崩溃，原文件也不会被截断/损坏。
+        - 加锁避免多个请求并发写同一文件时相互覆盖。
+        - 保存失败时记录日志并向上抛出异常，避免调用方（及 API）在实际写入
+          失败的情况下仍然返回成功、造成数据静默丢失。
         """
-        try:
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-        except (OSError, TypeError) as e:
-            logger.error("保存文件失败 %s: %s", file_path, e)
-            raise
+        with self._io_lock:
+            tmp_fd, tmp_name = tempfile.mkstemp(
+                dir=str(file_path.parent), prefix=f".{file_path.name}.", suffix=".tmp"
+            )
+            try:
+                with os.fdopen(tmp_fd, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(tmp_name, file_path)
+            except (OSError, TypeError) as e:
+                logger.error("保存文件失败 %s: %s", file_path, e)
+                if os.path.exists(tmp_name):
+                    try:
+                        os.remove(tmp_name)
+                    except OSError:
+                        pass
+                raise
 
     # 商家档案
     def save_merchant_profile(self, profile: MerchantProfile):

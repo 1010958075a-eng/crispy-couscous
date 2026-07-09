@@ -10,7 +10,7 @@ echo ""
 echo "[1] 检查Python版本..."
 python3 --version
 if [ $? -ne 0 ]; then
-    echo "错误: 未找到Python3，请先安装Python 3.8+"
+    echo "错误: 未找到Python3，请先安装Python 3.10+"
     exit 1
 fi
 echo "✓ Python检查通过"
@@ -33,17 +33,6 @@ if [ ! -f .env ]; then
     echo "✓ 已创建.env文件，请编辑配置API密钥"
 else
     echo "✓ .env文件已存在"
-fi
-echo ""
-
-# 检查产品A模块路径
-echo "[4] 检查产品A模块路径..."
-PRODUCT_A_PATH="../autonomous-ai-agent"
-if [ -d "$PRODUCT_A_PATH" ]; then
-    echo "✓ 产品A模块路径存在"
-else
-    echo "⚠ 警告: 产品A模块路径不存在: $PRODUCT_A_PATH"
-    echo "  请确保产品A项目在正确位置"
 fi
 echo ""
 

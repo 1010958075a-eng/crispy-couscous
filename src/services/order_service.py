@@ -7,6 +7,7 @@ from datetime import datetime
 import uuid
 
 from models.order import Order, OrderStatus, OrderItem, OrderQuery
+from utils import paginate
 
 
 class OrderService:
@@ -136,9 +137,7 @@ class OrderService:
             results = [o for o in results if o.created_at <= query.end_date]
         
         # 分页
-        start = (query.page - 1) * query.limit
-        end = start + query.limit
-        return results[start:end]
+        return paginate(results, query.page, query.limit)
     
     def get_orders_by_user(self, user_id: str) -> List[Order]:
         """

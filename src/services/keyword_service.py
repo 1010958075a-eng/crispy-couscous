@@ -6,6 +6,7 @@ from typing import List, Dict, Any, Optional
 import uuid
 from models.listing import KeywordGeneration
 from services import KnowledgeStorage
+from utils import find_by_id, extract_product_fields
 
 
 class KeywordService:
@@ -32,12 +33,13 @@ class KeywordService:
             product_info = product_knowledge.to_dict()
 
         # 提取基础信息
-        product_name = product_info.get("product_name", "")
-        category = product_info.get("category", "")
-        selling_points = product_info.get("selling_points", [])
-        material = product_info.get("material", "")
-        target_audience = product_info.get("target_audience", "")
-        style = product_info.get("style", "")
+        fields = extract_product_fields(product_info)
+        product_name = fields["product_name"]
+        category = fields["category"]
+        selling_points = fields["selling_points"]
+        material = fields["material"]
+        target_audience = fields["target_audience"]
+        style = fields["style"]
 
         # 从关键词库提取关键词
         core_keywords = []
@@ -98,8 +100,4 @@ class KeywordService:
 
     def _get_product_knowledge(self, product_id: str):
         """从产品知识库获取产品信息"""
-        products = self.knowledge_storage.load_product_knowledge()
-        for product in products:
-            if product.id == product_id:
-                return product
-        return None
+        return find_by_id(self.knowledge_storage.load_product_knowledge(), product_id)

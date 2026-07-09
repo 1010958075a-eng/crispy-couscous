@@ -23,6 +23,7 @@ from models.model_router import (
 from .knowledge_storage import KnowledgeStorage
 from .api_provider_service import ApiProviderService
 from .subscription_service import SubscriptionService
+from utils import find_by_attr
 
 
 class ModelRouterService:
@@ -66,11 +67,8 @@ class ModelRouterService:
     
     def get_model_profile(self, model_id: str) -> Optional[Dict[str, Any]]:
         """获取指定模型档案"""
-        models = self.knowledge_storage.load_model_profiles()
-        for model in models:
-            if model.model_id == model_id:
-                return model.to_dict()
-        return None
+        model = find_by_attr(self.knowledge_storage.load_model_profiles(), "model_id", model_id)
+        return model.to_dict() if model else None
     
     def create_model_profile(
         self,
@@ -126,11 +124,8 @@ class ModelRouterService:
     
     def get_business_expert(self, expert_id: str) -> Optional[Dict[str, Any]]:
         """获取指定业务专家"""
-        experts = self.knowledge_storage.load_business_experts()
-        for expert in experts:
-            if expert.expert_id == expert_id:
-                return expert.to_dict()
-        return None
+        expert = find_by_attr(self.knowledge_storage.load_business_experts(), "expert_id", expert_id)
+        return expert.to_dict() if expert else None
     
     def create_business_expert(
         self,
@@ -166,11 +161,8 @@ class ModelRouterService:
     
     def get_route_rule(self, rule_id: str) -> Optional[Dict[str, Any]]:
         """获取指定路由规则"""
-        rules = self.knowledge_storage.load_model_route_rules()
-        for rule in rules:
-            if rule.rule_id == rule_id:
-                return rule.to_dict()
-        return None
+        rule = find_by_attr(self.knowledge_storage.load_model_route_rules(), "rule_id", rule_id)
+        return rule.to_dict() if rule else None
     
     def create_route_rule(
         self,
@@ -384,11 +376,8 @@ class ModelRouterService:
     
     def get_route_decision(self, decision_id: str) -> Optional[Dict[str, Any]]:
         """获取指定路由决策记录"""
-        decisions = self.knowledge_storage.load_model_route_decisions()
-        for decision in decisions:
-            if decision.decision_id == decision_id:
-                return decision.to_dict()
-        return None
+        decision = find_by_attr(self.knowledge_storage.load_model_route_decisions(), "decision_id", decision_id)
+        return decision.to_dict() if decision else None
     
     def _get_rule_by_task(self, task_type: str, feature_name: Optional[str] = None) -> Optional[ModelRouteRule]:
         """根据任务类型获取路由规则"""

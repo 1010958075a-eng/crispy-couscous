@@ -6,6 +6,7 @@ from typing import List, Dict, Any, Optional
 import uuid
 from models.listing import ImagePrompt, ImagePromptGeneration
 from services import KnowledgeStorage
+from utils import find_by_id, extract_product_fields
 
 
 class ImagePromptService:
@@ -32,11 +33,12 @@ class ImagePromptService:
             product_info = product_knowledge.to_dict()
 
         # 提取基础信息
-        product_name = product_info.get("product_name", "")
-        category = product_info.get("category", "")
-        material = product_info.get("material", "")
-        style = product_info.get("style", "")
-        selling_points = product_info.get("selling_points", [])
+        fields = extract_product_fields(product_info)
+        product_name = fields["product_name"]
+        category = fields["category"]
+        material = fields["material"]
+        style = fields["style"]
+        selling_points = fields["selling_points"]
 
         # 提取视觉风格
         main_image_style = ""
@@ -80,11 +82,7 @@ class ImagePromptService:
 
     def _get_product_knowledge(self, product_id: str):
         """从产品知识库获取产品信息"""
-        products = self.knowledge_storage.load_product_knowledge()
-        for product in products:
-            if product.id == product_id:
-                return product
-        return None
+        return find_by_id(self.knowledge_storage.load_product_knowledge(), product_id)
 
     def _generate_9_prompts(
         self,

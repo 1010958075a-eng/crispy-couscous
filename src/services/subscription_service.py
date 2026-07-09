@@ -18,6 +18,7 @@ from models.subscription import (
     UsageStatus
 )
 from .knowledge_storage import KnowledgeStorage
+from utils import find_by_attr
 
 
 class SubscriptionService:
@@ -49,11 +50,8 @@ class SubscriptionService:
     
     def get_plan(self, plan_id: str) -> Optional[Dict[str, Any]]:
         """获取指定套餐"""
-        plans = self.knowledge_storage.load_subscription_plans()
-        for plan in plans:
-            if plan.plan_id == plan_id:
-                return plan.to_dict()
-        return None
+        plan = find_by_attr(self.knowledge_storage.load_subscription_plans(), "plan_id", plan_id)
+        return plan.to_dict() if plan else None
     
     def create_plan(
         self,
@@ -130,19 +128,13 @@ class SubscriptionService:
     
     def get_account(self, account_id: str) -> Optional[Dict[str, Any]]:
         """获取指定账户"""
-        accounts = self.knowledge_storage.load_customer_quota_accounts()
-        for account in accounts:
-            if account.account_id == account_id:
-                return account.to_dict()
-        return None
+        account = find_by_attr(self.knowledge_storage.load_customer_quota_accounts(), "account_id", account_id)
+        return account.to_dict() if account else None
     
     def get_account_by_customer(self, customer_id: str) -> Optional[Dict[str, Any]]:
         """按客户ID获取账户"""
-        accounts = self.knowledge_storage.load_customer_quota_accounts()
-        for account in accounts:
-            if account.customer_id == customer_id:
-                return account.to_dict()
-        return None
+        account = find_by_attr(self.knowledge_storage.load_customer_quota_accounts(), "customer_id", customer_id)
+        return account.to_dict() if account else None
     
     def get_feature_rules(self) -> List[Dict[str, Any]]:
         """获取所有扣点规则"""
@@ -151,11 +143,8 @@ class SubscriptionService:
     
     def get_feature_rule(self, feature_name: str) -> Optional[Dict[str, Any]]:
         """获取指定功能的扣点规则"""
-        rules = self.knowledge_storage.load_feature_point_rules()
-        for rule in rules:
-            if rule.feature_name == feature_name:
-                return rule.to_dict()
-        return None
+        rule = find_by_attr(self.knowledge_storage.load_feature_point_rules(), "feature_name", feature_name)
+        return rule.to_dict() if rule else None
     
     def create_feature_rule(
         self,
@@ -342,43 +331,24 @@ class SubscriptionService:
     
     def get_usage_record(self, usage_id: str) -> Optional[Dict[str, Any]]:
         """获取指定消费记录"""
-        usage_records = self.knowledge_storage.load_usage_records()
-        for record in usage_records:
-            if record.usage_id == usage_id:
-                return record.to_dict()
-        return None
+        record = find_by_attr(self.knowledge_storage.load_usage_records(), "usage_id", usage_id)
+        return record.to_dict() if record else None
     
     def _get_plan_object(self, plan_id: str) -> Optional[SubscriptionPlan]:
         """获取套餐对象"""
-        plans = self.knowledge_storage.load_subscription_plans()
-        for plan in plans:
-            if plan.plan_id == plan_id:
-                return plan
-        return None
+        return find_by_attr(self.knowledge_storage.load_subscription_plans(), "plan_id", plan_id)
     
     def _get_account_by_customer(self, customer_id: str) -> Optional[CustomerQuotaAccount]:
         """按客户ID获取账户对象"""
-        accounts = self.knowledge_storage.load_customer_quota_accounts()
-        for account in accounts:
-            if account.customer_id == customer_id:
-                return account
-        return None
+        return find_by_attr(self.knowledge_storage.load_customer_quota_accounts(), "customer_id", customer_id)
     
     def _get_account_object(self, account_id: str) -> Optional[CustomerQuotaAccount]:
         """获取账户对象"""
-        accounts = self.knowledge_storage.load_customer_quota_accounts()
-        for account in accounts:
-            if account.account_id == account_id:
-                return account
-        return None
+        return find_by_attr(self.knowledge_storage.load_customer_quota_accounts(), "account_id", account_id)
     
     def _get_rule_by_feature(self, feature_name: str) -> Optional[FeaturePointRule]:
         """按功能名称获取规则对象"""
-        rules = self.knowledge_storage.load_feature_point_rules()
-        for rule in rules:
-            if rule.feature_name == feature_name:
-                return rule
-        return None
+        return find_by_attr(self.knowledge_storage.load_feature_point_rules(), "feature_name", feature_name)
     
     def _update_account(self, account: CustomerQuotaAccount):
         """更新账户"""

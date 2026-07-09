@@ -17,6 +17,7 @@ from models.api_provider import (
     RiskLevel
 )
 from .knowledge_storage import KnowledgeStorage
+from utils import find_by_attr
 
 
 class ApiProviderService:
@@ -40,11 +41,8 @@ class ApiProviderService:
     
     def get_provider(self, provider_id: str) -> Optional[Dict[str, Any]]:
         """获取指定供应商"""
-        providers = self.knowledge_storage.load_api_providers()
-        for provider in providers:
-            if provider.provider_id == provider_id:
-                return provider.to_dict()
-        return None
+        provider = find_by_attr(self.knowledge_storage.load_api_providers(), "provider_id", provider_id)
+        return provider.to_dict() if provider else None
     
     def create_provider(
         self,
@@ -390,11 +388,7 @@ class ApiProviderService:
     
     def _get_provider_object(self, provider_id: str) -> Optional[ApiProvider]:
         """获取供应商对象"""
-        providers = self.knowledge_storage.load_api_providers()
-        for provider in providers:
-            if provider.provider_id == provider_id:
-                return provider
-        return None
+        return find_by_attr(self.knowledge_storage.load_api_providers(), "provider_id", provider_id)
     
     def get_call_records(self) -> List[Dict[str, Any]]:
         """获取调用记录"""
@@ -403,11 +397,8 @@ class ApiProviderService:
     
     def get_call_record(self, call_id: str) -> Optional[Dict[str, Any]]:
         """获取指定调用记录"""
-        call_records = self.knowledge_storage.load_api_call_records()
-        for record in call_records:
-            if record.call_id == call_id:
-                return record.to_dict()
-        return None
+        record = find_by_attr(self.knowledge_storage.load_api_call_records(), "call_id", call_id)
+        return record.to_dict() if record else None
     
     def get_quota_records(self) -> List[Dict[str, Any]]:
         """获取额度记录"""

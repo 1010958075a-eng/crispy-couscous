@@ -7,6 +7,7 @@ from datetime import datetime
 import uuid
 
 from models.product import Product, ProductStatus, ProductSearchQuery
+from utils import paginate
 
 
 class ProductService:
@@ -166,9 +167,7 @@ class ProductService:
             results = [p for p in results if p.platform == query.platform]
         
         # 分页
-        start = (query.page - 1) * query.limit
-        end = start + query.limit
-        return results[start:end]
+        return paginate(results, query.page, query.limit)
     
     def get_products_by_platform(self, platform: str) -> List[Product]:
         """

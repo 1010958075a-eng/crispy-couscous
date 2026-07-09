@@ -23,6 +23,7 @@ from models import (
     ReviewRecord
 )
 from models.merchant import Platform, PriceRange
+from utils import find_by_id, find_dict_by_field
 
 
 class KnowledgeStorage:
@@ -206,11 +207,7 @@ class KnowledgeStorage:
 
     def get_link_learning_record(self, record_id: str) -> Optional[LinkLearningRecord]:
         """获取单个链接学习记录"""
-        records = self.load_link_learning_records()
-        for record in records:
-            if record.id == record_id:
-                return record
-        return None
+        return find_by_id(self.load_link_learning_records(), record_id)
 
     def update_link_learning_record(self, record: LinkLearningRecord):
         """更新链接学习记录"""
@@ -525,11 +522,7 @@ class KnowledgeStorage:
 
     def load_listing_package(self, package_id: str):
         """根据ID加载指定上架包"""
-        data_list = self._load_json(self.listing_packages_file)
-        for data in data_list:
-            if data.get("id") == package_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.listing_packages_file), package_id, "id")
 
     # v0.4 新增存储方法
 
@@ -547,11 +540,7 @@ class KnowledgeStorage:
 
     def load_detail_screen_generation(self, generation_id: str):
         """根据ID加载指定详情页生成记录"""
-        data_list = self._load_json(self.detail_screen_generations_file)
-        for data in data_list:
-            if data.get("id") == generation_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.detail_screen_generations_file), generation_id, "id")
 
     # v0.4 phase 2 新增存储方法
 
@@ -569,11 +558,7 @@ class KnowledgeStorage:
 
     def load_video_script_generation(self, generation_id: str):
         """根据ID加载指定短视频脚本生成记录"""
-        data_list = self._load_json(self.video_script_generations_file)
-        for data in data_list:
-            if data.get("generation_id") == generation_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.video_script_generations_file), generation_id, "generation_id")
 
     # 小红书文案生成记录
     def save_xiaohongshu_generation(self, generation):
@@ -589,11 +574,7 @@ class KnowledgeStorage:
 
     def load_xiaohongshu_generation(self, generation_id: str):
         """根据ID加载指定小红书文案生成记录"""
-        data_list = self._load_json(self.xiaohongshu_generations_file)
-        for data in data_list:
-            if data.get("generation_id") == generation_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.xiaohongshu_generations_file), generation_id, "generation_id")
 
     # v0.5 新增存储方法
 
@@ -611,33 +592,29 @@ class KnowledgeStorage:
 
     def load_task(self, task_id: str):
         """根据ID加载指定任务记录"""
-        data_list = self._load_json(self.task_center_records_file)
-        for data in data_list:
-            if data.get("task_id") == task_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.task_center_records_file), task_id, "task_id")
 
     def update_task_status(self, task_id: str, status: str):
         """更新任务状态"""
         data_list = self._load_json(self.task_center_records_file)
-        for data in data_list:
-            if data.get("task_id") == task_id:
-                data["status"] = status
-                data["updated_at"] = datetime.now().isoformat()
-                self._save_json(self.task_center_records_file, data_list)
-                return True
-        return False
+        data = find_dict_by_field(data_list, task_id, "task_id")
+        if data is None:
+            return False
+        data["status"] = status
+        data["updated_at"] = datetime.now().isoformat()
+        self._save_json(self.task_center_records_file, data_list)
+        return True
 
     def record_human_confirmation(self, task_id: str, confirmed: bool, notes: str = None):
         """记录人工确认"""
         data_list = self._load_json(self.task_center_records_file)
-        for data in data_list:
-            if data.get("task_id") == task_id:
-                if notes:
-                    data["final_summary"] = notes
-                self._save_json(self.task_center_records_file, data_list)
-                return True
-        return False
+        data = find_dict_by_field(data_list, task_id, "task_id")
+        if data is None:
+            return False
+        if notes:
+            data["final_summary"] = notes
+        self._save_json(self.task_center_records_file, data_list)
+        return True
 
     # v0.6 新增存储方法
 
@@ -655,11 +632,7 @@ class KnowledgeStorage:
 
     def load_acceptance_report(self, report_id: str):
         """根据ID加载指定验收报告"""
-        data_list = self._load_json(self.acceptance_reports_file)
-        for data in data_list:
-            if data.get("report_id") == report_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.acceptance_reports_file), report_id, "report_id")
 
     # v0.7 新增存储方法
 
@@ -688,11 +661,7 @@ class KnowledgeStorage:
 
     def load_tool_plan(self, plan_id: str):
         """根据ID加载指定工具计划"""
-        data_list = self._load_json(self.tool_plan_records_file)
-        for data in data_list:
-            if data.get("plan_id") == plan_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.tool_plan_records_file), plan_id, "plan_id")
 
     # v0.8 新增存储方法
 
@@ -714,11 +683,7 @@ class KnowledgeStorage:
 
     def load_workflow(self, workflow_id: str):
         """加载指定工作流"""
-        data_list = self._load_json(self.workflow_records_file)
-        for data in data_list:
-            if data.get("workflow_id") == workflow_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.workflow_records_file), workflow_id, "workflow_id")
 
     # v0.9 新增存储方法
 
@@ -740,11 +705,7 @@ class KnowledgeStorage:
 
     def load_log(self, log_id: str):
         """加载指定日志"""
-        data_list = self._load_json(self.log_records_file)
-        for data in data_list:
-            if data.get("log_id") == log_id:
-                return data
-        return None
+        return find_dict_by_field(self._load_json(self.log_records_file), log_id, "log_id")
 
     # v1.1 新增存储方法
 
@@ -787,11 +748,7 @@ class KnowledgeStorage:
 
     def load_api_provider(self, provider_id: str):
         """加载指定API供应商"""
-        providers = self.load_api_providers()
-        for provider in providers:
-            if provider.provider_id == provider_id:
-                return provider
-        return None
+        return find_by_attr(self.load_api_providers(), "provider_id", provider_id)
 
     # API调用记录
     def save_api_call_records(self, call_records):
@@ -826,11 +783,7 @@ class KnowledgeStorage:
 
     def load_api_call_record(self, call_id: str):
         """加载指定API调用记录"""
-        call_records = self.load_api_call_records()
-        for record in call_records:
-            if record.call_id == call_id:
-                return record
-        return None
+        return find_by_attr(self.load_api_call_records(), "call_id", call_id)
 
     # API额度记录
     def save_api_quota_records(self, quota_records):
@@ -863,11 +816,7 @@ class KnowledgeStorage:
 
     def load_api_quota_record(self, quota_id: str):
         """加载指定API额度记录"""
-        quota_records = self.load_api_quota_records()
-        for record in quota_records:
-            if record.quota_id == quota_id:
-                return record
-        return None
+        return find_by_attr(self.load_api_quota_records(), "quota_id", quota_id)
 
     # v1.2 新增存储方法
 
@@ -909,11 +858,7 @@ class KnowledgeStorage:
 
     def load_subscription_plan(self, plan_id: str):
         """加载指定订阅套餐"""
-        plans = self.load_subscription_plans()
-        for plan in plans:
-            if plan.plan_id == plan_id:
-                return plan
-        return None
+        return find_by_attr(self.load_subscription_plans(), "plan_id", plan_id)
 
     # 客户额度账户
     def save_customer_quota_accounts(self, accounts):
@@ -947,11 +892,7 @@ class KnowledgeStorage:
 
     def load_customer_quota_account(self, account_id: str):
         """加载指定客户额度账户"""
-        accounts = self.load_customer_quota_accounts()
-        for account in accounts:
-            if account.account_id == account_id:
-                return account
-        return None
+        return find_by_attr(self.load_customer_quota_accounts(), "account_id", account_id)
 
     # 功能扣点规则
     def save_feature_point_rules(self, rules):
@@ -982,11 +923,7 @@ class KnowledgeStorage:
 
     def load_feature_point_rule(self, rule_id: str):
         """加载指定功能扣点规则"""
-        rules = self.load_feature_point_rules()
-        for rule in rules:
-            if rule.rule_id == rule_id:
-                return rule
-        return None
+        return find_by_attr(self.load_feature_point_rules(), "rule_id", rule_id)
 
     # 消费记录
     def save_usage_records(self, usage_records):
@@ -1021,11 +958,7 @@ class KnowledgeStorage:
 
     def load_usage_record(self, usage_id: str):
         """加载指定消费记录"""
-        usage_records = self.load_usage_records()
-        for record in usage_records:
-            if record.usage_id == usage_id:
-                return record
-        return None
+        return find_by_attr(self.load_usage_records(), "usage_id", usage_id)
 
     # v1.3 新增存储方法
 
@@ -1070,11 +1003,7 @@ class KnowledgeStorage:
 
     def load_model_profile(self, model_id: str):
         """加载指定模型档案"""
-        models = self.load_model_profiles()
-        for model in models:
-            if model.model_id == model_id:
-                return model
-        return None
+        return find_by_attr(self.load_model_profiles(), "model_id", model_id)
 
     # 业务专家
     def save_business_experts(self, experts):
@@ -1107,11 +1036,7 @@ class KnowledgeStorage:
 
     def load_business_expert(self, expert_id: str):
         """加载指定业务专家"""
-        experts = self.load_business_experts()
-        for expert in experts:
-            if expert.expert_id == expert_id:
-                return expert
-        return None
+        return find_by_attr(self.load_business_experts(), "expert_id", expert_id)
 
     # 路由规则
     def save_model_route_rules(self, rules):
@@ -1148,11 +1073,7 @@ class KnowledgeStorage:
 
     def load_model_route_rule(self, rule_id: str):
         """加载指定路由规则"""
-        rules = self.load_model_route_rules()
-        for rule in rules:
-            if rule.rule_id == rule_id:
-                return rule
-        return None
+        return find_by_attr(self.load_model_route_rules(), "rule_id", rule_id)
 
     # 路由决策记录
     def save_model_route_decisions(self, decisions):
@@ -1194,8 +1115,5 @@ class KnowledgeStorage:
 
     def load_model_route_decision(self, decision_id: str):
         """加载指定路由决策记录"""
-        decisions = self.load_model_route_decisions()
-        for decision in decisions:
-            if decision.decision_id == decision_id:
-                return decision
+        return find_by_attr(self.load_model_route_decisions(), "decision_id", decision_id)
         return None

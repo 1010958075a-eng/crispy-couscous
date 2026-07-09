@@ -10,6 +10,7 @@ from services import KnowledgeStorage
 from services.title_service import TitleService
 from services.keyword_service import KeywordService
 from services.image_prompt_service import ImagePromptService
+from utils import find_by_id
 
 
 class PackageService:
@@ -100,8 +101,4 @@ class PackageService:
 
     def _get_product_knowledge(self, product_id: str):
         """从产品知识库获取产品信息"""
-        products = self.knowledge_storage.load_product_knowledge()
-        for product in products:
-            if product.id == product_id:
-                return product
-        return None
+        return find_by_id(self.knowledge_storage.load_product_knowledge(), product_id)

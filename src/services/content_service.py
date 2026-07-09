@@ -10,6 +10,7 @@ from models.content import (
     XiaohongshuNote
 )
 from .knowledge_storage import KnowledgeStorage
+from utils import find_by_id
 
 
 class ContentService:
@@ -296,27 +297,15 @@ class ContentService:
     
     def _get_product_knowledge(self, product_id: str):
         """从产品知识库获取产品信息"""
-        products = self.knowledge_storage.load_product_knowledge()
-        for product in products:
-            if product.id == product_id:
-                return product
-        return None
+        return find_by_id(self.knowledge_storage.load_product_knowledge(), product_id)
     
     def _get_listing_package(self, package_id: str):
         """从上架包库获取上架包信息"""
-        packages = self.knowledge_storage.load_listing_packages()
-        for package in packages:
-            if package.id == package_id:
-                return package
-        return None
+        return find_by_id(self.knowledge_storage.load_listing_packages(), package_id)
     
     def _get_detail_generation(self, generation_id: str):
         """从详情页生成记录获取详情页内容"""
-        generations = self.knowledge_storage.load_detail_screen_generations()
-        for generation in generations:
-            if generation.id == generation_id:
-                return generation
-        return None
+        return find_by_id(self.knowledge_storage.load_detail_screen_generations(), generation_id)
     
     def _extract_product_info_from_package(self, package) -> Dict[str, Any]:
         """从上架包提取产品信息"""
